@@ -1,15 +1,17 @@
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { ThemeProvider } from 'contexts/ThemeContext';
+import { TranslateProvider } from 'contexts/TranslateContext';
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router";
+  ErrorBoundary
+} from 'expo-router';
 
 export const unstable_settings = {
-  initialRouteName: "index",
+  initialRouteName: 'login'
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -17,8 +19,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    Heebo_bold: require("../assets/fonts/Heebo-Bold.ttf"),
-    Heebo_regular: require("../assets/fonts/Heebo-Regular.ttf"),
+    Heebo_bold: require('../assets/fonts/Heebo-Bold.ttf'),
+    Heebo_regular: require('../assets/fonts/Heebo-Regular.ttf')
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -41,8 +43,17 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack>
-      <Stack.Screen name="index" />
-    </Stack>
+    <ThemeProvider>
+      <TranslateProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="index" />
+        </Stack>
+      </TranslateProvider>
+    </ThemeProvider>
   );
 }
