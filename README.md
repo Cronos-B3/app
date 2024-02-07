@@ -32,59 +32,71 @@ or
 git clone git@github.com:Cronos-B3/app.git
 ```
 
-Then, enter in the project folder
+Then, enter in the project folder.
 
 ### Install dependencies
 
 ```sh
 yarn
+```
+
+### Tunneling
+
+In case your computer and your phone are on 2 distincts connections or if you are using WSL2, do:
+
+```sh
 yarn global add @expo/ngrok@4.1.0
 ```
 
 ## Configuration
 
-### Expo
+### Android & IOS
 
-App will be available on web (only in development).
-If you want to use it with your phone, we gonna need to use expo.
+To use the app on a mobile, you'll need a phone (virtual or not).
 
-Install [Expo](https://expo.dev/) on your phone
+On:
 
-<!-- TODO -->
+- XCode (virtual device for IOS, only on Mac)
+- Android Studio (virtual device for Android)
+- Android (real device)
+- Iphone (real device)
+
+Install [Expo](https://expo.dev/)
+
+### Web
+
+When starting the project, you will be able to access it at [localhost:8081](http://localhost:8081) (by default).
 
 ## Use
 
-Run it in developer mode under development :
+### Expo development
+
+Run the project:
 
 ```sh
 yarn start
 ```
 
-To access it with:
+or:
 
-- Your phone:
-
-Scan the QRCode with your phone to access the project.
-
-If you can't connect to your app (using WSL2) or you aren't on the same network,
-
-consider using:
+In case your computer and your phone are on 2 distincts connections or if you are using WSL2, do:
 
 ```sh
 yarn tunnel
 ```
 
-- On web:
+In your console, follow the steps but, to make it simple:
 
-Go to [localhost:8081](http://localhost:8081) (by default) to access the project.
+- Press a to open Android Studio with the project
+- Press i for XCode
+- Press w for web
 
-### Android Studio
+For a real device, scan the QRCode using:
 
-You can use Android Studio to have multiple android on both Mac and Windows.
+- Expo for Android
+- Camera for IOS
 
-### XCode
-
-You can use XCode to have multiple Iphone, only available on Mac.
+You can now use the project.
 
 ## Tests
 
