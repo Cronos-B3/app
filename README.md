@@ -45,8 +45,8 @@ yarn global add @expo/ngrok@4.1.0
 
 ### Expo
 
-<!-- App will be available on web (only in development). -->
-<!-- If you want to use it with your phone, we gonna need to use expo. -->
+App will be available on web (only in development).
+If you want to use it with your phone, we gonna need to use expo.
 
 Install [Expo](https://expo.dev/) on your phone
 
@@ -60,6 +60,10 @@ Run it in developer mode under development :
 yarn start
 ```
 
+To access it with:
+
+- Your phone:
+
 Scan the QRCode with your phone to access the project.
 
 If you can't connect to your app (using WSL2) or you aren't on the same network,
@@ -70,7 +74,17 @@ consider using:
 yarn tunnel
 ```
 
-<!-- - On web, click on the link, or go to [localhost:8081](http://localhost:8081) (by default) to access the project -->
+- On web:
+
+Go to [localhost:8081](http://localhost:8081) (by default) to access the project.
+
+### Android Studio
+
+You can use Android Studio to have multiple android on both Mac and Windows.
+
+### XCode
+
+You can use XCode to have multiple Iphone, only available on Mac.
 
 ## Tests
 
