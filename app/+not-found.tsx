@@ -1,8 +1,9 @@
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import React from 'react';
+import Text from 'components/ui/atoms/Text/Text';
+import { View, StyleSheet } from 'react-native';
 
 export default () => {
-  if (__DEV__) console.log("🏳️ - +not-found");
+  if (__DEV__) console.log('🏳️ - +not-found');
 
   return (
     <View style={s.container}>
@@ -14,12 +15,12 @@ export default () => {
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f5fcff",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5fcff'
   },
   text: {
     fontSize: 20,
-    color: "black",
-  },
+    color: 'black'
+  }
 });

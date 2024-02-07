@@ -1,0 +1,32 @@
+{
+  "common": {
+    "next": "Suivant",
+    "back": "Retour",
+    "cancel": "Annuler"
+  },
+  "label": {
+    "email": "Adresse e-mail",
+    "password": "Mot de passe"
+  },
+  "placeholder": {
+    "email": "Saisissez votre adresse e-mail",
+    "password": "Saisissez votre mot de passe"
+  },
+  "auth": {
+    "login": "Se connecter",
+    "logout": "Se déconnecter",
+    "connect": "Connexion à votre espace",
+    "register": "Pas encore de compte ?",
+    "register_link": "Créez votre compte HUB !",
+    "forgot_password": "Mot de passe oublié ?",
+    "policies": "Confidentialité et conditions"
+  },
+  "format": {
+    "required": "requis",
+    "invalid": "format invalide"
+  },
+  "policy": {
+    "usage": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité"
+  }
+}
