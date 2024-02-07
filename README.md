@@ -59,7 +59,16 @@ Run it in developer mode under development :
 yarn start
 ```
 
-Scan the QRCode with your phone to access the project
+Scan the QRCode with your phone to access the project.
+
+If you can't connect to your app (using WSL2) or you aren't on the same network,
+
+consider using:
+
+```sh
+yarn tunnel
+```
+
 <!-- - On web, click on the link, or go to [localhost:8081](http://localhost:8081) (by default) to access the project -->
 
 ## Tests
@@ -67,10 +76,6 @@ Scan the QRCode with your phone to access the project
 <!-- TODO -->
 
 ## Deployement
-
-<!-- TODO -->
-
-## Documentation
 
 <!-- TODO -->
 
