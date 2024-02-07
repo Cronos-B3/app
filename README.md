@@ -5,7 +5,7 @@
 
 ## Description
 
-<!-- TODO -->
+Cronos is an innovative social media platform designed with a unique approach to content sharing and user interaction. Emphasizing both the ephemeral nature of digital content and the importance of user privacy, Cronos offers a distinctive experience for its users.
 
 ## Requirements
 
