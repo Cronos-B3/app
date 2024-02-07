@@ -9,8 +9,8 @@
 
 ## Requirements
 
-- [Node](https://nodejs.org/en) : ```v20.11.0```
-- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) : ```v1.22.21```
+- [Node](https://nodejs.org/en) : `v20.11.0`
+- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) : `v1.22.21`
 
 ## Installation
 
@@ -47,6 +47,7 @@ yarn global add @expo/ngrok@4.1.0
 
 <!-- App will be available on web (only in development). -->
 <!-- If you want to use it with your phone, we gonna need to use expo. -->
+
 Install [Expo](https://expo.dev/) on your phone
 
 <!-- TODO -->
@@ -81,4 +82,8 @@ yarn tunnel
 
 ## License
 
-<!-- TODO -->
+Cronos is open source software [or "is licensed"] under the MIT License. This means that anyone is free to use, copy, modify, and distribute the software for any purpose, subject to the terms outlined in the license.
+
+### MIT License
+
+[MIT License](LICENSE)
