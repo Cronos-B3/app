@@ -25,7 +25,9 @@ const TabBar = ({ state, navigation, insets }: TabBarProps) => {
 
   const memoizedMenu = useMemo(() => {
     return (
-      <Pressable style={[{ backgroundColor: colors.primary }, s.menuButton]}>
+      <Pressable
+        style={[{ backgroundColor: colors.primary, borderColor: `${colors.dark}60` }, s.menuButton]}
+      >
         <TabBarMenu color={colors.light} height={'45%'} />
       </Pressable>
     );
@@ -98,6 +100,7 @@ const s = StyleSheet.create({
     position: 'absolute',
     width: '20%',
     aspectRatio: 1,
+    borderWidth: 1,
     borderRadius: 99,
     justifyContent: 'center',
     alignItems: 'center'
