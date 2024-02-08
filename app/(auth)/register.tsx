@@ -3,11 +3,11 @@ import Text from 'components/ui/atoms/Text/Text';
 import { View, StyleSheet } from 'react-native';
 
 export default () => {
-  if (__DEV__) console.log('🏳️ - login');
+  if (__DEV__) console.log('🏳️ - register');
 
   return (
     <View style={s.container}>
-      <Text style={s.text}>Page login</Text>
+      <Text style={s.text}>Page register</Text>
     </View>
   );
 };
@@ -16,7 +16,8 @@ const s = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#f5fcff'
   },
   text: {
     fontSize: 20,
