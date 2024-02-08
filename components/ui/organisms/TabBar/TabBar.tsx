@@ -53,7 +53,12 @@ const TabBar = ({ state, navigation, insets }: TabBarProps) => {
         onPress={() => router.replace('/cezgain')}
         pressedOpacity={1}
       >
-        <TabBarProfile color={colors.light} height={'45%'} opacity={state.index === 1 ? 1 : 0.6} />
+        <TabBarProfile
+          color={colors.light}
+          height={'45%'}
+          // TODO: Opacity should be 1 if the user is on his profile page
+          opacity={state.index === 1 ? 1 : 0.6}
+        />
       </Pressable>
     );
   }, [colors, state.index]);
