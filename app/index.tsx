@@ -10,7 +10,7 @@ export default () => {
     // Ensure that navigation only occurs after the component is mounted
     const timer = setTimeout(() => {
       // TODO: IF USER IS LOGGED IN, REDIRECT TO HOME ELSE REDIRECT TO LOGIN
-      router.replace('/login');
+      router.replace('/profile');
     }, 0);
 
     return () => clearTimeout(timer);
