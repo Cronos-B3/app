@@ -5,10 +5,11 @@ export type ThemeObject = {
   secondary: string;
   tertiary: string;
   background: string;
-  modalBackground: string;
+  modal_background: string;
   text: string;
   light: string;
   dark: string;
+  status_bar: string;
 };
 
 export type Theme = 'dark';

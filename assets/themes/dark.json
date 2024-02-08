@@ -3,8 +3,9 @@
   "secondary": "#6B21C0",
   "tertiary": "#D4B9F3",
   "background": "#0F0F0F",
-  "modalBackground": "#18072C",
+  "modal_background": "#18072C",
   "text": "#FFFFFF",
   "light": "#FFFFFF",
-  "dark": "#000000"
+  "dark": "#000000",
+  "status_bar": "light"
 }
