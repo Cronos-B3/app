@@ -5,6 +5,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -12,7 +13,7 @@ export {
 } from 'expo-router';
 
 export const unstable_settings = {
-  initialRouteName: 'login'
+  initialRouteName: 'index'
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -46,7 +47,9 @@ function RootLayoutNav() {
   return (
     <ThemeProvider>
       <TranslateProvider>
-        <Layout />
+        <SafeAreaProvider>
+          <Layout />
+        </SafeAreaProvider>
       </TranslateProvider>
     </ThemeProvider>
   );
@@ -60,12 +63,13 @@ const Layout = () => {
       <StatusBar style={colors.status_bar as StatusBarStyle} backgroundColor={colors.background} />
       <Stack
         screenOptions={{
-          headerShown: false
+          headerShown: false,
+          contentStyle: { backgroundColor: colors.background }
         }}
       >
+        <Stack.Screen name="index" />
         <Stack.Screen name="(app)" />
         <Stack.Screen name="(auth)" />
-        <Stack.Screen name="index" />
       </Stack>
     </>
   );
