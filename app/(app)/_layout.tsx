@@ -1,3 +1,4 @@
+import TabBar from 'components/ui/organisms/TabBar/TabBar';
 import { DEVICE } from 'constants/Config';
 import IMAGES from 'constants/Images';
 import { useTheme } from 'contexts/ThemeContext';
@@ -11,14 +12,21 @@ export default () => {
 
   const memoizedLogo = useMemo(() => {
     return (
-      <View style={s.container}>
+      <View style={s.imageContainer}>
         <Image source={IMAGES.logo} contentFit="contain" style={s.image} />
       </View>
     );
   }, []);
 
   return (
-    <Tabs initialRouteName="home" screenOptions={{ headerTitleStyle: { color: 'transparent' } }}>
+    <Tabs
+      initialRouteName="home"
+      screenOptions={{ headerTitleStyle: { color: 'transparent' } }}
+      sceneContainerStyle={{ backgroundColor: colors.background }}
+      tabBar={({ insets, state, navigation }) => {
+        return <TabBar state={state} navigation={navigation} insets={insets} />;
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{
@@ -29,7 +37,7 @@ export default () => {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="[profile]"
         options={{
           headerTransparent: true
         }}
@@ -39,7 +47,7 @@ export default () => {
 };
 
 const s = StyleSheet.create({
-  container: {
+  imageContainer: {
     height: '100%',
     width: DEVICE.width * 0.33,
     paddingVertical: '6%'
