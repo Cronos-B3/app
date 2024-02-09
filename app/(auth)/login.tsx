@@ -79,9 +79,9 @@ export default () => {
 
     return (
       <Pressable style={s.createAccountContainer} onPress={() => router.push('/register')}>
-        <Text style={s.smallText}>{text.auth.register}</Text>
+        <Text style={s.smallText}>{text.auth.no_account}</Text>
         <Text style={s.smallText} font="bold">
-          {text.auth.register_link}
+          {text.auth.no_account_link}
         </Text>
       </Pressable>
     );
@@ -96,6 +96,8 @@ export default () => {
 
     if (!canConnect) return;
 
+    router.push('/home');
+
     // const data = await call(auth.login.post({ u_password: password, ue_email: email }));
 
     // TODO: login
@@ -104,7 +106,7 @@ export default () => {
   // return <View style={s.container}>{emailInputMemoized}</View>;
   return (
     <AuthTemplate keyboardOffset={keyboards['offset']}>
-      <View style={{ height: '60%', justifyContent: 'space-between' }}>
+      <View style={{ height: '70%', justifyContent: 'space-evenly' }}>
         {emailInputMemoized}
         <View>
           {passwordInputMemoized}

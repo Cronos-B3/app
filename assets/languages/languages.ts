@@ -15,11 +15,12 @@ export type LangObject = {
     password: string;
   };
   auth: {
+    register: string;
     login: string;
     logout: string;
     connect: string;
-    register: string;
-    register_link: string;
+    no_account: string;
+    no_account_link: string;
     forgot_password: string;
     policies: string;
   };
