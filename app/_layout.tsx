@@ -1,5 +1,6 @@
 import { ThemeProvider, useTheme } from 'contexts/ThemeContext';
 import { TranslateProvider } from 'contexts/TranslateContext';
+import { UserProvider } from 'contexts/UserContext';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -45,13 +46,15 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <ThemeProvider>
-      <TranslateProvider>
-        <SafeAreaProvider>
-          <Layout />
-        </SafeAreaProvider>
-      </TranslateProvider>
-    </ThemeProvider>
+    <UserProvider>
+      <ThemeProvider>
+        <TranslateProvider>
+          <SafeAreaProvider>
+            <Layout />
+          </SafeAreaProvider>
+        </TranslateProvider>
+      </ThemeProvider>
+    </UserProvider>
   );
 }
 

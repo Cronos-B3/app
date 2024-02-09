@@ -11,12 +11,14 @@ export type LangObject = {
     username: string;
     email: string;
     password: string;
+    password_confirm: string;
   };
   placeholder: {
     log: string;
     username: string;
     email: string;
     password: string;
+    password_confirm: string;
   };
   auth: {
     register: string;

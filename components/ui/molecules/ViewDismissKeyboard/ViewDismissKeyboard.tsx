@@ -9,7 +9,7 @@ const ViewDismissKeyboard = ({ children, style = { flex: 1 }, ...rest }: ViewPro
       <ScrollView
         contentContainerStyle={s.scrollView}
         scrollEnabled={false}
-        automaticallyAdjustKeyboardInsets={false}
+        // automaticallyAdjustKeyboardInsets={false}
       >
         {children}
       </ScrollView>

@@ -4,7 +4,7 @@ import { DEVICE } from 'constants/Config';
 import { useTheme } from 'contexts/ThemeContext';
 import { Stack } from 'expo-router';
 import { useMemo } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default () => {

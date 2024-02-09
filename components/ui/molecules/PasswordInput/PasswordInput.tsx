@@ -6,18 +6,22 @@ import Pressable from 'components/ui/atoms/Pressable/Pressable';
 import { requiredString } from 'lib/dataValidation';
 import { useTranslate } from 'contexts/TranslateContext';
 import { useTheme } from 'contexts/ThemeContext';
+import RequiredInput, { StateProps } from '../RequiredInput/RequiredInput';
+
+type CustomStateProps = {
+  valid: boolean;
+  wrong: boolean;
+} & StateProps;
 
 type CustomProps = {
-  password: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
-  passwordValid: boolean;
-  setPasswordValid: React.Dispatch<React.SetStateAction<boolean>>;
+  state: CustomStateProps;
+  setState: React.Dispatch<React.SetStateAction<CustomStateProps>>;
 };
 
 type PasswordInputProps = CustomProps & InputProps;
 
 const PasswordInput: ForwardRefRenderFunction<TextInput, PasswordInputProps> = (
-  { password, setPassword, passwordValid, setPasswordValid, ...rest },
+  { state, setState, label, placeholder, ...rest },
   ref
 ) => {
   if (__DEV__) console.log('🐙 - PasswordInput');
@@ -40,21 +44,29 @@ const PasswordInput: ForwardRefRenderFunction<TextInput, PasswordInputProps> = (
   }, [showPassword]);
 
   return (
-    <Input
-      {...rest}
-      label={`${text.label.password}${!passwordValid ? ` (${text.format.required})` : ''}`}
-      labelStyle={!passwordValid && { color: colors.error }}
-      placeholder={text.placeholder.password}
-      textInputStyle={!passwordValid && { color: colors.error }}
-      value={password}
-      onChangeText={(text) => {
-        setPassword(text);
-        if (!passwordValid) setPasswordValid(requiredString(password));
-      }}
-      onBlur={() => setPasswordValid(requiredString(password))}
+    // <Input
+    //   placeholder={placeholder ?? text.placeholder.password}
+    //   textInputStyle={!passwordValid && { color: colors.error }}
+    //   value={password}
+    //   onChangeText={(text) => {
+    //     setPassword(text);
+    //     if (!passwordValid) setPasswordValid(requiredString(password));
+    //   }}
+    //   onBlur={() => setPasswordValid(requiredString(password))}
+    //   secureTextEntry={!showPassword}
+    //   ref={ref}
+    //   rightIcon={memoizedEye}
+    // />
+
+    <RequiredInput
+      state={state}
+      setState={setState}
+      label={`${label ?? text.label.password}`}
+      placeholder={placeholder ?? text.placeholder.password}
       secureTextEntry={!showPassword}
-      ref={ref}
       rightIcon={memoizedEye}
+      {...rest}
+      ref={ref}
     />
   );
 };

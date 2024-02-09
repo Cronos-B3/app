@@ -8,13 +8,15 @@
     "log": "Nom d'utilisateur ou adresse e-mail",
     "username": "Nom d'utilisateur",
     "email": "Adresse e-mail",
-    "password": "Mot de passe"
+    "password": "Mot de passe",
+    "password_confirm": "Confirmez votre mot de passe"
   },
   "placeholder": {
     "log": "Saisissez votre nom d'utilisateur ou votre adresse e-mail",
     "username": "Saisissez votre nom d'utilisateur",
     "email": "Saisissez votre adresse e-mail",
-    "password": "Saisissez votre mot de passe"
+    "password": "Saisissez votre mot de passe",
+    "password_confirm": "Confirmez votre mot de passe"
   },
   "auth": {
     "register": "Créer son compte",

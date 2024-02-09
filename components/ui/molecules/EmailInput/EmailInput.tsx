@@ -1,23 +1,25 @@
 import React, { ForwardRefRenderFunction, forwardRef } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import Input, { InputProps } from 'components/ui/molecules/Input/Input';
+import  { InputProps } from 'components/ui/molecules/Input/Input';
 import { isEmailValid } from 'lib/dataValidation';
 import { useTranslate } from 'contexts/TranslateContext';
 import { useTheme } from 'contexts/ThemeContext';
+import RequiredInput, { StateProps } from '../RequiredInput/RequiredInput';
+
+type CustomStateProps = {
+  valid: boolean;
+  wrong: boolean;
+} & StateProps;
 
 type CustomProps = {
-  email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
-  wrongEmail: boolean;
-  setWrongEmail: React.Dispatch<React.SetStateAction<boolean>>;
-  emailValid: boolean;
-  setEmailValid: React.Dispatch<React.SetStateAction<boolean>>;
+  state: CustomStateProps;
+  setState: React.Dispatch<React.SetStateAction<CustomStateProps>>;
 };
 
 type EmailInputProps = CustomProps & InputProps;
 
 const EmailInput: ForwardRefRenderFunction<TextInput, EmailInputProps> = (
-  { email, setEmail, wrongEmail, setWrongEmail, emailValid, setEmailValid, ...rest },
+  { state, setState, inputStyle, ...rest },
   ref
 ) => {
   const { text } = useTranslate();
@@ -26,24 +28,28 @@ const EmailInput: ForwardRefRenderFunction<TextInput, EmailInputProps> = (
   if (__DEV__) console.log('🐙 - EmailInput');
 
   return (
-    <Input
-      label={`${text.label.email}${!emailValid ? ` (${text.format.invalid})` : ''}`}
-      labelStyle={!emailValid && { color: colors.error }}
+    <RequiredInput
+      state={state}
+      setState={setState}
+      label={`${text.label.email}${
+        state.exist && !state.valid ? ` (${text.format.invalid})` : ''
+      }`}
+      labelStyle={[!state.valid && { color: colors.error }]}
       placeholder={text.placeholder.email}
-      textInputStyle={!emailValid && wrongEmail && { color: colors.error }}
-      value={email}
+      textInputStyle={!state.valid && state.wrong && { color: colors.error }}
       onChangeText={(text) => {
-        setEmail(text);
-        setWrongEmail(false);
-        if (!emailValid) setEmailValid(isEmailValid(email));
+        setState((prev) => {
+          if (!prev.valid) prev.valid = isEmailValid(text);
+          return { ...prev, wrong: false };
+        });
       }}
       onBlur={() => {
-        const isValid = isEmailValid(email);
-        setEmailValid(isValid);
-        setWrongEmail(!isValid);
+        const isValid = isEmailValid(state.text);
+        setState((prev) => ({ ...prev, valid: isValid, wrong: !isValid }));
       }}
-      autoCapitalize="none"
+      inputStyle={[inputStyle, (!state.valid || state.wrong) && { borderColor: colors.error }]}
       {...rest}
+      autoCapitalize="none"
       ref={ref}
     />
   );

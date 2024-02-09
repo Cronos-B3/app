@@ -11,58 +11,55 @@ import Text from 'components/ui/atoms/Text/Text';
 import { useTranslate } from 'contexts/TranslateContext';
 import { router } from 'expo-router';
 import LoadingButton from 'components/ui/molecules/LoadingButton/LoadingButton';
-import LoginInput from 'components/ui/molecules/LoginInput/LoginInput';
+import RequiredInput from 'components/ui/molecules/RequiredInput/RequiredInput';
+import { auth } from 'lib/api/backendRoutes';
+import { useUser } from 'contexts/UserContext';
 
 export default () => {
   if (__DEV__) console.log('🏳️ - login');
   const keyboards = avoidKeyboard(2);
   const { colors } = useTheme();
   const { text } = useTranslate();
+  const { setUser } = useUser();
   const { call, loading } = useAPI();
 
-  const [log, setLog] = useState<string>(() => '');
-  const [wrongLog, setWrongLog] = useState<boolean>(() => false);
-  const [logValid, setLogValid] = useState<boolean>(() => true);
-  const [password, setPassword] = useState<string>(() => '');
-  const [passwordValid, setPasswordValid] = useState<boolean>(() => true);
+  const [log, setLog] = useState<any>(() => {
+    return { text: '', exist: true };
+  });
+
+  const [password, setPassword] = useState<any>(() => {
+    return { text: '', exist: true };
+  });
+
   const [canConnect, setCanConnect] = useState<boolean>(() => false);
 
   const emailInputMemoized = useMemo(() => {
     if (__DEV__) console.log('📃 - emailInputMemoized');
 
     return (
-      <LoginInput
-        ref={keyboards['ref1']}
-        {...{ log, setLog, wrongLog, setWrongLog, logValid, setLogValid }}
+      <RequiredInput
+        label={text.label.log}
+        placeholder={text.placeholder.log}
+        state={log}
+        setState={setLog}
         style={as.inputContainer}
-        inputStyle={[
-          as.inputStyle,
-          { borderBottomColor: logValid ? `${colors.text}60` : colors.error }
-        ]}
-        onSubmitEditing={() => {
-          if (!keyboards['ref2']) return;
-          keyboards['ref2'].current.focus();
-        }}
+        inputStyle={[as.inputStyle, { borderColor: `${colors.text}60` }]}
       />
     );
-  }, [log, logValid, wrongLog]);
+  }, [log]);
 
   const passwordInputMemoized = useMemo(() => {
     if (__DEV__) console.log('📃 - passwordInputMemoized');
 
     return (
       <PasswordInput
-        ref={keyboards['ref2']}
-        {...{ password, setPassword, passwordValid, setPasswordValid }}
+        state={password}
+        setState={setPassword}
         style={as.inputContainer}
-        inputStyle={[
-          as.inputStyle,
-          { borderBottomColor: passwordValid ? `${colors.text}60` : colors.error }
-        ]}
-        onSubmitEditing={() => requestLogin()}
+        inputStyle={[as.inputStyle, { borderColor: `${colors.text}60` }]}
       />
     );
-  }, [log, password, passwordValid]);
+  }, [password]);
 
   const forgotPasswordMemoized = useMemo(() => {
     if (__DEV__) console.log('📃 - forgotPasswordMemoized');
@@ -88,22 +85,23 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    setCanConnect(logValid && log !== '' && passwordValid && password !== '');
-  }, [logValid, passwordValid, log, password]);
+    setCanConnect(log.text !== '' && log.exist && password.text !== '' && password.exist);
+  }, [log, password]);
 
   const requestLogin = async () => {
     if (__DEV__) console.log('🔐 - requestLogin');
 
     if (!canConnect) return;
 
-    router.push('/home');
-
-    // const data = await call(auth.login.post({ u_password: password, ue_email: log }));
-
-    // TODO: login
+    try {
+      const data = await call(auth.login.post({ u_email: log.text, u_password: password.text }));
+      // setUser({ ...data.user, token: data.token });
+      router.replace('/home');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  // return <View style={s.container}>{emailInputMemoized}</View>;
   return (
     <AuthTemplate keyboardOffset={keyboards['offset']}>
       <View style={{ height: '70%', justifyContent: 'space-evenly' }}>

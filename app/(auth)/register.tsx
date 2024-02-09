@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Text from 'components/ui/atoms/Text/Text';
 import { StyleSheet, View } from 'react-native';
 import AuthTemplate from 'components/templates/AuthTemplate/AuthTemplate';
@@ -11,77 +11,137 @@ import PasswordInput from 'components/ui/molecules/PasswordInput/PasswordInput';
 import { GLOBAL_STYLES as gs, AUTH_STYLES as as } from 'constants/Styles';
 import LoadingButton from 'components/ui/molecules/LoadingButton/LoadingButton';
 import { router } from 'expo-router';
+import RequiredInput from 'components/ui/molecules/RequiredInput/RequiredInput';
+import { auth } from 'lib/api/backendRoutes';
+import { useUser } from 'contexts/UserContext';
 
 export default () => {
   if (__DEV__) console.log('🏳️ - register');
-  const keyboards = avoidKeyboard(2);
+  const keyboards = avoidKeyboard(4);
   const { colors } = useTheme();
   const { text } = useTranslate();
+  const { setUser } = useUser();
   const { call, loading } = useAPI();
 
-  const [email, setEmail] = useState<string>(() => '');
-  const [wrongEmail, setWrongEmail] = useState<boolean>(() => false);
-  const [emailValid, setEmailValid] = useState<boolean>(() => true);
-  const [password, setPassword] = useState<string>(() => '');
-  const [passwordValid, setPasswordValid] = useState<boolean>(() => true);
+  const [username, setUsername] = useState<any>(() => {
+    return { text: '', exist: true, unique: true };
+  });
+
+  const [email, setEmail] = useState<any>(() => {
+    return { text: '', exist: true, valid: true, unique: true };
+  });
+
+  const [password, setPassword] = useState<any>(() => {
+    return { text: '', exist: true, valid: true };
+  });
+
+  const [confirmPassword, setConfirmPassword] = useState<any>(() => {
+    return { text: '', exist: true, valid: true };
+  });
+
   const [canConnect, setCanConnect] = useState<boolean>(() => false);
+
+  const usernameMemoized = useMemo(() => {
+    if (__DEV__) console.log('📃 - usernameMemoized');
+
+    return (
+      <RequiredInput
+        label={text.label.username}
+        placeholder={text.placeholder.username}
+        state={username}
+        setState={setUsername}
+        style={as.inputContainer}
+        inputStyle={[as.inputStyle, { borderColor: `${colors.text}60` }]}
+      />
+    );
+  }, [username]);
 
   const emailInputMemoized = useMemo(() => {
     if (__DEV__) console.log('📃 - emailInputMemoized');
 
     return (
       <EmailInput
-        ref={keyboards['ref1']}
-        {...{ email, setEmail, wrongEmail, setWrongEmail, emailValid, setEmailValid }}
+        state={email}
+        setState={setEmail}
         style={as.inputContainer}
-        inputStyle={[
-          as.inputStyle,
-          { borderBottomColor: emailValid ? `${colors.text}60` : colors.error }
-        ]}
-        onSubmitEditing={() => {
-          if (!keyboards['ref2']) return;
-          keyboards['ref2'].current.focus();
-        }}
+        inputStyle={[as.inputStyle, { borderColor: `${colors.text}60` }]}
       />
     );
-  }, [email, emailValid, wrongEmail]);
+  }, [email]);
 
   const passwordInputMemoized = useMemo(() => {
     if (__DEV__) console.log('📃 - passwordInputMemoized');
 
     return (
       <PasswordInput
-        ref={keyboards['ref2']}
-        {...{ password, setPassword, passwordValid, setPasswordValid }}
+        state={password}
+        setState={setPassword}
         style={as.inputContainer}
-        inputStyle={[
-          as.inputStyle,
-          { borderBottomColor: passwordValid ? `${colors.text}60` : colors.error }
-        ]}
-        onSubmitEditing={() => requestRegister()}
+        inputStyle={[as.inputStyle, { borderColor: `${colors.text}60` }]}
       />
     );
-  }, [email, password, passwordValid]);
+  }, [password]);
+
+  const confirmPasswordInputMemoized = useMemo(() => {
+    if (__DEV__) console.log('📃 - confirmPasswordInputMemoized');
+
+    return (
+      <PasswordInput
+        state={confirmPassword}
+        setState={setConfirmPassword}
+        label={text.label.password_confirm}
+        placeholder={text.placeholder.password_confirm}
+        style={as.inputContainer}
+        inputStyle={[as.inputStyle, { borderColor: `${colors.text}60` }]}
+      />
+    );
+  }, [confirmPassword]);
+
+  useEffect(() => {
+    setCanConnect(
+      username.exist &&
+        username.text !== '' &&
+        username.unique &&
+        email.exist &&
+        email.text !== '' &&
+        email.valid &&
+        email.unique &&
+        password.exist &&
+        password.text !== '' &&
+        confirmPassword.exist &&
+        confirmPassword.text !== '' &&
+        password.text === confirmPassword.text
+    );
+  }, [username, email, password, confirmPassword]);
 
   const requestRegister = async () => {
     if (__DEV__) console.log('🔐 - requestRegister');
 
     if (!canConnect) return;
 
-    router.push('/home');
-
-    // const data = await call(auth.no_account.post({ u_password: password, ue_email: email }));
-
-    // TODO: register
+    try {
+      const data = await call(
+        auth.register.post({
+          u_username: username.text,
+          u_email: email.text,
+          u_password: password.text,
+          u_password_confirmation: confirmPassword.text
+        })
+      );
+      // setUser({ ...data.user, token: data.token });
+      router.replace('/home');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <AuthTemplate>
       <View style={{ height: '90%', justifyContent: 'space-evenly' }}>
-        {emailInputMemoized}
+        {usernameMemoized}
         {emailInputMemoized}
         {passwordInputMemoized}
-        {passwordInputMemoized}
+        {confirmPasswordInputMemoized}
         <LoadingButton
           style={[as.button, { backgroundColor: colors.secondary }]}
           disabled={!canConnect}
