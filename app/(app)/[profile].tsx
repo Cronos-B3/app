@@ -6,12 +6,19 @@ import { Image } from 'expo-image';
 import IMAGES from 'constants/Images';
 import { fit } from 'sharp';
 import { ScrollView } from 'react-native';
+import { Clock } from 'assets/svg/profile/Clock';
+import { Cron } from 'assets/svg/profile/Cron';
+import { Achievement } from 'assets/svg/profile/Achievement';
+import { Heart } from 'assets/svg/profile/Heart';
+import { Repost } from 'assets/svg/profile/Repost';
+import { Comment } from 'assets/svg/profile/Comment';
+import { Share } from 'assets/svg/profile/Share';
 
 export default () => {
   if (__DEV__) console.log('🏳️ - profile');
 
   return (
-    <View style={s.containerprofile}>
+    <ScrollView contentContainerStyle={s.containerprofile}>
       <Image source={IMAGES.profileimage} style={s.profileimage} />
 
       <View style={s.profilecontainer}>
@@ -51,7 +58,7 @@ export default () => {
       </View>
 
       <View style={s.profilebiography}>
-        <Text>This is my biography</Text>
+        <Text>This is my biography : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
       </View>
 
       <View style={s.profilestatistics}>
@@ -64,7 +71,9 @@ export default () => {
           <View style={s.profiletimeachievementscontainer}>
             <View style={s.profiletime}>
               <View style={s.profilestatshead}>
-                <Image source={IMAGES.profiletime} style={s.profilestatsimg} />
+                <View style={s.profilestatsimg}>
+                  <Clock color='white' height={30} width={30} />
+                </View>
                 <Text style={s.profilestatstitle}>Time</Text>
               </View>
               <View style={s.profiletimedescription}>
@@ -75,7 +84,9 @@ export default () => {
 
             <View style={s.profileachievements}>
               <View style={s.profilestatshead}>
-                <Image source={IMAGES.profileachievements} style={s.profilestatsimg} />
+                <View style={s.profilestatsimg}>
+                  <Achievement color='white' height={30} width={30} />
+                </View>
                 <Text style={s.profilestatstitle}>Achievements</Text>
               </View>
               <ScrollView horizontal={true} contentContainerStyle={s.profileachievementslistcontainer}>
@@ -105,24 +116,26 @@ export default () => {
 
           <View style={s.profilecrons}>
             <View style={s.profilestatsheadcrons}>
-              <Image source={IMAGES.profilecron} style={s.profilestatsimg} />
+              <View style={s.profilestatsimg}>
+                <Cron color='white' height={30} width={30} />
+              </View>
               <Text style={s.profilecronstitle}>Crons</Text>
             </View>
             <View style={s.profilecronsdescription}>
               <View style={s.profilecronslist}>
-                <Image source={IMAGES.profileheart} style={s.profilecronsimg} />
-                <Text style={s.profilecronstext}>13 M</Text>
+                <Heart color='white' height={20} width={20} />
+                <Text style={s.profilecronstext}>13M</Text>
               </View>
               <View style={s.profilecronslist}>
-                <Image source={IMAGES.profilearrow} style={s.profilecronsimg} />
-                <Text style={s.profilecronstext}>233 K</Text>
+                <Repost color='white' height={20} width={20} />
+                <Text style={s.profilecronstext}>233k</Text>
               </View>
               <View style={s.profilecronslist}>
-                <Image source={IMAGES.profilecomment} style={s.profilecronsimg} />
+                <Comment color='white' height={20} width={20} />
                 <Text style={s.profilecronstext}>1.7k</Text>
               </View>
               <View style={s.profilecronslist}>
-                <Image source={IMAGES.profileshare} style={s.profilecronsimg} />
+                <Share color='white' height={20} width={20} />
                 <Text style={s.profilecronstext}>10k</Text>
               </View>
             </View>
@@ -134,21 +147,21 @@ export default () => {
         <Text style={s.profilepoststitle}>Posts</Text>
         <Text style={s.profilepostslisttitle}>No post found</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const s = StyleSheet.create({
   containerprofile: {
     flex: 1,
-    backgroundColor: '#0F0F0F'
+    backgroundColor: '#0F0F0F',
   },
   profileimage: {
     width: '100%',
     height: '20%'
   },
   profilecontainer: {
-    height: '20%',
+    height: '17%',
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
@@ -290,8 +303,10 @@ const s = StyleSheet.create({
     gap: 10,
   },
   profilestatsimg: {
-    width: 30,
-    height: 30
+    padding: 5,
+    borderWidth: 1,
+    backgroundColor: '#9F62E4',
+    borderRadius: 12,
   },
   profileachievements: {
     backgroundColor: '#1E1E1E',
@@ -339,16 +354,12 @@ const s = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'column',
     width: '80%',
-    padding: 5,
+    padding: 10,
   },
   profilecronslist: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-  },
-  profilecronsimg: {
-    width: 20,
-    height: 20,
   },
   profilecronstext: {
     fontSize: 12,
