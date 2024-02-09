@@ -1,24 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Text from 'components/ui/atoms/Text/Text';
 import { View, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
+import Pressable from 'components/ui/atoms/Pressable/Pressable';
 
 export default () => {
   if (__DEV__) console.log('🏳️ - index');
 
-  useEffect(() => {
-    // Ensure that navigation only occurs after the component is mounted
-    const timer = setTimeout(() => {
-      // TODO: IF USER IS LOGGED IN, REDIRECT TO HOME ELSE REDIRECT TO LOGIN
-      router.replace('/profile');
-    }, 0);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <View style={s.container}>
-      <Text style={s.text}>Page index</Text>
+      <Pressable style={{}} onPress={() => router.push('/login')}>
+        <Text>Login</Text>
+      </Pressable>
     </View>
   );
 };
@@ -27,8 +20,7 @@ const s = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5fcff'
+    alignItems: 'center'
   },
   text: {
     fontSize: 20,

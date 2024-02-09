@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import EmailInput from 'components/ui/molecules/EmailInput/EmailInput';
 import avoidKeyboard from 'lib/avoidKeyboard';
 import { GLOBAL_STYLES as gs, AUTH_STYLES as as } from 'constants/Styles';
 import { useTheme } from 'contexts/ThemeContext';
@@ -12,6 +11,7 @@ import Text from 'components/ui/atoms/Text/Text';
 import { useTranslate } from 'contexts/TranslateContext';
 import { router } from 'expo-router';
 import LoadingButton from 'components/ui/molecules/LoadingButton/LoadingButton';
+import LoginInput from 'components/ui/molecules/LoginInput/LoginInput';
 
 export default () => {
   if (__DEV__) console.log('🏳️ - login');
@@ -20,9 +20,9 @@ export default () => {
   const { text } = useTranslate();
   const { call, loading } = useAPI();
 
-  const [email, setEmail] = useState<string>(() => '');
-  const [wrongEmail, setWrongEmail] = useState<boolean>(() => false);
-  const [emailValid, setEmailValid] = useState<boolean>(() => true);
+  const [log, setLog] = useState<string>(() => '');
+  const [wrongLog, setWrongLog] = useState<boolean>(() => false);
+  const [logValid, setLogValid] = useState<boolean>(() => true);
   const [password, setPassword] = useState<string>(() => '');
   const [passwordValid, setPasswordValid] = useState<boolean>(() => true);
   const [canConnect, setCanConnect] = useState<boolean>(() => false);
@@ -31,13 +31,13 @@ export default () => {
     if (__DEV__) console.log('📃 - emailInputMemoized');
 
     return (
-      <EmailInput
+      <LoginInput
         ref={keyboards['ref1']}
-        {...{ email, setEmail, wrongEmail, setWrongEmail, emailValid, setEmailValid }}
+        {...{ log, setLog, wrongLog, setWrongLog, logValid, setLogValid }}
         style={as.inputContainer}
         inputStyle={[
           as.inputStyle,
-          { borderBottomColor: emailValid ? `${colors.text}60` : colors.error }
+          { borderBottomColor: logValid ? `${colors.text}60` : colors.error }
         ]}
         onSubmitEditing={() => {
           if (!keyboards['ref2']) return;
@@ -45,7 +45,7 @@ export default () => {
         }}
       />
     );
-  }, [email, emailValid, wrongEmail]);
+  }, [log, logValid, wrongLog]);
 
   const passwordInputMemoized = useMemo(() => {
     if (__DEV__) console.log('📃 - passwordInputMemoized');
@@ -62,7 +62,7 @@ export default () => {
         onSubmitEditing={() => requestLogin()}
       />
     );
-  }, [email, password, passwordValid]);
+  }, [log, password, passwordValid]);
 
   const forgotPasswordMemoized = useMemo(() => {
     if (__DEV__) console.log('📃 - forgotPasswordMemoized');
@@ -88,8 +88,8 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    setCanConnect(emailValid && email !== '' && passwordValid && password !== '');
-  }, [emailValid, passwordValid, email, password]);
+    setCanConnect(logValid && log !== '' && passwordValid && password !== '');
+  }, [logValid, passwordValid, log, password]);
 
   const requestLogin = async () => {
     if (__DEV__) console.log('🔐 - requestLogin');
@@ -98,7 +98,7 @@ export default () => {
 
     router.push('/home');
 
-    // const data = await call(auth.login.post({ u_password: password, ue_email: email }));
+    // const data = await call(auth.login.post({ u_password: password, ue_email: log }));
 
     // TODO: login
   };

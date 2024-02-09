@@ -7,10 +7,14 @@ export type LangObject = {
     cancel: string;
   };
   label: {
+    log: string;
+    username: string;
     email: string;
     password: string;
   };
   placeholder: {
+    log: string;
+    username: string;
     email: string;
     password: string;
   };
