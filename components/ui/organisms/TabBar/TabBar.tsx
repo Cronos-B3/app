@@ -50,7 +50,7 @@ const TabBar = ({ state, navigation, insets }: TabBarProps) => {
       <Pressable
         style={[s.item, s.right]}
         // TODO: replace with the user's profile (username)
-        onPress={() => router.replace('/cezgain')}
+        onPress={() => router.replace('/nacim')}
         pressedOpacity={1}
       >
         <TabBarProfile

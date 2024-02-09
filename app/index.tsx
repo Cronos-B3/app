@@ -9,7 +9,7 @@ export default () => {
 
   return (
     <View style={s.container}>
-      <Pressable style={{}} onPress={() => router.push('/login')}>
+      <Pressable style={{}} onPress={() => router.push('/privacypolicy')}>
         <Text>Login</Text>
       </Pressable>
     </View>
