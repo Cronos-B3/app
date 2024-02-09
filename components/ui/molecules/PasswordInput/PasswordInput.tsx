@@ -3,7 +3,7 @@ import Input, { InputProps } from 'components/ui/molecules/Input/Input';
 import { StyleSheet, TextInput } from 'react-native';
 import { EyeClose, EyeOpen } from 'assets/svg/Eye';
 import Pressable from 'components/ui/atoms/Pressable/Pressable';
-import { isPasswordValid } from 'lib/dataValidation';
+import { requiredString } from 'lib/dataValidation';
 import { useTranslate } from 'contexts/TranslateContext';
 import { useTheme } from 'contexts/ThemeContext';
 
@@ -49,9 +49,9 @@ const PasswordInput: ForwardRefRenderFunction<TextInput, PasswordInputProps> = (
       value={password}
       onChangeText={(text) => {
         setPassword(text);
-        if (!passwordValid) setPasswordValid(isPasswordValid(password));
+        if (!passwordValid) setPasswordValid(requiredString(password));
       }}
-      onBlur={() => setPasswordValid(isPasswordValid(password))}
+      onBlur={() => setPasswordValid(requiredString(password))}
       secureTextEntry={!showPassword}
       ref={ref}
       rightIcon={memoizedEye}

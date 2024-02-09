@@ -4,6 +4,6 @@ export const isEmailValid = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-export const isPasswordValid = (password: string): boolean => {
-  return password.length > 0;
+export const requiredString = (text: string): boolean => {
+  return text.length > 0;
 };
