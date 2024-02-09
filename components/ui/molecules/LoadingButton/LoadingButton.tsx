@@ -1,7 +1,7 @@
 import React, { ForwardRefRenderFunction, forwardRef } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import { COLOR_WHITE } from 'constants/Colors';
 import Pressable, { PressableProps } from 'components/ui/atoms/Pressable/Pressable';
+import { useTheme } from 'contexts/ThemeContext';
 
 type CustomProps = {
   loading?: boolean;
@@ -16,6 +16,8 @@ const LoadingButton: ForwardRefRenderFunction<View, LoadingButtonProps> = (
 ) => {
   // if (__DEV__) console.log('🐙 - LoadingButton');
 
+  const { colors } = useTheme();
+
   return (
     <Pressable
       ref={ref}
@@ -23,7 +25,7 @@ const LoadingButton: ForwardRefRenderFunction<View, LoadingButtonProps> = (
       pressedOpacity={loading ? 1 : undefined}
       {...rest}
     >
-      {loading ? <ActivityIndicator color={COLOR_WHITE} size={loadingSize} /> : children}
+      {loading ? <ActivityIndicator color={colors.light} size={loadingSize} /> : children}
     </Pressable>
   );
 };
