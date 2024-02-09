@@ -7,5 +7,6 @@
   "text": "#FFFFFF",
   "light": "#FFFFFF",
   "dark": "#000000",
+  "error": "#FF2222",
   "status_bar": "light"
 }

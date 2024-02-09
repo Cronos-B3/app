@@ -4,8 +4,8 @@ import { StyleSheet, TextInput } from 'react-native';
 import { EyeClose, EyeOpen } from 'assets/svg/Eye';
 import Pressable from 'components/ui/atoms/Pressable/Pressable';
 import { isPasswordValid } from 'lib/dataValidation';
-import { COLOR_RED, COLOR_WHITE } from 'constants/Colors';
 import { useTranslate } from 'contexts/TranslateContext';
+import { useTheme } from 'contexts/ThemeContext';
 
 type CustomProps = {
   password: string;
@@ -23,6 +23,7 @@ const PasswordInput: ForwardRefRenderFunction<TextInput, PasswordInputProps> = (
   if (__DEV__) console.log('🐙 - PasswordInput');
 
   const { text } = useTranslate();
+  const { colors } = useTheme();
 
   const [showPassword, setShowPassword] = useState<boolean>(() => false);
 
@@ -30,9 +31,9 @@ const PasswordInput: ForwardRefRenderFunction<TextInput, PasswordInputProps> = (
     return (
       <Pressable style={s.container} onPress={() => setShowPassword(!showPassword)}>
         {showPassword ? (
-          <EyeOpen color={`${COLOR_WHITE}80`} />
+          <EyeOpen color={`${colors.light}80`} />
         ) : (
-          <EyeClose color={`${COLOR_WHITE}60`} />
+          <EyeClose color={`${colors.light}60`} />
         )}
       </Pressable>
     );
@@ -42,9 +43,9 @@ const PasswordInput: ForwardRefRenderFunction<TextInput, PasswordInputProps> = (
     <Input
       {...rest}
       label={`${text.label.password}${!passwordValid ? ` (${text.format.required})` : ''}`}
-      labelStyle={!passwordValid && { color: COLOR_RED }}
+      labelStyle={!passwordValid && { color: colors.error }}
       placeholder={text.placeholder.password}
-      textInputStyle={!passwordValid && { color: COLOR_RED }}
+      textInputStyle={!passwordValid && { color: colors.error }}
       value={password}
       onChangeText={(text) => {
         setPassword(text);

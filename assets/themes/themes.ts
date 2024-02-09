@@ -9,6 +9,7 @@ export type ThemeObject = {
   text: string;
   light: string;
   dark: string;
+  error: string;
   status_bar: string;
 };
 

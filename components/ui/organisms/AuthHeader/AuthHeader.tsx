@@ -39,18 +39,19 @@ export default AuthHeader;
 const s = StyleSheet.create({
   container: {
     paddingTop: '4%',
-    height: DEVICE.height * 0.25,
+    height: DEVICE.height * 0.3,
     width: '100%'
   },
   arrowContainer: {
     position: 'absolute',
-    height: '15%',
+    height: '14%',
     aspectRatio: 1,
     left: '10%',
     top: '10%'
   },
-  logoContainer: {
-    height: DEVICE.height * 0.25
-  },
-  logo: { flex: 1, marginTop: '10%' }
+  logo: {
+    flex: 1,
+    marginTop: '12.5%',
+    marginBottom: '12.5%'
+  }
 });
