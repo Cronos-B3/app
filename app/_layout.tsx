@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ThemeProvider, useTheme } from 'contexts/ThemeContext';
 import { TranslateProvider } from 'contexts/TranslateContext';
 import { UserProvider } from 'contexts/UserContext';
@@ -41,10 +42,20 @@ export default function RootLayout() {
     return null;
   }
 
+  // Set the default headers for axios.
+  axios.defaults.headers.common['Accept'] = 'application/json';
+  axios.defaults.headers.common['Content-Type'] = 'application/json';
+  axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+  // Set the default base URL for axios.
+  axios.defaults.baseURL = `${process.env.EXPO_PUBLIC_CRONOS_API ?? 'http://localhost'}/api`;
+
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
+  if (__DEV__) console.log('🥇 - RootLayoutNav');
+
   return (
     <UserProvider>
       <ThemeProvider>
@@ -59,6 +70,8 @@ function RootLayoutNav() {
 }
 
 const Layout = () => {
+  if (__DEV__) console.log('🥈 - Layout');
+
   const { colors } = useTheme();
 
   return (

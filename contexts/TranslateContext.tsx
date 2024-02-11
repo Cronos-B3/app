@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
 import langs, { Lang, LangObject } from 'assets/languages/languages';
+import { useLanguageStore } from 'hooks/store/languageStore';
 
 export type TranslateContextType = {
   text: LangObject;
@@ -12,8 +13,9 @@ const TranslateContext = createContext<TranslateContextType | null>(null);
 export const TranslateProvider = ({ children }) => {
   if (__DEV__) console.log('🙌 - TranslateProvider');
 
-  const [lang, setLang] = useState<Lang>(() => 'fr_FR');
-  const [text, setText] = useState<LangObject>(() => langs.fr_FR);
+  const { lang, setLang } = useLanguageStore();
+
+  const [text, setText] = useState<LangObject>(() => langs[lang]);
 
   useEffect(() => {
     setText(langs[lang]);

@@ -1,5 +1,5 @@
-import { useEffect, useRef, RefObject, useState } from 'react';
-import { Animated, Keyboard, Platform, TextInput } from 'react-native';
+import { useEffect, useRef, RefObject } from 'react';
+import { Animated, Keyboard, TextInput } from 'react-native';
 import { DEVICE } from 'constants/Config';
 
 const avoidKeyboard = (numInputs: number = 3) => {
