@@ -275,7 +275,7 @@ const s = StyleSheet.create({
   },
   profiletimeachievementscontainer: {
     flexDirection: 'column',
-    width: '60%',
+    flex: 1,
     height: '100%',
     gap: 10,
   },

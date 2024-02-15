@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import Text from 'components/ui/atoms/Text/Text';
 
 const PrivacyPolicy = () => {
-  if (__DEV__) console.log('🏳️ - home');
+  if (__DEV__) console.log('📜 - Privacy Policy');
 
   return (
     <ScrollView contentContainerStyle={styles.containerprivacy}>
