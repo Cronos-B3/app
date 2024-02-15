@@ -4,6 +4,8 @@ const profilepicture = require('../assets/images/profilepicture.png');
 const profilecroneur = require('../assets/images/profilecroneur.png');
 const profileconnected = require('../assets/images/profileconnected.png');
 const profilevision = require('../assets/images/profilevision.png');
+const macron = require('../assets/images/macron.png');
+const test = require('../assets/images/test.gif');
 
 const IMAGES = {
   logo,
@@ -11,7 +13,9 @@ const IMAGES = {
   profilepicture,
   profilecroneur,
   profileconnected,
-  profilevision
+  profilevision,
+  macron,
+  test
 };
 
 export default IMAGES;
