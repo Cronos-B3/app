@@ -1,16 +1,15 @@
 import React from 'react';
 import Text from 'components/atoms/Text/Text';
 import { View, StyleSheet } from 'react-native';
+import Constants from 'expo-constants';
 
-export default () => {
-  if (__DEV__) console.log('🏳️ - +not-found');
+const AppVersion = () => {
+  if (__DEV__) console.log('🐙 - AppVersion');
 
-  return (
-    <View style={s.container}>
-      <Text style={s.text}>Page +not-found</Text>
-    </View>
-  );
+  return <Text>v{Constants.expoConfig?.version}</Text>;
 };
+
+export default AppVersion;
 
 const s = StyleSheet.create({
   container: {

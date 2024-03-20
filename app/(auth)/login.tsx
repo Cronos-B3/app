@@ -3,15 +3,15 @@ import { View, StyleSheet } from 'react-native';
 import avoidKeyboard from 'lib/avoidKeyboard';
 import { GLOBAL_STYLES as gs, AUTH_STYLES as as } from 'constants/Styles';
 import { useTheme } from 'contexts/ThemeContext';
-import PasswordInput from 'components/ui/molecules/PasswordInput/PasswordInput';
+import PasswordInput from 'components/molecules/PasswordInput/PasswordInput';
 import { useAPI } from 'hooks/useAPI';
 import AuthTemplate from 'components/templates/AuthTemplate/AuthTemplate';
-import Pressable from 'components/ui/atoms/Pressable/Pressable';
-import Text from 'components/ui/atoms/Text/Text';
+import Pressable from 'components/atoms/Pressable/Pressable';
+import Text from 'components/atoms/Text/Text';
 import { useTranslate } from 'contexts/TranslateContext';
 import { router } from 'expo-router';
-import LoadingButton from 'components/ui/molecules/LoadingButton/LoadingButton';
-import LoginInput from 'components/ui/molecules/LoginInput/LoginInput';
+import LoadingButton from 'components/molecules/LoadingButton/LoadingButton';
+import LoginInput from 'components/molecules/LoginInput/LoginInput';
 
 export default () => {
   if (__DEV__) console.log('🏳️ - login');

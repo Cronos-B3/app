@@ -1,15 +1,15 @@
 import React, { useMemo, useState } from 'react';
-import Text from 'components/ui/atoms/Text/Text';
+import Text from 'components/atoms/Text/Text';
 import { StyleSheet, View } from 'react-native';
 import AuthTemplate from 'components/templates/AuthTemplate/AuthTemplate';
 import { useAPI } from 'hooks/useAPI';
 import { useTranslate } from 'contexts/TranslateContext';
 import { useTheme } from 'contexts/ThemeContext';
 import avoidKeyboard from 'lib/avoidKeyboard';
-import EmailInput from 'components/ui/molecules/EmailInput/EmailInput';
-import PasswordInput from 'components/ui/molecules/PasswordInput/PasswordInput';
+import EmailInput from 'components/molecules/EmailInput/EmailInput';
+import PasswordInput from 'components/molecules/PasswordInput/PasswordInput';
 import { GLOBAL_STYLES as gs, AUTH_STYLES as as } from 'constants/Styles';
-import LoadingButton from 'components/ui/molecules/LoadingButton/LoadingButton';
+import LoadingButton from 'components/molecules/LoadingButton/LoadingButton';
 import { router } from 'expo-router';
 
 export default () => {

@@ -3,11 +3,11 @@ import Text from 'components/atoms/Text/Text';
 import { View, StyleSheet } from 'react-native';
 
 export default () => {
-  if (__DEV__) console.log('🏳️ - +not-found');
+  if (__DEV__) console.log('🏳️ - home');
 
   return (
     <View style={s.container}>
-      <Text style={s.text}>Page +not-found</Text>
+      <Text style={s.text}>Page home</Text>
     </View>
   );
 };
@@ -16,11 +16,7 @@ const s = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5fcff'
+    alignItems: 'center'
   },
-  text: {
-    fontSize: 20,
-    color: 'black'
-  }
+  text: { fontSize: 20 }
 });

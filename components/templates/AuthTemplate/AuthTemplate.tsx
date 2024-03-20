@@ -1,5 +1,5 @@
-import Text from 'components/ui/atoms/Text/Text';
-import ViewDismissKeyboard from 'components/ui/molecules/ViewDismissKeyboard/ViewDismissKeyboard';
+import Text from 'components/atoms/Text/Text';
+import ViewDismissKeyboard from 'components/molecules/ViewDismissKeyboard/ViewDismissKeyboard';
 import React, { useMemo } from 'react';
 import { Animated, View } from 'react-native';
 import { StyleSheet, SafeAreaView } from 'react-native';

@@ -1,5 +1,5 @@
-import AuthBottomInfos from 'components/ui/organisms/AuthBottomInfos/AuthBottomInfos';
-import AuthHeader from 'components/ui/organisms/AuthHeader/AuthHeader';
+import AuthBottomInfos from 'components/organisms/AuthBottomInfos/AuthBottomInfos';
+import AuthHeader from 'components/organisms/AuthHeader/AuthHeader';
 import { DEVICE } from 'constants/Config';
 import { useTheme } from 'contexts/ThemeContext';
 import { Stack } from 'expo-router';
