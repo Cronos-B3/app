@@ -12,6 +12,8 @@ import { useTranslate } from 'contexts/TranslateContext';
 import { router } from 'expo-router';
 import LoadingButton from 'components/molecules/LoadingButton/LoadingButton';
 import LoginInput from 'components/molecules/LoginInput/LoginInput';
+import { auth } from 'lib/api/backendRoutes';
+import { useTokenStore } from 'hooks/store/useTokenStore';
 
 export default () => {
   if (__DEV__) console.log('🏳️ - login');
@@ -19,6 +21,7 @@ export default () => {
   const { colors } = useTheme();
   const { text } = useTranslate();
   const { call, loading } = useAPI();
+  const { setToken } = useTokenStore();
 
   const [log, setLog] = useState<string>(() => '');
   const [wrongLog, setWrongLog] = useState<boolean>(() => false);
@@ -96,11 +99,16 @@ export default () => {
 
     if (!canConnect) return;
 
-    router.push('/home');
+    try {
+      const { token, user } = await call(auth.login.post({ login: log, password }));
 
-    // const data = await call(auth.login.post({ u_password: password, ue_email: log }));
+      setToken(token);
+      // setUser(user);
 
-    // TODO: login
+      router.push('/a/home');
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   // return <View style={s.container}>{emailInputMemoized}</View>;
