@@ -39,7 +39,7 @@ const ProfileTemplate = () => {
     <View style={[s.flex, { marginTop: top }]}>
       <ScrollView>
         <Image containerStyle={s.bannerBackground} source={profile.bannerPicture} />
-        <View style={s.padding}>
+        <View style={s.contentContainer}>
           <ProfileInformations profile={profile} />
           <ProfilePosts />
         </View>
@@ -69,5 +69,8 @@ const s = StyleSheet.create({
     width: '100%',
     backgroundColor: 'white'
   },
-  padding: { paddingHorizontal: '4%' }
+  contentContainer: {
+    paddingHorizontal: '4%',
+    gap: DEVICE.height * 0.05
+  }
 });
