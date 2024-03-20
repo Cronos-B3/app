@@ -2,14 +2,18 @@ import AuthBottomInfos from 'components/organisms/AuthBottomInfos/AuthBottomInfo
 import AuthHeader from 'components/organisms/AuthHeader/AuthHeader';
 import { DEVICE } from 'constants/Config';
 import { useTheme } from 'contexts/ThemeContext';
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
+import { useTokenStore } from 'hooks/store/useTokenStore';
 import { useMemo } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default () => {
   const { colors } = useTheme();
   const { bottom } = useSafeAreaInsets();
+  const { token } = useTokenStore();
+
+  if (token) return <Redirect href="/a/home" />;
 
   const authBottomInfosMemoized = useMemo(() => {
     if (__DEV__) console.log('📃 - authBottomInfosMemoized');

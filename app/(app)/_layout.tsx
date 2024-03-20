@@ -1,7 +1,12 @@
 import TabBar from 'components/organisms/TabBar/TabBar';
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
+import { useTokenStore } from 'hooks/store/useTokenStore';
 
 export default () => {
+  const { token } = useTokenStore();
+
+  if (!token) return <Redirect href="/login" />;
+
   return (
     <>
       <Stack
