@@ -1,11 +1,16 @@
 import { ThemeProvider, useTheme } from 'contexts/ThemeContext';
-import { TranslateProvider } from 'contexts/TranslateContext';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar, StatusBarStyle } from 'expo-status-bar';
+import setAxiosDefault from 'lib/setAxiosDefault';
 import { useEffect } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ToastProvider } from 'react-native-toast-notifications';
+import 'intl-pluralrules';
+import '../i18n';
+import { ScrollView } from 'react-native';
+import StatusBar from 'components/atoms/StatusBar/StatusBar';
+import { gs } from 'constants/styles';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -40,27 +45,41 @@ export default function RootLayout() {
     return null;
   }
 
+  setAxiosDefault();
+
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
   return (
     <ThemeProvider>
-      <TranslateProvider>
-        <SafeAreaProvider>
+      <SafeAreaProvider>
+        <StatusBar />
+        <ScrollView contentContainerStyle={gs.flex} scrollEnabled={false}>
           <Layout />
-        </SafeAreaProvider>
-      </TranslateProvider>
+        </ScrollView>
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }
 
 const Layout = () => {
   const { colors } = useTheme();
+  const { top, bottom } = useSafeAreaInsets();
 
   return (
-    <>
-      <StatusBar style={colors.status_bar as StatusBarStyle} backgroundColor={colors.background} />
+    <ToastProvider
+      placement="bottom"
+      offset={top + 30}
+      offsetBottom={bottom + 30}
+      duration={6000}
+      animationType="slide-in"
+      animationDuration={500}
+      swipeEnabled={true}
+      dangerColor={colors.error}
+      style={{ borderRadius: 9, paddingHorizontal: '8%', paddingVertical: '2.5%' }}
+      textStyle={{ color: colors.light, textAlign: 'center' }}
+    >
       <Stack
         screenOptions={{
           headerShown: false,
@@ -69,8 +88,8 @@ const Layout = () => {
       >
         <Stack.Screen name="index" />
         <Stack.Screen name="(app)" />
-        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(auth)/a" />
       </Stack>
-    </>
+    </ToastProvider>
   );
 };

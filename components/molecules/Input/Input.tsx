@@ -7,12 +7,12 @@ import {
   ViewProps,
   TextInput as TextInputRN
 } from 'react-native';
-import Text from 'components/atoms/Text/Text';
+import Text from 'components/atoms/BaseText/Text';
 import TextInput from 'components/atoms/TextInput/TextInput';
 
 type CustomProps = {
   style?: ViewProps['style'];
-  label?: string | ReactNode;
+  label?: string;
   labelStyle?: TextProps['style'];
   inputStyle?: ViewProps['style'];
   textInputStyle?: TextProps['style'];
@@ -35,23 +35,17 @@ const Input: ForwardRefRenderFunction<TextInputRN, InputProps> = (
   },
   ref
 ) => {
-  const memoizedLabel = useMemo(() => {
+  const labelMemo = useMemo(() => {
     return (
-      <>
-        {typeof label === 'string' ? (
-          <Text ellipsizeMode="tail" numberOfLines={1} style={labelStyle}>
-            {label}
-          </Text>
-        ) : (
-          label
-        )}
-      </>
+      <Text ellipsizeMode="tail" numberOfLines={1} style={labelStyle}>
+        {label}
+      </Text>
     );
   }, [label, labelStyle]);
 
   return (
     <View style={style}>
-      {memoizedLabel}
+      {labelMemo}
       <View style={[inputStyle, s.inputContainer]}>
         {leftIcon}
         <TextInput {...rest} style={[s.input, textInputStyle]} ref={ref} />

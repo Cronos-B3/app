@@ -1,27 +1,22 @@
 import { LeftArrow } from 'assets/svg/Arrow';
 import Image from 'components/atoms/Image/Image';
 import Pressable from 'components/atoms/Pressable/Pressable';
-import Text from 'components/atoms/Text/Text';
+import Text from 'components/atoms/BaseText/Text';
 import ProfileInformations from 'components/organisms/ProfileInformations/ProfileInformations';
 import ProfilePosts from 'components/organisms/ProfilePosts/ProfilePosts';
-import { DEVICE } from 'constants/Config';
+import { DEVICE } from 'constants/config';
 import { router } from 'expo-router';
+import { UserType } from 'hooks/store/useUserStore';
 import React, { useMemo, useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const ProfileTemplate = () => {
-  if (__DEV__) console.log('🐙 - ProfileTemplate');
+type ProfileTemplateProps = {
+  profile: UserType;
+};
 
-  const [profile, setProfile] = useState(() => {
-    return {
-      username: 'cezgain',
-      nickname: 'Cezary Gąsiorowski',
-      profilePicture: 'https://avatars.githubusercontent.com/u/12345679?v=4',
-      bannerPicture: 'https://avatars.githubusercontent.com/u/12345689?v=4',
-      followers: 1230000000
-    };
-  });
+const ProfileTemplate = ({ profile }: ProfileTemplateProps) => {
+  if (__DEV__) console.log('🐙 - ProfileTemplate');
 
   const { top } = useSafeAreaInsets();
 
@@ -38,7 +33,7 @@ const ProfileTemplate = () => {
   return (
     <View style={[s.flex, { marginTop: top }]}>
       <ScrollView>
-        <Image containerStyle={s.bannerBackground} source={profile.bannerPicture} />
+        <Image containerStyle={s.bannerBackground} source={''} />
         <View style={s.contentContainer}>
           <ProfileInformations profile={profile} />
           <ProfilePosts />

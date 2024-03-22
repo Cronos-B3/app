@@ -1,22 +1,17 @@
 import React from 'react';
-import Text from 'components/atoms/Text/Text';
 import { View, StyleSheet, ViewProps } from 'react-native';
-import Pressable from 'components/atoms/Pressable/Pressable';
-import AppVersion from 'components/molecules/AppVersion/AppVersion';
-import { useTranslate } from 'contexts/TranslateContext';
+import LinkText from 'components/atoms/BaseText/LinkText';
+import { useTranslation } from 'react-i18next';
 
 const AuthBottomInfos = ({ style, ...rest }: ViewProps) => {
   if (__DEV__) console.log('🐙 - AuthBottomInfos');
 
-  const { text } = useTranslate();
+  const { t } = useTranslation('policy');
 
   return (
     <View style={[s.container, style]} {...rest}>
-      <AppVersion />
-      <Pressable style={s.conditionsContainer}>
-        <Text style={s.textConditions}>{text.policy.privacy}</Text>
-        <Text style={s.textConditions}>{text.policy.usage}</Text>
-      </Pressable>
+      <LinkText style={s.textConditions}>{t('terms')}</LinkText>
+      <LinkText style={s.textConditions}>{t('privacy')}</LinkText>
     </View>
   );
 };
@@ -25,17 +20,14 @@ export default AuthBottomInfos;
 
 const s = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
     opacity: 0.6
   },
-  conditionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    flexWrap: 'wrap'
-  },
   textConditions: {
-    marginHorizontal: 4,
-    fontSize: 13,
+    fontSize: 12,
     textDecorationLine: 'underline'
   }
 });

@@ -7,5 +7,5 @@ export default () => {
 
   if (token) return <Redirect href="/a/home" />;
 
-  return <Redirect href="/login" />;
+  return <Redirect href="/a/login" />;
 };

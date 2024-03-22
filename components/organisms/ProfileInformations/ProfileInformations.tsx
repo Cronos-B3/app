@@ -1,17 +1,13 @@
 import Image from 'components/atoms/Image/Image';
 import Pressable from 'components/atoms/Pressable/Pressable';
-import Text from 'components/atoms/Text/Text';
-import { DEVICE } from 'constants/Config';
+import Text from 'components/atoms/BaseText/Text';
+import { DEVICE } from 'constants/config';
+import { UserType } from 'hooks/store/useUserStore';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 type ProfileInformationsProps = {
-  profile: {
-    username: string;
-    nickname: string;
-    profilePicture: string;
-    followers: number;
-  };
+  profile: UserType;
 };
 
 const ProfileInformations = ({ profile }: ProfileInformationsProps) => {
@@ -19,17 +15,17 @@ const ProfileInformations = ({ profile }: ProfileInformationsProps) => {
 
   return (
     <View style={s.container}>
-      <Image style={s.profilePicture} source={profile.profilePicture} />
+      <Image style={s.profilePicture} source={''} />
       <View style={s.data}>
         <View>
           <Text style={s.username} numberOfLines={1}>
             @{profile.username}
           </Text>
           <Text style={s.nickname} font="bold" numberOfLines={1}>
-            {profile.nickname}
+            {profile.nickname ?? profile.username}
           </Text>
         </View>
-        <Text style={s.followers}>{profile.followers} Followers</Text>
+        <Text style={s.followers}>{0} Followers</Text>
         <View style={s.buttonsContainer}>
           <Pressable style={s.followButton}>
             <Text style={s.followers} numberOfLines={1}>

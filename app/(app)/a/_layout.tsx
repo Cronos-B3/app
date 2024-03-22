@@ -6,7 +6,7 @@ export default () => {
       initialRouteName="home"
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: 'transparent' },
+        contentStyle: { backgroundColor: '#0F0F0F' },
         animation: 'slide_from_right'
       }}
     >

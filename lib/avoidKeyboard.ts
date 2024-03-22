@@ -1,6 +1,6 @@
-import { useEffect, useRef, RefObject, useState } from 'react';
-import { Animated, Keyboard, Platform, TextInput } from 'react-native';
-import { DEVICE } from 'constants/Config';
+import { useEffect, useRef, RefObject } from 'react';
+import { Animated, Keyboard, TextInput } from 'react-native';
+import { DEVICE } from 'constants/config';
 
 const avoidKeyboard = (numInputs: number = 3) => {
   // use an array of refs

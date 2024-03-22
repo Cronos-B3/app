@@ -1,5 +1,5 @@
-import Text from 'components/atoms/Text/Text';
-import { DEVICE } from 'constants/Config';
+import Text from 'components/atoms/BaseText/Text';
+import { DEVICE } from 'constants/config';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 

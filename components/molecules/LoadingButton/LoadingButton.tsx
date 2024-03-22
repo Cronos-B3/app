@@ -2,8 +2,11 @@ import React, { ForwardRefRenderFunction, forwardRef } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Pressable, { PressableProps } from 'components/atoms/Pressable/Pressable';
 import { useTheme } from 'contexts/ThemeContext';
+import Text from 'components/atoms/BaseText/Text';
+import { gs } from 'constants/styles';
 
 type CustomProps = {
+  children?: string;
   loading?: boolean;
   loadingSize?: number;
 };
@@ -25,7 +28,11 @@ const LoadingButton: ForwardRefRenderFunction<View, LoadingButtonProps> = (
       pressedOpacity={loading ? 1 : undefined}
       {...rest}
     >
-      {loading ? <ActivityIndicator color={colors.light} size={loadingSize} /> : children}
+      {loading ? (
+        <ActivityIndicator color={colors.light} size={loadingSize} />
+      ) : (
+        <Text style={gs.buttonText}>{children}</Text>
+      )}
     </Pressable>
   );
 };

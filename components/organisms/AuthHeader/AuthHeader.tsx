@@ -1,36 +1,30 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import ViewDismissKeyboard from 'components/molecules/ViewDismissKeyboard/ViewDismissKeyboard';
+import { StyleSheet, View } from 'react-native';
 import Pressable from 'components/atoms/Pressable/Pressable';
 import { LeftArrow } from 'assets/svg/Arrow';
 import { Image } from 'expo-image';
-import IMAGES from 'constants/Images';
-import { DEVICE } from 'constants/Config';
+import IMAGES from 'constants/images';
+import { DEVICE } from 'constants/config';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'contexts/ThemeContext';
+import { router } from 'expo-router';
+import { gs } from 'constants/styles';
 
-type AuthHeaderProps = {
-  navigation: any;
-  back?: { title: string };
-};
-
-const AuthHeader = ({ navigation, back }: AuthHeaderProps) => {
+const AuthHeader = () => {
   if (__DEV__) console.log('🐙 - AuthHeader');
 
   const { colors } = useTheme();
   const { top } = useSafeAreaInsets();
 
   return (
-    <ViewDismissKeyboard
-      style={[s.container, { marginTop: top, backgroundColor: colors.background }]}
-    >
-      {back && (
-        <Pressable style={s.arrowContainer} onPress={() => navigation.goBack()}>
+    <View style={[s.container, { marginTop: top }]}>
+      {router.canGoBack() && (
+        <Pressable style={s.back} onPress={() => router.back()}>
           <LeftArrow color={colors.light} />
         </Pressable>
       )}
-      <Image source={IMAGES.logo} style={s.logo} contentFit="contain" />
-    </ViewDismissKeyboard>
+      <Image source={IMAGES.logo} style={gs.flex} contentFit="contain" />
+    </View>
   );
 };
 
@@ -38,20 +32,15 @@ export default AuthHeader;
 
 const s = StyleSheet.create({
   container: {
-    paddingTop: '4%',
-    height: DEVICE.height * 0.3,
-    width: '100%'
+    height: DEVICE.height * 0.25,
+    width: '100%',
+    paddingVertical: '8%'
   },
-  arrowContainer: {
+  back: {
     position: 'absolute',
     height: '14%',
     aspectRatio: 1,
     left: '10%',
     top: '10%'
-  },
-  logo: {
-    flex: 1,
-    marginTop: '12.5%',
-    marginBottom: '12.5%'
   }
 });

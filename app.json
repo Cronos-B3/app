@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#0F0F0F"
-      }
+      },
+      "softwareKeyboardLayoutMode": "pan"
     },
     "androidStatusBar": {
       "barStyle": "light-content",

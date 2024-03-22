@@ -4,7 +4,7 @@ import { TabBarBackground, TabBarHome, TabBarMenu, TabBarProfile } from 'assets/
 import Pressable from 'components/atoms/Pressable/Pressable';
 import { router, useSegments } from 'expo-router';
 import { useTheme } from 'contexts/ThemeContext';
-import { DEVICE } from 'constants/Config';
+import { DEVICE } from 'constants/config';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const TabBar = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Svg, Path } from 'react-native-svg';
-import { SvgProps } from './Index';
+import { SvgProps } from './types';
 
 export const LeftArrow = ({ color, height = '100%', width = '100%', ...rest }: SvgProps) => {
   if (__DEV__) console.log('🌈 - LeftArrow');

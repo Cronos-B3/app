@@ -4,7 +4,7 @@ import { Heart } from 'assets/svg/profile/Heart';
 import { Repost } from 'assets/svg/profile/Repost';
 import { Share } from 'assets/svg/profile/Share';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Text from 'components/atoms/Text/Text';
+import Text from 'components/atoms/BaseText/Text';
 import Pressable from 'components/atoms/Pressable/Pressable';
 
 const Post = ({ username, date, description, imageUrl, postId }) => {

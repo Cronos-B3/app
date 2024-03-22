@@ -4,18 +4,17 @@ const url = '/auth/login';
 const method = 'POST' as HttpMethod;
 
 interface PostData {
-  login: string;
+  identifier: string;
   password: string;
 }
 
-const post = (data: PostData) => {
-  const loginData = {
-    u_username: data.login,
-    u_email: data.login,
-    u_password: data.password
+const post = (rawData: PostData) => {
+  const data = {
+    identifier: rawData.identifier,
+    u_password: rawData.password
   };
 
-  return { method, url, loginData };
+  return { method, url, data };
 };
 
 export default { post };

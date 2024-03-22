@@ -1,8 +1,32 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-type State = {};
+export type UserType = {
+  username: string;
+  nickname: string;
+  email: string;
+  birthdate?: string;
+  role: 'ROLE_USER';
+};
 
-type Actions = {};
+type State = {
+  user?: UserType;
+};
 
-export const useUserStore = create<State & Actions>()(immer((set) => ({})));
+type Actions = {
+  setUser: (user: UserType) => void;
+  logout: () => void;
+};
+
+export const useUserStore = create<State & Actions>()(
+  immer((set) => ({
+    setUser: (user) =>
+      set((state) => {
+        state.user = user;
+      }),
+    logout: () =>
+      set((state) => {
+        state.user = undefined;
+      })
+  }))
+);

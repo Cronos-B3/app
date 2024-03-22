@@ -1,41 +1,35 @@
 import AuthBottomInfos from 'components/organisms/AuthBottomInfos/AuthBottomInfos';
 import AuthHeader from 'components/organisms/AuthHeader/AuthHeader';
-import { DEVICE } from 'constants/Config';
+import { DEVICE } from 'constants/config';
 import { useTheme } from 'contexts/ThemeContext';
 import { Redirect, Stack } from 'expo-router';
 import { useTokenStore } from 'hooks/store/useTokenStore';
-import { useMemo } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default () => {
   const { colors } = useTheme();
-  const { bottom } = useSafeAreaInsets();
   const { token } = useTokenStore();
+  const { bottom } = useSafeAreaInsets();
 
   if (token) return <Redirect href="/a/home" />;
 
-  const authBottomInfosMemoized = useMemo(() => {
-    if (__DEV__) console.log('📃 - authBottomInfosMemoized');
-
-    return <AuthBottomInfos style={[{ marginBottom: bottom }, s.bottomInfosContainer]} />;
-  }, [bottom]);
-
   return (
     <>
+      <AuthHeader />
       <Stack
         initialRouteName="login"
         screenOptions={{
+          headerShown: false,
           presentation: 'card',
           contentStyle: { backgroundColor: colors.background },
-          header: ({ back, navigation }) => <AuthHeader back={back} navigation={navigation} />,
           animation: 'slide_from_right'
         }}
       >
         <Stack.Screen name="login" />
         <Stack.Screen name="register" />
       </Stack>
-      {authBottomInfosMemoized}
+      <AuthBottomInfos style={[{ marginBottom: bottom }, s.bottomInfosContainer]} />
     </>
   );
 };

@@ -1,34 +1,40 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text as TextRN,
-  TextProps as TextPropsRN,
-  TextStyle,
-  Platform
-} from 'react-native';
+import React, { ComponentType } from 'react';
+import { StyleSheet, TextProps, TextStyle, Platform } from 'react-native';
+import { useTheme } from 'contexts/ThemeContext';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { LinkProps } from '@expo/html-elements/build/elements/Text.types';
 
-export interface TextProps extends TextPropsRN {
+export interface BaseTextProps extends TextProps {
   font?: 'regular' | 'bold';
   noDefaultStyle?: boolean;
 }
 
-const Text = ({
+interface ExtraProps extends BaseTextProps {
+  TextComponent: ComponentType<BaseTextProps | LinkProps>;
+}
+
+const BaseText = ({
+  TextComponent,
   children,
   font = 'regular',
   ellipsizeMode = 'tail',
   adjustsFontSizeToFit = true,
   style,
   noDefaultStyle,
-  ...rest
-}: TextProps) => {
-  // if (__DEV__) console.log('🐙 - Text');
+  ...props
+}: ExtraProps) => {
+  // if (__DEV__) console.log('🐙 - LinkText');
+
+  const { colors } = useTheme();
 
   if (noDefaultStyle)
     return (
-      <TextRN style={[style, font !== 'regular' && { fontFamily: `Heebo_${font}` }]} {...rest}>
+      <TextComponent
+        style={[style, font !== 'regular' && { fontFamily: `Heebo_${font}` }]}
+        {...props}
+      >
         {children}
-      </TextRN>
+      </TextComponent>
     );
 
   const fontSize = (StyleSheet.flatten(style) as TextStyle)?.fontSize || 14;
@@ -39,9 +45,9 @@ const Text = ({
     lineHeight && Platform.OS === 'android' ? lineHeight * 1.15 : lineHeight;
 
   return (
-    <TextRN
+    <TextComponent
       style={[
-        { color: 'white' },
+        { color: colors.light },
         style,
         {
           fontFamily: `Heebo_${font}`,
@@ -51,11 +57,11 @@ const Text = ({
       ]}
       ellipsizeMode={ellipsizeMode}
       adjustsFontSizeToFit={adjustsFontSizeToFit}
-      {...rest}
+      {...props}
     >
       {children}
-    </TextRN>
+    </TextComponent>
   );
 };
 
-export default Text;
+export default BaseText;

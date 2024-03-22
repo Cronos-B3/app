@@ -1,39 +1,22 @@
-import Text from 'components/atoms/Text/Text';
-import ViewDismissKeyboard from 'components/molecules/ViewDismissKeyboard/ViewDismissKeyboard';
-import React, { useMemo } from 'react';
-import { Animated, View } from 'react-native';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { Animated } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 type AuthTemplateProps = {
-  title?: string | null;
   children: React.ReactNode;
   keyboardOffset?: Animated.Value;
 };
 
-const AuthTemplate = ({ title, children, keyboardOffset }: AuthTemplateProps) => {
+const AuthTemplate = ({ children, keyboardOffset }: AuthTemplateProps) => {
   if (__DEV__) console.log('🐙 - AuthView');
 
-  const titleMemoized = useMemo(() => {
-    if (__DEV__) console.log('📃 - titleMemoized');
-
-    return (
-      title && (
-        <View style={s.title}>
-          <Text style={s.text}>{title}</Text>
-        </View>
-      )
-    );
-  }, [title]);
-
   return (
-    <ViewDismissKeyboard>
-      {title && titleMemoized}
+    <>
       <Animated.View
         style={[s.containerView, keyboardOffset && { transform: [{ translateY: keyboardOffset }] }]}
       >
         {children}
       </Animated.View>
-    </ViewDismissKeyboard>
+    </>
   );
 };
 

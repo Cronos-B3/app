@@ -1,0 +1,66 @@
+{
+  "common": {
+    "next": "Suivant",
+    "back": "Retour",
+    "cancel": "Annuler"
+  },
+  "title": {},
+  "input": {
+    "identifier": {
+      "label": "Nom d'utilisateur ou email",
+      "placeholder": "Saisissez votre nom d'utilisateur ou votre email"
+    },
+    "birthdate": {
+      "label": "Date de naissance",
+      "placeholder": "JJ/MM/AAAA",
+      "format": "{{day}}/{{month}}/{{year}}"
+    },
+    "phone": {
+      "title": "Téléphone",
+      "message": "Message"
+    },
+    "email": {
+      "title": "Email",
+      "label": "Adresse e-mail",
+      "placeholder": "Saisissez votre email"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "placeholder": "Saisissez votre mot de passe"
+    },
+    "passwordConfirmation": {
+      "label": "Confirmez votre mot de passe",
+      "placeholder": "Confirmez votre mot de passe"
+    },
+    "format": {
+      "required": "requis",
+      "invalid": "format invalide",
+      "min_length": "too short",
+      "validate": "valeur invalide",
+      "not_unique": "déjà utilisé"
+    }
+  },
+  "app": {},
+  "auth": {
+    "register": "Créer son compte",
+    "login": "Se connecter",
+    "connect": "Connexion à votre espace",
+    "no_account": "Pas encore de compte ? <bold>Créez votre compte Cronos !</bold>",
+    "forgot_password": "Mot de passe oublié ?"
+  },
+  "policy": {
+    "terms": "Conditions générales d'utilisation",
+    "privacy": "Politique de confidentialité"
+  },
+  "success": {
+    "contacts": {
+      "added": "Contact ajouté avec succès à votre répertoire !"
+    }
+  },
+  "error": {
+    "generic": "Une erreur est survenue\nVeuillez réessayer plus tard",
+    "server": "Le serveur est en maintenance\nVeuillez réessayer plus tard",
+    "network": "Connexion trop faible\nVérifiez votre connexion internet",
+    "invalid_credentials": "Identifiant ou mot de passe incorrect"
+  }
+}

@@ -11,14 +11,14 @@ interface PostData {
 }
 
 const post = (rawData: PostData) => {
-  const formattedData = {
+  const data = {
     u_username: rawData.username,
     u_email: rawData.email,
     u_password: rawData.password,
     u_password_confirmation: rawData.confirmationPassword
   };
 
-  return { method, url, formattedData };
+  return { method, url, data };
 };
 
 export default { post };
