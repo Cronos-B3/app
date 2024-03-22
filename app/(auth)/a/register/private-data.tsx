@@ -30,7 +30,7 @@ export default () => {
   } = useForm({
     defaultValues: {
       email: '',
-      birthdate: '',
+      birthdate: moment().subtract(50, 'years').format('YYYY-MM-DD'),
       password: '',
       password_confirmation: ''
     }
@@ -66,14 +66,13 @@ export default () => {
               ref={keyboards['ref1']}
               maxLength={127}
               autoCapitalize="none"
-              onSubmitEditing={() => keyboards['ref2']?.current?.focus()}
             />
           )}
         />
         <Controller
           control={control}
           name="birthdate"
-          rules={{ required: true, ...RULES.email }}
+          rules={{ required: true }}
           render={({ field: { onChange, value, name } }) => (
             <>
               <Pressable onPress={() => setShowDatePicker(true)}>
@@ -124,7 +123,7 @@ export default () => {
               error={errors[name]?.type}
               onChangeText={onChange}
               value={value}
-              ref={keyboards['ref1']}
+              ref={keyboards['ref2']}
               maxLength={127}
               autoCapitalize="none"
               onSubmitEditing={() => keyboards['ref3']?.current?.focus()}
@@ -142,9 +141,10 @@ export default () => {
               error={errors[name]?.type}
               onChangeText={onChange}
               value={value}
-              ref={keyboards['ref1']}
+              ref={keyboards['ref3']}
               maxLength={127}
               autoCapitalize="none"
+              onSubmitEditing={handleSubmit(nextRoute)}
             />
           )}
         />
