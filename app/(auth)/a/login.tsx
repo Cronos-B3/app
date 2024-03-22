@@ -4,7 +4,7 @@ import Pressable from 'components/atoms/Pressable/Pressable';
 import StyledInput from 'components/molecules/Input/StyledInput';
 import LoadingButton from 'components/molecules/LoadingButton/LoadingButton';
 import RULES from 'constants/rules';
-import { gs } from 'constants/styles';
+import { as, gs } from 'constants/styles';
 import { useTheme } from 'contexts/ThemeContext';
 import { router } from 'expo-router';
 import { useTokenStore } from 'hooks/store/useTokenStore';
@@ -38,8 +38,7 @@ export default () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
-    watch
+    formState: { errors }
   } = useForm({
     defaultValues: {
       identifier: '',
@@ -57,7 +56,7 @@ export default () => {
 
   const noAccountMemo = useMemo(() => {
     return (
-      <Pressable onPress={() => router.push('/a/register')}>
+      <Pressable onPress={() => router.push('/a/register/policies')}>
         <Text style={[s.text, s.alignSelf]} numberOfLines={1}>
           <Trans
             i18nKey="auth:no_account"
@@ -97,7 +96,7 @@ export default () => {
   };
 
   return (
-    <View style={s.container}>
+    <View style={as.container}>
       <Controller
         control={control}
         name="identifier"
@@ -152,11 +151,6 @@ export default () => {
 };
 
 const s = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    paddingHorizontal: '5%'
-  },
   partView: { gap: 4 },
   text: {
     fontSize: 13,

@@ -5,6 +5,8 @@ import { useTokenStore } from 'hooks/store/useTokenStore';
 export default () => {
   const { token } = useTokenStore();
 
+  return <Redirect href="/a/register/private-data" />;
+
   if (token) return <Redirect href="/a/home" />;
 
   return <Redirect href="/a/login" />;

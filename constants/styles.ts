@@ -21,4 +21,12 @@ const GLOBAL_STYLES = StyleSheet.create({
   buttonText: { fontSize: 16 }
 });
 
-export { GLOBAL_STYLES as gs };
+const AUTH_STYLES = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-evenly',
+    paddingHorizontal: '5%'
+  }
+});
+
+export { GLOBAL_STYLES as gs, AUTH_STYLES as as };

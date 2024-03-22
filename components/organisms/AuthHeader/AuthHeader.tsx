@@ -38,9 +38,9 @@ const s = StyleSheet.create({
   },
   back: {
     position: 'absolute',
-    height: '14%',
+    height: '22%',
     aspectRatio: 1,
     left: '10%',
-    top: '10%'
+    top: '30%'
   }
 });

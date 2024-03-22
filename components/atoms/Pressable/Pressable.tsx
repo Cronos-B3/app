@@ -4,14 +4,14 @@ import {
   Pressable as PressableRN,
   PressableProps as PressablePropsRN,
   ViewStyle,
-  View
+  View,
+  ViewProps
 } from 'react-native';
 
-type CustomProps = {
+export interface PressableProps extends PressablePropsRN {
   pressedOpacity?: number;
-};
-
-export type PressableProps = CustomProps & PressablePropsRN;
+  style?: ViewProps['style'];
+}
 
 const Pressable: ForwardRefRenderFunction<View, PressableProps> = (
   { children, style, disabled, pressedOpacity = 0.6, ...rest },
@@ -19,7 +19,7 @@ const Pressable: ForwardRefRenderFunction<View, PressableProps> = (
 ) => {
   // if (__DEV__) console.log('🐙 - Pressable');
 
-  const flattenStyle = StyleSheet.flatten(style) as ViewStyle;
+  const flattenStyle = StyleSheet.flatten(style as ViewProps['style']) as ViewStyle;
 
   const styleOpacity = flattenStyle?.opacity as number | undefined;
   const opacity = styleOpacity !== undefined ? styleOpacity * pressedOpacity : pressedOpacity;
