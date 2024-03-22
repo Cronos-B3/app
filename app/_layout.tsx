@@ -3,7 +3,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import setAxiosDefault from 'lib/setAxiosDefault';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ToastProvider } from 'react-native-toast-notifications';
 import 'intl-pluralrules';
@@ -11,6 +11,11 @@ import '../i18n';
 import { ScrollView } from 'react-native';
 import StatusBar from 'components/atoms/StatusBar/StatusBar';
 import { gs } from 'constants/styles';
+import { useTokenStore } from 'hooks/store/useTokenStore';
+import { useUserStore } from 'hooks/store/useUserStore';
+import { useAPI } from 'hooks/useAPI';
+import { v1 } from 'lib/api/backendRoutes';
+import convertUser from 'lib/convertDataDB/convertUser';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -35,12 +40,6 @@ export default function RootLayout() {
     if (error) throw error;
   }, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
   if (!loaded) {
     return null;
   }
@@ -51,6 +50,37 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const { token } = useTokenStore();
+  const { setUser } = useUserStore();
+  const { call } = useAPI();
+
+  const [userLoaded, setUserLoaded] = useState<boolean>(() => (token ? false : true));
+
+  useEffect(() => {
+    if (userLoaded) return;
+
+    (async () => {
+      if (__DEV__) console.log('🙌 - anonymous function');
+
+      if (!token) {
+        setUserLoaded(true);
+        return;
+      }
+
+      const { users } = await call(v1.users.get({ token }));
+
+      setUser(convertUser(users));
+      setUserLoaded(true);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!userLoaded) return;
+    SplashScreen.hideAsync();
+  }, [userLoaded]);
+
+  if (!userLoaded) return null;
+
   return (
     <ThemeProvider>
       <SafeAreaProvider>

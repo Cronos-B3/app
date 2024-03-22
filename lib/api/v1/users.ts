@@ -1,5 +1,8 @@
 import { HttpMethod } from 'hooks/useAPI';
 
+const url = '/v1/users';
+const method = 'GET' as HttpMethod;
+
 interface GetData {
   token: string;
 }
