@@ -30,7 +30,7 @@ export default () => {
   } = useForm({
     defaultValues: {
       email: '',
-      birthdate: moment().subtract(50, 'years').format('YYYY-MM-DD'),
+      birthdate: '',
       password: '',
       password_confirmation: ''
     }
