@@ -1,14 +1,20 @@
 import { HttpMethod } from 'hooks/useAPI';
 
 const url = '/auth/login';
+const method = 'POST' as HttpMethod;
 
 interface PostData {
-  u_email: string;
-  u_password: string;
+  identifier: string;
+  password: string;
 }
 
-const post = (data: PostData) => {
-  return { method: 'POST' as HttpMethod, url, data: { ...data } };
+const post = (rawData: PostData) => {
+  const data = {
+    identifier: rawData.identifier,
+    u_password: rawData.password
+  };
+
+  return { method, url, data };
 };
 
 export default { post };

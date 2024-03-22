@@ -1,29 +1,11 @@
 import React from 'react';
-import Text from 'components/ui/atoms/Text/Text';
-import { View, StyleSheet } from 'react-native';
-import { router } from 'expo-router';
-import Pressable from 'components/ui/atoms/Pressable/Pressable';
+import { Redirect } from 'expo-router';
+import { useTokenStore } from 'hooks/store/useTokenStore';
 
 export default () => {
-  if (__DEV__) console.log('🏳️ - index');
+  const { token } = useTokenStore();
 
-  return (
-    <View style={s.container}>
-      <Pressable style={{}} onPress={() => router.push('/login')}>
-        <Text>Login</Text>
-      </Pressable>
-    </View>
-  );
+  if (token) return <Redirect href="/a/home" />;
+
+  return <Redirect href="/a/login" />;
 };
-
-const s = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  text: {
-    fontSize: 20,
-    color: 'black'
-  }
-});

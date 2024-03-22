@@ -1,16 +1,28 @@
 import { HttpMethod } from 'hooks/useAPI';
 
 const url = '/auth/register';
+const method = 'POST' as HttpMethod;
 
 interface PostData {
-  u_username: string;
-  u_email: string;
-  u_password: string;
-  u_password_confirmation: string;
+  username: string;
+  nickname: string;
+  birthdate: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
 }
 
-const post = (data: PostData) => {
-  return { method: 'POST' as HttpMethod, url, data: { ...data } };
+const post = (rawData: PostData) => {
+  const data = {
+    u_username: rawData.username,
+    u_nickname: rawData.nickname.length !== 0 ? rawData.nickname : rawData.username,
+    u_birthdate: rawData.birthdate,
+    u_email: rawData.email,
+    u_password: rawData.password,
+    u_password_confirmation: rawData.password_confirmation
+  };
+
+  return { method, url, data };
 };
 
 export default { post };

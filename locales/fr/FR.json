@@ -1,0 +1,74 @@
+{
+  "common": {
+    "next": "Suivant",
+    "back": "Retour",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
+  },
+  "title": {},
+  "input": {
+    "identifier": {
+      "label": "Nom d'utilisateur ou email",
+      "placeholder": "Saisissez votre nom d'utilisateur ou votre email"
+    },
+    "username": {
+      "label": "Nom d'utilisateur",
+      "placeholder": "Saisissez votre nom d'utilisateur"
+    },
+    "nickname": {
+      "label": "Pseudo",
+      "placeholder": "Saisissez votre pseudo"
+    },
+    "birthdate": {
+      "label": "Date de naissance",
+      "placeholder": "JJ/MM/AAAA",
+      "format": "{{day}}/{{month}}/{{year}}"
+    },
+    "phone": {
+      "title": "Téléphone",
+      "message": "Message"
+    },
+    "email": {
+      "title": "Email",
+      "label": "Adresse e-mail",
+      "placeholder": "Saisissez votre email"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "placeholder": "Saisissez votre mot de passe"
+    },
+    "password_confirmation": {
+      "label": "Confirmez votre mot de passe",
+      "placeholder": "Confirmez votre mot de passe"
+    },
+    "format": {
+      "required": "requis",
+      "min_length": "too short",
+      "pattern": "format invalide",
+      "validate": "valeur invalide"
+    }
+  },
+  "app": {},
+  "auth": {
+    "register": "Créer son compte",
+    "login": "Se connecter",
+    "connect": "Connexion à votre espace",
+    "no_account": "Pas encore de compte ? <bold>Créez votre compte Cronos !</bold>",
+    "forgot_password": "Mot de passe oublié ?",
+    "old_enough": "J'ai plus de 15 ans",
+    "terms": "J'accepte les <bold>conditions générales d'utilisation</bold>",
+    "privacy": "J'accepte la <bold>politique de confidentialité</bold>"
+  },
+  "policy": {
+    "terms": "Conditions générales d'utilisation",
+    "privacy": "Politique de confidentialité"
+  },
+  "success": {},
+  "error": {
+    "generic": "Une erreur est survenue\nVeuillez réessayer plus tard",
+    "server": "Le serveur est en maintenance\nVeuillez réessayer plus tard",
+    "network": "Connexion trop faible\nVérifiez votre connexion internet",
+    "invalid_credentials": "Identifiant ou mot de passe incorrect",
+    "email_exists": "L'email entré est déjà utilisé"
+  }
+}

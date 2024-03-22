@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { useTokenStore } from 'hooks/store/useTokenStore';
 import { useCallback, useState } from 'react';
-import { useTokenStore } from './store/tokenStore';
 
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
 interface CallParams {
   method: HttpMethod;
   url: string;
@@ -20,85 +21,79 @@ export const useAPI = (baseURL?: string) => {
 
   const [loading, setLoading] = useState<boolean>(() => false);
 
-  const call = useCallback(
-    async ({ method, url, data = {}, tokenHeader = token }: CallParams) => {
-      setLoading(true);
+  const call = useCallback(async ({ method, url, data = {}, tokenHeader = token }: CallParams) => {
+    setLoading(true);
 
-      if (__DEV__) console.log(`🛎️ - ${method} - ${baseURL ?? axios.defaults.baseURL + url}`);
+    if (__DEV__) console.log(`🛎️ - ${method} - ${baseURL ?? axios.defaults.baseURL + url}`);
 
-      // Adapt the data to the method for axios
-      const callData: CallData = ['GET', 'DELETE'].includes(method) ? { params: data } : { data };
+    // Adapt the data to the method for axios
+    const callData: CallData = ['GET', 'DELETE'].includes(method) ? { params: data } : { data };
 
-      try {
-        const { config, data, request, status, statusText } = await axios({
-          method,
-          baseURL,
-          headers: { Authorization: tokenHeader ? `Bearer ${tokenHeader}` : '' },
-          url,
-          ...callData
-        });
+    try {
+      const { config, data, request, status, statusText } = await axios({
+        method,
+        baseURL,
+        headers: { Authorization: tokenHeader ? `Bearer ${tokenHeader}` : '' },
+        url,
+        ...callData
+      });
 
-        if (__DEV__) {
-          console.log('📀📀 - Request Response');
-          console.log('📀 - config', config);
-          console.log('📀 - data', data.data);
-          console.log('📀 - metadata', data.metadata);
-          console.log('📀 - request', request);
-          console.log(`📀 - status: ${status} - ${statusText}`);
-          console.log('📀📀 - End Request Response');
-        }
-
-        return data.data;
-      } catch (error) {
-        if (__DEV__) console.error('🔥 - error', error);
-
-        if (error.code === 'ERR_NETWORK') {
-          if (__DEV__) console.error('ERR_NETWORK');
-          // TODO: GO TO OFFLINE PAGE
-          return;
-        }
-
-        switch (error.response?.status) {
-          case 400:
-            if (__DEV__) console.error('BAD REQUEST');
-            break;
-
-          case 401:
-            if (__DEV__) console.error('TOKEN NOT VALID');
-            break;
-
-          case 403:
-            if (__DEV__) console.error('USER DO NOT HAVE ACCESS TO THIS RESOURCE');
-            break;
-
-          case 405:
-            if (__DEV__) console.error('METHOD NOT ALLOWED');
-            break;
-
-          case 429:
-            if (__DEV__) console.error('TOO MANY REQUESTS');
-            break;
-
-          case 500:
-            if (__DEV__) console.error('INTERNAL SERVER ERROR');
-            // TODO: GO TO OFFLINE PAGE
-            break;
-
-          case 503:
-            if (__DEV__) console.error('SERVICE UNAVAILABLE');
-            // TODO: GO TO OFFLINE PAGE
-            break;
-
-          default:
-          // error not handled here
-        }
-        throw error.response;
-      } finally {
-        setLoading(false);
+      if (__DEV__) {
+        console.log('📀📀 - Request Response');
+        // console.log('📀 - config', config);
+        // console.log('📀 - data', data.data);
+        // console.log('📀 - metadata', data.metadata);
+        // console.log('📀 - request', request);
+        console.log(`📀 - status: ${status} - ${statusText}`);
+        console.log('📀📀 - End Request Response');
       }
-    },
-    [token]
-  );
+
+      return data.data;
+    } catch (error) {
+      if (!(error instanceof AxiosError)) {
+        if (__DEV__) console.error('🔥 - error - ', error);
+        throw { code: -1 };
+      }
+
+      if (__DEV__) console.error('🔥 - axios error - ', error);
+
+      switch (error.response?.status) {
+        case 400:
+          if (__DEV__) console.error('BAD REQUEST');
+          break;
+
+        case 401:
+          if (__DEV__) console.error('TOKEN NOT VALID');
+          break;
+
+        case 403:
+          if (__DEV__) console.error('USER DO NOT HAVE ACCESS TO THIS RESOURCE');
+          break;
+
+        case 405:
+          if (__DEV__) console.error('METHOD NOT ALLOWED');
+          break;
+
+        case 429:
+          if (__DEV__) console.error('TOO MANY REQUESTS');
+          break;
+
+        case 500:
+          if (__DEV__) console.error('INTERNAL SERVER ERROR');
+          throw { code: -1 };
+
+        case 503:
+          if (__DEV__) console.error('SERVICE UNAVAILABLE');
+          throw { code: -1 };
+
+        default:
+        // error not handled here
+      }
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   return { loading, call };
 };

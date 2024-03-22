@@ -1,13 +1,23 @@
-import axios from 'axios';
 import { ThemeProvider, useTheme } from 'contexts/ThemeContext';
-import { TranslateProvider } from 'contexts/TranslateContext';
-import { UserProvider } from 'contexts/UserContext';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar, StatusBarStyle } from 'expo-status-bar';
-import { useEffect } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import setAxiosDefault from 'lib/setAxiosDefault';
+import { useEffect, useState } from 'react';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ToastProvider, useToast } from 'react-native-toast-notifications';
+import 'intl-pluralrules';
+import '../i18n';
+import { ScrollView } from 'react-native';
+import StatusBar from 'components/atoms/StatusBar/StatusBar';
+import { gs } from 'constants/styles';
+import { useTokenStore } from 'hooks/store/useTokenStore';
+import { useUserStore } from 'hooks/store/useUserStore';
+import { useAPI } from 'hooks/useAPI';
+import { v1 } from 'lib/api/backendRoutes';
+import convertUser from 'lib/convertDataDB/convertUser';
+import useErrorHandling from 'hooks/useErrorHandling';
+import { useTranslation } from 'react-i18next';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -32,51 +42,95 @@ export default function RootLayout() {
     if (error) throw error;
   }, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
   if (!loaded) {
     return null;
   }
 
-  // Set the default headers for axios.
-  axios.defaults.headers.common['Accept'] = 'application/json';
-  axios.defaults.headers.common['Content-Type'] = 'application/json';
-  axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-
-  // Set the default base URL for axios.
-  axios.defaults.baseURL = `${process.env.EXPO_PUBLIC_CRONOS_API ?? 'http://localhost'}/api`;
+  setAxiosDefault();
 
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
-  if (__DEV__) console.log('🥇 - RootLayoutNav');
+  const toast = useToast();
+  const { token, removeToken } = useTokenStore();
+  const { setUser, logout } = useUserStore();
+  const { call } = useAPI();
+  const { handleError } = useErrorHandling();
+  const { t } = useTranslation('error');
+
+  const [userLoaded, setUserLoaded] = useState<boolean>(() => (token ? false : true));
+
+  useEffect(() => {
+    if (userLoaded) return;
+
+    (async () => {
+      if (__DEV__) console.log('🙌 - anonymous function');
+
+      if (!token) {
+        setUserLoaded(true);
+        return;
+      }
+
+      try {
+        const { users } = await call(v1.users.get({ token }));
+        setUser(convertUser(users));
+      } catch (error) {
+        const response = handleError(error);
+        if (!response) return;
+
+        switch (response.status) {
+          case 401:
+            removeToken();
+            logout();
+            break;
+
+          default:
+            toast.show(t('generic'), { type: 'danger' });
+            break;
+        }
+      }
+
+      setUserLoaded(true);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!userLoaded) return;
+    SplashScreen.hideAsync();
+  }, [userLoaded]);
+
+  if (!userLoaded) return null;
 
   return (
-    <UserProvider>
-      <ThemeProvider>
-        <TranslateProvider>
-          <SafeAreaProvider>
-            <Layout />
-          </SafeAreaProvider>
-        </TranslateProvider>
-      </ThemeProvider>
-    </UserProvider>
+    <ThemeProvider>
+      <SafeAreaProvider>
+        <StatusBar />
+        <ScrollView contentContainerStyle={gs.flex} scrollEnabled={false}>
+          <Layout />
+        </ScrollView>
+      </SafeAreaProvider>
+    </ThemeProvider>
   );
 }
 
 const Layout = () => {
-  if (__DEV__) console.log('🥈 - Layout');
-
   const { colors } = useTheme();
+  const { top, bottom } = useSafeAreaInsets();
 
   return (
-    <>
-      <StatusBar style={colors.status_bar as StatusBarStyle} backgroundColor={colors.background} />
+    <ToastProvider
+      placement="bottom"
+      offset={top + 30}
+      offsetBottom={bottom + 30}
+      duration={6000}
+      animationType="slide-in"
+      animationDuration={500}
+      swipeEnabled={true}
+      dangerColor={colors.error}
+      style={{ borderRadius: 9, paddingHorizontal: '8%', paddingVertical: '2.5%' }}
+      textStyle={{ color: colors.light, textAlign: 'center' }}
+    >
       <Stack
         screenOptions={{
           headerShown: false,
@@ -85,8 +139,8 @@ const Layout = () => {
       >
         <Stack.Screen name="index" />
         <Stack.Screen name="(app)" />
-        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(auth)/a" />
       </Stack>
-    </>
+    </ToastProvider>
   );
 };
