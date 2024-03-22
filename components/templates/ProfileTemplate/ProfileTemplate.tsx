@@ -33,7 +33,7 @@ const ProfileTemplate = ({ profile }: ProfileTemplateProps) => {
   return (
     <View style={[s.flex, { marginTop: top }]}>
       <ScrollView>
-        <Image containerStyle={s.bannerBackground} source={''} />
+        <Image containerStyle={s.bannerBackground} source={profile.banner_picture} />
         <View style={s.contentContainer}>
           <ProfileInformations profile={profile} />
           <ProfilePosts />

@@ -15,14 +15,14 @@ const ProfileInformations = ({ profile }: ProfileInformationsProps) => {
 
   return (
     <View style={s.container}>
-      <Image style={s.profilePicture} source={''} />
+      <Image style={s.profilePicture} source={profile.profile_picture} />
       <View style={s.data}>
         <View>
           <Text style={s.username} numberOfLines={1}>
             @{profile.username}
           </Text>
           <Text style={s.nickname} font="bold" numberOfLines={1}>
-            {profile.nickname ?? profile.username}
+            {profile.nickname}
           </Text>
         </View>
         <Text style={s.followers}>{0} Followers</Text>
