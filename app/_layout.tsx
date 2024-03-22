@@ -1,11 +1,11 @@
 import { ThemeProvider, useTheme } from 'contexts/ThemeContext';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import setAxiosDefault from 'lib/setAxiosDefault';
 import { useEffect, useState } from 'react';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ToastProvider } from 'react-native-toast-notifications';
+import { ToastProvider, useToast } from 'react-native-toast-notifications';
 import 'intl-pluralrules';
 import '../i18n';
 import { ScrollView } from 'react-native';
@@ -16,6 +16,8 @@ import { useUserStore } from 'hooks/store/useUserStore';
 import { useAPI } from 'hooks/useAPI';
 import { v1 } from 'lib/api/backendRoutes';
 import convertUser from 'lib/convertDataDB/convertUser';
+import useErrorHandling from 'hooks/useErrorHandling';
+import { useTranslation } from 'react-i18next';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,9 +52,12 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { token } = useTokenStore();
-  const { setUser } = useUserStore();
+  const toast = useToast();
+  const { token, removeToken } = useTokenStore();
+  const { setUser, logout } = useUserStore();
   const { call } = useAPI();
+  const { handleError } = useErrorHandling();
+  const { t } = useTranslation('error');
 
   const [userLoaded, setUserLoaded] = useState<boolean>(() => (token ? false : true));
 
@@ -67,9 +72,25 @@ function RootLayoutNav() {
         return;
       }
 
-      const { users } = await call(v1.users.get({ token }));
+      try {
+        const { users } = await call(v1.users.get({ token }));
+        setUser(convertUser(users));
+      } catch (error) {
+        const response = handleError(error);
+        if (!response) return;
 
-      setUser(convertUser(users));
+        switch (response.status) {
+          case 401:
+            removeToken();
+            logout();
+            break;
+
+          default:
+            toast.show(t('generic'), { type: 'danger' });
+            break;
+        }
+      }
+
       setUserLoaded(true);
     })();
   }, []);

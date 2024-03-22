@@ -5,7 +5,7 @@ import { useTokenStore } from 'hooks/store/useTokenStore';
 export default () => {
   const { token } = useTokenStore();
 
-  if (!token) return <Redirect href="/login" />;
+  if (!token) return <Redirect href="/a/login" />;
 
   return (
     <>
