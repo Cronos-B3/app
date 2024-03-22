@@ -11,6 +11,14 @@
       "label": "Nom d'utilisateur ou email",
       "placeholder": "Saisissez votre nom d'utilisateur ou votre email"
     },
+    "username": {
+      "label": "Nom d'utilisateur",
+      "placeholder": "Saisissez votre nom d'utilisateur"
+    },
+    "nickname": {
+      "label": "Pseudo",
+      "placeholder": "Saisissez votre pseudo"
+    },
     "birthdate": {
       "label": "Date de naissance",
       "placeholder": "JJ/MM/AAAA",
@@ -35,10 +43,9 @@
     },
     "format": {
       "required": "requis",
-      "invalid": "format invalide",
       "min_length": "too short",
-      "validate": "valeur invalide",
-      "not_unique": "déjà utilisé"
+      "pattern": "format invalide",
+      "validate": "valeur invalide"
     }
   },
   "app": {},
@@ -56,15 +63,12 @@
     "terms": "Conditions générales d'utilisation",
     "privacy": "Politique de confidentialité"
   },
-  "success": {
-    "contacts": {
-      "added": "Contact ajouté avec succès à votre répertoire !"
-    }
-  },
+  "success": {},
   "error": {
     "generic": "Une erreur est survenue\nVeuillez réessayer plus tard",
     "server": "Le serveur est en maintenance\nVeuillez réessayer plus tard",
     "network": "Connexion trop faible\nVérifiez votre connexion internet",
-    "invalid_credentials": "Identifiant ou mot de passe incorrect"
+    "invalid_credentials": "Identifiant ou mot de passe incorrect",
+    "email_exists": "L'email entré est déjà utilisé"
   }
 }

@@ -15,6 +15,8 @@ export default () => {
       }}
     >
       <Stack.Screen name="policies" />
+      <Stack.Screen name="private-data" />
+      <Stack.Screen name="public-data" />
     </Stack>
   );
 };

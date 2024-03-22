@@ -6,6 +6,8 @@ export type UserType = {
   nickname: string;
   email: string;
   birthdate?: string;
+  profile_picture: string;
+  banner_picture: string;
   role: 'ROLE_USER';
 };
 

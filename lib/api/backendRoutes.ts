@@ -1,5 +1,6 @@
 import login from './auth/login';
 import register from './auth/register';
+import registerEmailExist from './auth/registerEmailExist';
 import users from './v1/users';
 
 const v1 = {
@@ -8,7 +9,8 @@ const v1 = {
 
 const auth = {
   login,
-  register
+  register,
+  registerEmailExist
 };
 
 export { auth, v1 };

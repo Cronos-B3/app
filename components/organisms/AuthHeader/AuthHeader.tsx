@@ -18,12 +18,12 @@ const AuthHeader = () => {
 
   return (
     <View style={[s.container, { marginTop: top }]}>
+      <Image source={IMAGES.logo} style={gs.flex} contentFit="contain" />
       {router.canGoBack() && (
         <Pressable style={s.back} onPress={() => router.back()}>
           <LeftArrow color={colors.light} />
         </Pressable>
       )}
-      <Image source={IMAGES.logo} style={gs.flex} contentFit="contain" />
     </View>
   );
 };
