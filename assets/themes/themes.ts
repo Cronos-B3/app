@@ -15,6 +15,8 @@ export type ThemeObject = {
 
 export type Theme = 'dark';
 
+export const DEFAULT_THEME: Theme = 'dark';
+
 type Themes = {
   dark: ThemeObject;
 };

@@ -1,4 +1,5 @@
 import themes, { Theme, ThemeObject } from 'assets/themes/themes';
+import { useConfigStore } from 'hooks/store/useConfigStore';
 import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
 
 export type ThemeContextType = {
@@ -12,8 +13,9 @@ const ThemeContext = createContext<ThemeContextType | null>(null);
 export const ThemeProvider = ({ children }) => {
   if (__DEV__) console.log('🙌 - ThemeProvider');
 
-  const [theme, setTheme] = useState<Theme>(() => 'dark');
-  const [colors, setColors] = useState<ThemeObject>(() => themes.dark);
+  const { theme, setTheme } = useConfigStore();
+
+  const [colors, setColors] = useState<ThemeObject>(() => themes[theme]);
 
   useEffect(() => {
     setColors(themes[theme]);

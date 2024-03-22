@@ -2,7 +2,8 @@
   "common": {
     "next": "Suivant",
     "back": "Retour",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
   },
   "title": {},
   "input": {
@@ -28,7 +29,7 @@
       "label": "Mot de passe",
       "placeholder": "Saisissez votre mot de passe"
     },
-    "passwordConfirmation": {
+    "password_confirmation": {
       "label": "Confirmez votre mot de passe",
       "placeholder": "Confirmez votre mot de passe"
     },
