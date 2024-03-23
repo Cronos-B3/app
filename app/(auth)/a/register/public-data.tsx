@@ -14,7 +14,7 @@ import convertUser from 'lib/convertDataDB/convertUser';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
+import { Toast } from 'react-native-toast-notifications';
 
 export default () => {
   const { email, birthdate, password, password_confirmation } = useLocalSearchParams<{
@@ -32,7 +32,6 @@ export default () => {
   const keyboards = avoidKeyboard(1);
   const { call, loading } = useAPI();
   const { handleError } = useErrorHandling();
-  const toast = useToast();
   const { colors } = useTheme();
   const { setToken } = useTokenStore();
   const { setUser } = useUserStore();
@@ -63,10 +62,11 @@ export default () => {
 
       switch (response.status) {
         case 422:
+          control.setError('username', { type: 'conflict' });
           break;
 
         default:
-          toast.show(t('error:generic'), { type: 'danger' });
+          Toast.show(t('error:generic'), { type: 'danger' });
           break;
       }
     }

@@ -6,8 +6,8 @@ interface ISvg {
 
 type SvgProps = ISvg & SvgPropsDefault;
 
-interface FocusProps {
+interface ISvgFocus {
   focused?: boolean;
 }
 
-export { SvgProps, FocusProps };
+export { SvgProps, ISvgFocus };

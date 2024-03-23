@@ -1,10 +1,9 @@
 import { AxiosError } from 'axios';
 import { useTranslation } from 'react-i18next';
-import { useToast } from 'react-native-toast-notifications';
+import { Toast } from 'react-native-toast-notifications';
 
-function useErrorHandling() {
+const useErrorHandling = () => {
   const { t } = useTranslation('error');
-  const toast = useToast();
 
   const handleError = (error: any) => {
     if (!(error instanceof AxiosError)) {
@@ -12,17 +11,17 @@ function useErrorHandling() {
 
       switch (error.code) {
         case -1:
-          toast.show(t('server'), { type: 'danger' });
+          Toast.show(t('server'), { type: 'danger' });
           break;
 
         default:
-          toast.show(t('generic'), { type: 'danger' });
+          Toast.show(t('generic'), { type: 'danger' });
       }
       return;
     }
 
     if (!error.response) {
-      toast.show(t('network'), { type: 'danger' });
+      Toast.show(t('network'), { type: 'danger' });
       return;
     }
 
@@ -30,6 +29,6 @@ function useErrorHandling() {
   };
 
   return { handleError };
-}
+};
 
 export default useErrorHandling;

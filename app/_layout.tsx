@@ -1,11 +1,11 @@
 import { ThemeProvider, useTheme } from 'contexts/ThemeContext';
 import { useFonts } from 'expo-font';
-import { router, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import setAxiosDefault from 'lib/setAxiosDefault';
 import { useEffect, useState } from 'react';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ToastProvider, useToast } from 'react-native-toast-notifications';
+import { Toast, ToastProvider } from 'react-native-toast-notifications';
 import 'intl-pluralrules';
 import '../i18n';
 import { ScrollView } from 'react-native';
@@ -52,7 +52,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const toast = useToast();
   const { token, removeToken } = useTokenStore();
   const { setUser, logout } = useUserStore();
   const { call } = useAPI();
@@ -86,7 +85,7 @@ function RootLayoutNav() {
             break;
 
           default:
-            toast.show(t('generic'), { type: 'danger' });
+            Toast.show(t('generic'), { type: 'danger' });
             break;
         }
       }
@@ -100,7 +99,7 @@ function RootLayoutNav() {
     SplashScreen.hideAsync();
   }, [userLoaded]);
 
-  if (!userLoaded) return null;
+  // if (!userLoaded) return null;
 
   return (
     <ThemeProvider>

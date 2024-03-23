@@ -1,17 +1,27 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import Post from 'components/molecules/Post/Post';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { DEVICE } from 'constants/config';
+import { HEIGHT_TAB_BAR } from 'components/organisms/TabBar/TabBar';
 
 export default () => {
   if (__DEV__) console.log('🏳️ - home');
 
   return (
-    <View style={s.container}>
-      <Post />
-    </View>
+    <ScrollView style={s.container} showsVerticalScrollIndicator={false}>
+      {/* <View style={{ height: DEVICE.height * 0.3, backgroundColor: 'blue' }}></View>
+      <View style={{ height: DEVICE.height * 0.3, backgroundColor: 'red' }}></View>
+      <View style={{ height: DEVICE.height * 0.3, backgroundColor: 'blue' }}></View>
+      <View style={{ height: DEVICE.height * 0.3, backgroundColor: 'red' }}></View>
+      <View style={{ height: DEVICE.height * 0.3, backgroundColor: 'blue' }}></View>
+      <View style={{ height: DEVICE.height * 0.3, backgroundColor: 'red' }}></View> */}
+    </ScrollView>
   );
 };
 
 const s = StyleSheet.create({
-  container: { flex: 1 }
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    paddingBottom: HEIGHT_TAB_BAR
+  }
 });

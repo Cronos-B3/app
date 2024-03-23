@@ -45,7 +45,8 @@
       "required": "requis",
       "min_length": "too short",
       "pattern": "format invalide",
-      "validate": "valeur invalide"
+      "validate": "valeur invalide",
+      "conflict": "déjà utilisé"
     }
   },
   "app": {},
@@ -68,7 +69,6 @@
     "generic": "Une erreur est survenue\nVeuillez réessayer plus tard",
     "server": "Le serveur est en maintenance\nVeuillez réessayer plus tard",
     "network": "Connexion trop faible\nVérifiez votre connexion internet",
-    "invalid_credentials": "Identifiant ou mot de passe incorrect",
-    "email_exists": "L'email entré est déjà utilisé"
+    "invalid_credentials": "Identifiant ou mot de passe incorrect"
   }
 }

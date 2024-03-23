@@ -18,8 +18,7 @@ import { useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Trans, useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { useToast } from 'react-native-toast-notifications';
-import { Heart } from './../../../assets/svg/test/Heart';
+import { Toast } from 'react-native-toast-notifications';
 import StyledPasswordInput from 'components/PasswordInput/StyledPasswordInput';
 
 export default () => {
@@ -33,7 +32,6 @@ export default () => {
   const keyboards = avoidKeyboard(2);
   const { call, loading } = useAPI();
   const { handleError } = useErrorHandling();
-  const toast = useToast();
 
   const {
     control,
@@ -85,11 +83,11 @@ export default () => {
 
       switch (response.status) {
         case 401:
-          toast.show(t('error:invalid_credentials'), { type: 'danger' });
+          Toast.show(t('error:invalid_credentials'), { type: 'danger' });
           break;
 
         default:
-          toast.show(t('error:generic'), { type: 'danger' });
+          Toast.show(t('error:generic'), { type: 'danger' });
           break;
       }
     }

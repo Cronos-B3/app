@@ -3,17 +3,17 @@ import { Svg, Path } from 'react-native-svg';
 import { SvgProps } from './types';
 
 export const TabBarBackground = ({ color, height = '100%', width = '100%', ...rest }: SvgProps) => {
-  if (__DEV__) console.log('🌈 - TabBarBackground');
+  if (__DEV__) console.log('🌈 - TabBar');
 
-  const pathProps = {
+  const pathsProps = {
     fill: color
   };
 
   return (
-    <Svg width={width} height={height} viewBox="0 0 390 70" fill="none" {...rest}>
+    <Svg width={width} height={height} viewBox="0 0 390 120" {...rest}>
       <Path
-        d="M123 0H0V70H390V0H267C255.286 0 253.5 4 243 12C232.5 20 215.84 30 195 30C173.168 30 156.026 18.8773 147 12C136.5 4 135 0 123 0Z"
-        {...pathProps}
+        d="M146.01 0H0V120H390V0H243.99C243.353 3.11949 242.418 6.17852 241.194 9.13417C238.681 15.2005 234.998 20.7124 230.355 25.3553C225.712 29.9983 220.2 33.6812 214.134 36.194C208.068 38.7067 201.566 40 195 40C188.434 40 181.932 38.7067 175.866 36.194C169.8 33.6812 164.288 29.9983 159.645 25.3553C155.002 20.7124 151.319 15.2004 148.806 9.13417C147.582 6.17852 146.647 3.11949 146.01 0Z"
+        {...pathsProps}
       />
     </Svg>
   );

@@ -18,14 +18,13 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Platform, StyleSheet, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import { useToast } from 'react-native-toast-notifications';
+import { Toast } from 'react-native-toast-notifications';
 
 export default () => {
   const keyboards = avoidKeyboard(3);
   const { t } = useTranslation();
   const { colors } = useTheme();
   const { lang } = useConfigStore();
-  const toast = useToast();
   const { handleError } = useErrorHandling();
   const { call, loading } = useAPI();
 
@@ -63,11 +62,11 @@ export default () => {
 
       switch (response.status) {
         case 409:
-          toast.show(t('error:email_exists'), { type: 'danger' });
+          control.setError('email', { type: 'conflict' });
           break;
 
         default:
-          toast.show(t('error:generic'), { type: 'danger' });
+          Toast.show(t('error:generic'), { type: 'danger' });
           break;
       }
     }
