@@ -1,13 +1,12 @@
 import { LeftArrow } from 'assets/svg/Arrow';
 import Image from 'components/atoms/Image/Image';
 import Pressable from 'components/atoms/Pressable/Pressable';
-import Text from 'components/atoms/BaseText/Text';
 import ProfileInformations from 'components/organisms/ProfileInformations/ProfileInformations';
 import ProfilePosts from 'components/organisms/ProfilePosts/ProfilePosts';
 import { DEVICE } from 'constants/config';
 import { router } from 'expo-router';
 import { UserType } from 'hooks/store/useUserStore';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -33,7 +32,11 @@ const ProfileTemplate = ({ profile }: ProfileTemplateProps) => {
   return (
     <View style={[s.flex, { marginTop: top }]}>
       <ScrollView>
-        <Image containerStyle={s.bannerBackground} source={profile.banner_picture} />
+        <Image
+          containerStyle={s.bannerBackground}
+          source={profile.banner_picture}
+          contentFit="cover"
+        />
         <View style={s.contentContainer}>
           <ProfileInformations profile={profile} />
           <ProfilePosts />

@@ -7,10 +7,6 @@ const GLOBAL_STYLES = StyleSheet.create({
     height: DEVICE.height * 0.067,
     width: '100%'
   },
-  inputText: {
-    borderBottomWidth: 1,
-    marginHorizontal: '1%'
-  },
   button: {
     height: DEVICE.height * 0.047,
     width: '100%',

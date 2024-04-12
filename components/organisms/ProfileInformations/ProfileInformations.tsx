@@ -5,6 +5,8 @@ import { DEVICE } from 'constants/config';
 import { UserType } from 'hooks/store/useUserStore';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import Dots from 'assets/svg/Dots';
+import { useTheme } from 'contexts/ThemeContext';
 
 type ProfileInformationsProps = {
   profile: UserType;
@@ -12,6 +14,8 @@ type ProfileInformationsProps = {
 
 const ProfileInformations = ({ profile }: ProfileInformationsProps) => {
   if (__DEV__) console.log('🐙 - ProfileInformations');
+
+  const { colors } = useTheme();
 
   return (
     <View style={s.container}>
@@ -32,7 +36,9 @@ const ProfileInformations = ({ profile }: ProfileInformationsProps) => {
               Follow
             </Text>
           </Pressable>
-          <Pressable style={s.moreButton}></Pressable>
+          <Pressable style={s.moreButton}>
+            <Dots color={colors.light} height="50%" width="50%" />
+          </Pressable>
         </View>
       </View>
     </View>
@@ -77,6 +83,8 @@ const s = StyleSheet.create({
     height: '100%',
     aspectRatio: 1,
     backgroundColor: '#9F62E4',
-    borderRadius: 9
+    borderRadius: 9,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

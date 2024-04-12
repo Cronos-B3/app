@@ -99,7 +99,7 @@ function RootLayoutNav() {
     SplashScreen.hideAsync();
   }, [userLoaded]);
 
-  // if (!userLoaded) return null;
+  if (!userLoaded) return null;
 
   return (
     <ThemeProvider>

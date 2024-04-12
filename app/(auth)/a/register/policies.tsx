@@ -99,6 +99,7 @@ const s = StyleSheet.create({
   },
   checkBox: { borderRadius: 6 },
   text: {
+    flex: 1,
     marginTop: '1.25%',
     fontSize: 16
   },
