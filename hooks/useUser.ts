@@ -6,8 +6,8 @@ import { v1 } from 'lib/api/backendRoutes';
 import useErrorHandling from './useErrorHandling';
 
 const useUser = () => {
-  const { token } = useTokenStore();
-  const { setUser } = useUserStore();
+  const { token, removeToken } = useTokenStore();
+  const { setUser, logout } = useUserStore();
   const { call } = useAPI();
   const { handleError } = useErrorHandling();
 
@@ -18,8 +18,18 @@ const useUser = () => {
       setUser(convertUser(users));
       return true;
     } catch (error) {
-      const response = handleError(error);
+      const response = handleError(error, false);
       if (!response) return;
+
+      switch (response.status) {
+        case 401:
+          logout();
+          removeToken();
+          break;
+
+        default:
+          break;
+      }
     }
   };
 
