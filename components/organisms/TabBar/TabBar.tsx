@@ -40,6 +40,11 @@ const TabBar = () => {
     );
   }, [isMenuOpened]);
 
+  const navigate = (href: string) => {
+    router.navigate(href);
+    setIsMenuOpened(false);
+  };
+
   const menuOpenedMemo = useMemo(() => {
     if (!isMenuOpened) return null;
 
@@ -64,13 +69,22 @@ const TabBar = () => {
             s.container
           ]}
         >
-          <Pressable style={[s.buttons, s.innerButton, { backgroundColor: colors.primary }]}>
+          <Pressable
+            style={[s.buttons, s.innerButton, { backgroundColor: colors.primary }]}
+            onPress={() => navigate('/modal/create-post')}
+          >
             <Modify color={colors.light} height={'45%'} />
           </Pressable>
-          <Pressable style={[s.buttons, s.topLeftButton, { backgroundColor: colors.primary }]}>
+          <Pressable
+            style={[s.buttons, s.topLeftButton, { backgroundColor: colors.primary }]}
+            onPress={() => navigate('/modal/settings')}
+          >
             <Settings color={colors.light} height={'45%'} />
           </Pressable>
-          <Pressable style={[s.buttons, s.topRightButton, { backgroundColor: colors.primary }]}>
+          <Pressable
+            style={[s.buttons, s.topRightButton, { backgroundColor: colors.primary }]}
+            onPress={() => navigate('/modal/search')}
+          >
             <Search color={colors.light} height={'45%'} />
           </Pressable>
         </View>

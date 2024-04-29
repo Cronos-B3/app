@@ -66,9 +66,14 @@
   },
   "success": {},
   "error": {
-    "generic": "Une erreur est survenue\nVeuillez réessayer plus tard",
-    "server": "Le serveur est en maintenance\nVeuillez réessayer plus tard",
     "network": "Connexion trop faible\nVérifiez votre connexion internet",
-    "invalid_credentials": "Identifiant ou mot de passe incorrect"
+    "invalid_credentials": "Identifiant ou mot de passe incorrect",
+    "went_wrong": "Quelque chose s'est mal passé\nVeuillez réessayer ultérieurement",
+    "generic": "Erreur\nVeuillez réessayer ultérieurement",
+    "server": "Erreur serveur\nVeuillez réessayer ultérieurement",
+    "disconnected": "Connexion faible\nVeuillez vous reconnecter à internet",
+    "credentials": "Adresse email ou mot de passe incorrect",
+    "too_many_requests": "Trop de tentatives\nVeuillez réessayer ultérieurement",
+    "unprocessable_entity": "Erreur de format\nVeuillez vérifier les informations saisies"
   }
 }

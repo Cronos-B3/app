@@ -5,19 +5,13 @@ import * as SplashScreen from 'expo-splash-screen';
 import setAxiosDefault from 'lib/setAxiosDefault';
 import { useEffect, useState } from 'react';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Toast, ToastProvider } from 'react-native-toast-notifications';
+import { ToastProvider } from 'react-native-toast-notifications';
 import 'intl-pluralrules';
 import '../i18n';
 import { ScrollView } from 'react-native';
 import StatusBar from 'components/atoms/StatusBar/StatusBar';
 import { gs } from 'constants/styles';
-import { useTokenStore } from 'hooks/store/useTokenStore';
-import { useUserStore } from 'hooks/store/useUserStore';
-import { useAPI } from 'hooks/useAPI';
-import { v1 } from 'lib/api/backendRoutes';
-import convertUser from 'lib/convertDataDB/convertUser';
-import useErrorHandling from 'hooks/useErrorHandling';
-import { useTranslation } from 'react-i18next';
+import useUser from 'hooks/useUser';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -48,72 +42,18 @@ export default function RootLayout() {
 
   setAxiosDefault();
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const { token, removeToken } = useTokenStore();
-  const { setUser, logout } = useUserStore();
-  const { call } = useAPI();
-  const { handleError } = useErrorHandling();
-  const { t } = useTranslation('error');
-
-  const [userLoaded, setUserLoaded] = useState<boolean>(() => (token ? false : true));
-
-  useEffect(() => {
-    if (userLoaded) return;
-
-    (async () => {
-      if (__DEV__) console.log('🙌 - anonymous function');
-
-      if (!token) {
-        setUserLoaded(true);
-        return;
-      }
-
-      try {
-        const { users } = await call(v1.users.get({ token }));
-        setUser(convertUser(users));
-      } catch (error) {
-        const response = handleError(error);
-        if (!response) return;
-
-        switch (response.status) {
-          case 401:
-            removeToken();
-            logout();
-            break;
-
-          default:
-            Toast.show(t('generic'), { type: 'danger' });
-            break;
-        }
-      }
-
-      setUserLoaded(true);
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (!userLoaded) return;
-    SplashScreen.hideAsync();
-  }, [userLoaded]);
-
-  if (!userLoaded) return null;
-
   return (
-    <ThemeProvider>
-      <SafeAreaProvider>
-        <StatusBar />
-        <ScrollView contentContainerStyle={gs.flex} scrollEnabled={false}>
-          <Layout />
-        </ScrollView>
-      </SafeAreaProvider>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ScrollView contentContainerStyle={gs.flex} scrollEnabled={false}>
+        <ThemeProvider>
+          <LayoutConfig />
+        </ThemeProvider>
+      </ScrollView>
+    </SafeAreaProvider>
   );
 }
 
-const Layout = () => {
+const LayoutConfig = () => {
   const { colors } = useTheme();
   const { top, bottom } = useSafeAreaInsets();
 
@@ -130,16 +70,54 @@ const Layout = () => {
       style={{ borderRadius: 9, paddingHorizontal: '8%', paddingVertical: '2.5%' }}
       textStyle={{ color: colors.light, textAlign: 'center' }}
     >
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: colors.background }
-        }}
-      >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(app)" />
-        <Stack.Screen name="(auth)/a" />
-      </Stack>
+      <StatusBar />
+      <LayoutUser />
     </ToastProvider>
+  );
+};
+
+const LayoutUser = () => {
+  const { loadUser } = useUser();
+
+  const [userLoaded, setUserLoaded] = useState<'LOADED' | 'ERROR' | 'UNLOADED'>(() => 'UNLOADED');
+
+  useEffect(() => {
+    (async () => {
+      if (userLoaded !== 'UNLOADED') return;
+      setUserLoaded((await loadUser()) ? 'LOADED' : 'ERROR');
+    })();
+
+    if (userLoaded === 'UNLOADED') return;
+    SplashScreen.hideAsync();
+  }, [userLoaded]);
+
+  if (userLoaded === 'UNLOADED') return null;
+  if (userLoaded === 'ERROR') return <></>;
+
+  return <LayoutNav />;
+};
+
+const LayoutNav = () => {
+  const { colors } = useTheme();
+
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: colors.background }
+      }}
+    >
+      <Stack.Screen name="index" />
+      <Stack.Screen name="(app)" />
+      <Stack.Screen name="(auth)/a" />
+      <Stack.Screen
+        name="modal"
+        options={{
+          presentation: 'transparentModal',
+          animation: 'slide_from_bottom',
+          contentStyle: { backgroundColor: 'transparent' }
+        }}
+      />
+    </Stack>
   );
 };

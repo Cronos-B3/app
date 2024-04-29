@@ -50,45 +50,6 @@ export const useAPI = (baseURL?: string) => {
 
       return data.data;
     } catch (error) {
-      if (!(error instanceof AxiosError)) {
-        if (__DEV__) console.error('🔥 - error - ', error);
-        throw { code: -1 };
-      }
-
-      if (__DEV__) console.error('🔥 - axios error - ', error);
-
-      switch (error.response?.status) {
-        case 400:
-          if (__DEV__) console.error('BAD REQUEST');
-          break;
-
-        case 401:
-          if (__DEV__) console.error('TOKEN NOT VALID');
-          break;
-
-        case 403:
-          if (__DEV__) console.error('USER DO NOT HAVE ACCESS TO THIS RESOURCE');
-          break;
-
-        case 405:
-          if (__DEV__) console.error('METHOD NOT ALLOWED');
-          break;
-
-        case 429:
-          if (__DEV__) console.error('TOO MANY REQUESTS');
-          break;
-
-        case 500:
-          if (__DEV__) console.error('INTERNAL SERVER ERROR');
-          throw { code: -1 };
-
-        case 503:
-          if (__DEV__) console.error('SERVICE UNAVAILABLE');
-          throw { code: -1 };
-
-        default:
-        // error not handled here
-      }
       throw error;
     } finally {
       setLoading(false);
