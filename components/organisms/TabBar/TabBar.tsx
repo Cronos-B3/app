@@ -59,6 +59,7 @@ const TabBar = () => {
             opacity: 0.6
           }}
           onPress={() => setIsMenuOpened(false)}
+          pressedOpacity={1}
         />
         <View
           style={[

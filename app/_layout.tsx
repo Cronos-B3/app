@@ -114,8 +114,8 @@ const LayoutNav = () => {
         name="modal"
         options={{
           presentation: 'transparentModal',
-          animation: 'slide_from_bottom',
-          contentStyle: { backgroundColor: 'transparent' }
+          animation: 'none',
+          contentStyle: { backgroundColor: 'rgba(0, 0, 0, 0.6)' }
         }}
       />
     </Stack>

@@ -11,7 +11,7 @@ export default () => {
       screenOptions={{
         headerShown: false,
         contentStyle: { backgroundColor: 'transparent' },
-        presentation: 'transparentModal',
+        presentation: 'card',
         animation: 'slide_from_bottom'
       }}
     >
