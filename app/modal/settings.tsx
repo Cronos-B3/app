@@ -21,8 +21,8 @@ export default () => {
         <SettingsButton Icon={Profile} onPress={() => router.push('/modal/account/')}>
           {t('settings:account.title')}
         </SettingsButton>
-        {/* <SettingsButton Icon={Mail}>Contact us</SettingsButton>
-        <SettingsButton Icon={Informations}>About us</SettingsButton> */}
+        <SettingsButton Icon={Mail}>{t('settings:contact')}</SettingsButton>
+        <SettingsButton Icon={Informations}>{t('settings:about')}</SettingsButton>
       </View>
       <SettingsButton isRed Icon={BoxArrowRight} onPress={() => logoutUser()}>
         {t('settings:logout')}

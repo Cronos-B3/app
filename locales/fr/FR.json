@@ -61,6 +61,12 @@
       "not_found": "non trouvé"
     }
   },
+  "app": {
+    "followers": "Abonnés",
+    "follow": "Suivre",
+    "posts": "Publications",
+    "not_found": "Aucun résultat trouvé"
+  },
   "settings": {
     "title": "Paramètres",
     "logout": "Déconnexion",
@@ -68,7 +74,9 @@
       "title": "Mon compte",
       "edit_password": "Modifier mon mot de passe",
       "delete": "Supprimer mon compte"
-    }
+    },
+    "contact": "Nous contacter",
+    "about": "À propos de nous"
   },
   "auth": {
     "register": "Créer son compte",

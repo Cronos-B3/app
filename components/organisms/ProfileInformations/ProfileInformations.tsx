@@ -7,6 +7,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Dots from 'assets/svg/Dots';
 import { useTheme } from 'contexts/ThemeContext';
+import { t } from 'i18next';
 
 type ProfileInformationsProps = {
   profile: UserType;
@@ -29,11 +30,13 @@ const ProfileInformations = ({ profile }: ProfileInformationsProps) => {
             {profile.nickname}
           </Text>
         </View>
-        <Text style={s.followers}>{0} Followers</Text>
+        <Text style={s.followers}>
+          {0} {t('app:followers')}
+        </Text>
         <View style={s.buttonsContainer}>
           <Pressable style={s.followButton}>
             <Text style={s.followers} numberOfLines={1}>
-              Follow
+              {t('app:follow')}
             </Text>
           </Pressable>
           <Pressable style={s.moreButton}>

@@ -1,5 +1,6 @@
 import Text from 'components/atoms/BaseText/Text';
 import { DEVICE } from 'constants/config';
+import { t } from 'i18next';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
@@ -9,10 +10,10 @@ const ProfilePosts = () => {
   return (
     <View>
       <Text style={s.title} font="bold">
-        Posts
+        {t('app:posts')}
       </Text>
       <View style={s.notFoundContainer}>
-        <Text style={s.notFound}>Not found</Text>
+        <Text style={s.notFound}>{t('app:not_found')}</Text>
       </View>
     </View>
   );
