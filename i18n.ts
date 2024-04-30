@@ -6,7 +6,7 @@ i18n.use(initReactI18next).init({
   resources: RESOURCES,
   fallbackLng: DEFAULT_LANG,
   interpolation: { escapeValue: false },
-  ns: ['common', 'title', 'input', 'app', 'auth', 'policy', 'success', 'error'],
+  ns: ['common', 'title', 'data', 'settings', 'auth', 'policy', 'success', 'error'],
   defaultNS: 'common'
 });
 

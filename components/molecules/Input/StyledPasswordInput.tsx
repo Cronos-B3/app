@@ -1,17 +1,19 @@
 import { StyleSheet, TextInput } from 'react-native';
 import { useTheme } from 'contexts/ThemeContext';
 import { forwardRef, ForwardRefRenderFunction, useMemo, useState } from 'react';
-import StyledInput, { StyledInputProps } from 'components/molecules/Input/StyledInput';
-import Pressable from 'components/atoms/Pressable/Pressable';
 import { EyeClose, EyeOpen } from 'assets/svg/Eye';
+import { useTranslation } from 'react-i18next';
+import Pressable from 'components/atoms/Pressable/Pressable';
+import StyledInput, { StyledInputProps } from './StyledInput';
 
 const StylePasswordInput: ForwardRefRenderFunction<TextInput, StyledInputProps> = (
-  { ...props },
+  { type, ...props },
   ref
 ) => {
   // if (__DEV__) console.log('🐙 - StylePasswordInput');
 
   const { colors } = useTheme();
+  const { t } = useTranslation('data');
 
   const [visible, setVisible] = useState<boolean>(() => false);
 
@@ -27,7 +29,20 @@ const StylePasswordInput: ForwardRefRenderFunction<TextInput, StyledInputProps> 
     );
   }, [visible, colors.light]);
 
-  return <StyledInput ref={ref} {...props} secureTextEntry={!visible} rightIcon={eyeMemo} />;
+  type = type.replace('_confirmation', '.confirmation');
+
+  return (
+    <StyledInput
+      ref={ref}
+      secureTextEntry={!visible}
+      rightIcon={eyeMemo}
+      maxLength={63}
+      autoCapitalize="none"
+      type={type}
+      placeholder={t(type + '.placeholder')}
+      {...props}
+    />
+  );
 };
 
 export default forwardRef(StylePasswordInput);

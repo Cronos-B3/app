@@ -6,10 +6,10 @@
     "confirm": "Confirmer"
   },
   "title": {},
-  "input": {
+  "data": {
     "identifier": {
       "label": "Nom d'utilisateur ou email",
-      "placeholder": "Saisissez votre nom d'utilisateur ou votre email"
+      "placeholder": "Saisissez votre identifiant"
     },
     "username": {
       "label": "Nom d'utilisateur",
@@ -19,37 +19,57 @@
       "label": "Pseudo",
       "placeholder": "Saisissez votre pseudo"
     },
+    "email": {
+      "label": "Adresse email",
+      "placeholder": "Saisissez votre adresse email"
+    },
+
     "birthdate": {
       "label": "Date de naissance",
       "placeholder": "JJ/MM/AAAA",
-      "format": "{{day}}/{{month}}/{{year}}"
+      "format": "DD/MM/YYYY"
     },
-    "phone": {
-      "title": "Téléphone",
-      "message": "Message"
-    },
-    "email": {
-      "title": "Email",
-      "label": "Adresse e-mail",
-      "placeholder": "Saisissez votre email"
-    },
+
     "password": {
       "label": "Mot de passe",
-      "placeholder": "Saisissez votre mot de passe"
+      "placeholder": "Saisissez votre mot de passe",
+      "confirmation": {
+        "label": "Confirmez votre mot de passe",
+        "placeholder": "Confirmez votre mot de passe"
+      }
     },
-    "password_confirmation": {
-      "label": "Confirmez votre mot de passe",
-      "placeholder": "Confirmez votre mot de passe"
+    "old_password": {
+      "label": "Ancien mot de passe",
+      "placeholder": "Saisissez votre ancien mot de passe"
     },
+    "new_password": {
+      "label": "Nouveau mot de passe",
+      "placeholder": "Saisissez votre nouveau mot de passe",
+      "confirmation": {
+        "label": "Confirmez votre nouveau mot de passe",
+        "placeholder": "Confirmez votre nouveau mot de passe"
+      }
+    },
+
     "format": {
       "required": "requis",
-      "min_length": "too short",
+      "min_length": "trop court",
       "pattern": "format invalide",
       "validate": "valeur invalide",
-      "conflict": "déjà utilisé"
+      "conflict": "déjà utilisé",
+      "editable": "non modifiable",
+      "not_found": "non trouvé"
     }
   },
-  "app": {},
+  "settings": {
+    "title": "Paramètres",
+    "logout": "Déconnexion",
+    "account": {
+      "title": "Mon compte",
+      "edit_password": "Modifier mon mot de passe",
+      "delete": "Supprimer mon compte"
+    }
+  },
   "auth": {
     "register": "Créer son compte",
     "login": "Se connecter",

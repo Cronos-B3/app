@@ -1,4 +1,6 @@
+import { LeftArrow } from 'assets/svg/Arrow';
 import Text from 'components/atoms/BaseText/Text';
+import Pressable from 'components/atoms/Pressable/Pressable';
 import { DEVICE } from 'constants/config';
 import { gs } from 'constants/styles';
 import { useTheme } from 'contexts/ThemeContext';
@@ -13,9 +15,16 @@ type ModalTemplateProps = {
   height?: DimensionValue;
   title?: string;
   style?: ViewProps['style'];
+  onBack?: boolean;
 };
 
-const ModalTemplate = ({ children, height = '50%', title, style }: ModalTemplateProps) => {
+const ModalTemplate = ({
+  children,
+  height = '50%',
+  title,
+  style,
+  onBack = true
+}: ModalTemplateProps) => {
   const { bottom } = useSafeAreaInsets();
   const { colors } = useTheme();
 
@@ -46,10 +55,15 @@ const ModalTemplate = ({ children, height = '50%', title, style }: ModalTemplate
       >
         <View style={s.contentContainer}>
           <View style={s.divider} />
-          <Text style={s.text} font="bold">
+          <Text style={s.text} font="bold" numberOfLines={1}>
             {title}
           </Text>
           <View style={[gs.flex, style]}>{children}</View>
+          {onBack && (
+            <Pressable style={s.leftArrow} onPress={onClose}>
+              <LeftArrow color="white" />
+            </Pressable>
+          )}
         </View>
       </View>
     </ReactNativeModal>
@@ -72,7 +86,7 @@ const s = StyleSheet.create({
     flex: 1,
     marginTop: '3%',
     marginBottom: '6%',
-    gap: DEVICE.height * 0.01
+    gap: DEVICE.height * 0.02
   },
   divider: {
     height: 2,
@@ -83,6 +97,14 @@ const s = StyleSheet.create({
   },
   text: {
     fontSize: 22,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginHorizontal: '12%'
+  },
+  leftArrow: {
+    position: 'absolute',
+    top: DEVICE.height * 0.02 + 1,
+    left: 0,
+    width: '9%',
+    aspectRatio: 1
   }
 });

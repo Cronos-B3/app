@@ -1,33 +1,24 @@
-import React, { ForwardRefRenderFunction, ReactNode, forwardRef, useMemo } from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInputProps,
-  TextProps,
-  ViewProps,
-  TextInput as TextInputRN
-} from 'react-native';
 import Text from 'components/atoms/BaseText/Text';
-import TextInput from 'components/atoms/TextInput/TextInput';
+import TextInput, { TextInputProps } from 'components/atoms/TextInput/TextInput';
+import React, { ForwardRefRenderFunction, ReactNode, forwardRef, useMemo } from 'react';
+import { View, StyleSheet, TextProps, ViewProps, TextInput as TextInputRN } from 'react-native';
 
-type CustomProps = {
+export interface InputProps extends TextInputProps {
   style?: ViewProps['style'];
-  label?: string;
+  label?: string | ReactNode;
   labelStyle?: TextProps['style'];
   inputStyle?: ViewProps['style'];
   textInputStyle?: TextProps['style'];
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-};
-
-export type InputProps = TextInputProps & CustomProps;
+}
 
 const Input: ForwardRefRenderFunction<TextInputRN, InputProps> = (
   {
-    style = { flex: 1 },
+    style = s.flex,
     label,
     labelStyle,
-    inputStyle = { flex: 1 },
+    inputStyle = s.flex,
     textInputStyle,
     leftIcon,
     rightIcon,
@@ -35,17 +26,25 @@ const Input: ForwardRefRenderFunction<TextInputRN, InputProps> = (
   },
   ref
 ) => {
-  const labelMemo = useMemo(() => {
+  // if (__DEV__) console.log('🐙 - Input');
+
+  const memoizedLabel = useMemo(() => {
     return (
-      <Text ellipsizeMode="tail" numberOfLines={1} style={labelStyle}>
-        {label}
-      </Text>
+      <>
+        {typeof label === 'string' ? (
+          <Text ellipsizeMode="tail" numberOfLines={1} style={labelStyle}>
+            {label}
+          </Text>
+        ) : (
+          label
+        )}
+      </>
     );
   }, [label, labelStyle]);
 
   return (
     <View style={style}>
-      {labelMemo}
+      {memoizedLabel}
       <View style={[inputStyle, s.inputContainer]}>
         {leftIcon}
         <TextInput {...rest} style={[s.input, textInputStyle]} ref={ref} />
@@ -58,6 +57,7 @@ const Input: ForwardRefRenderFunction<TextInputRN, InputProps> = (
 export default forwardRef(Input);
 
 const s = StyleSheet.create({
+  flex: { flex: 1 },
   inputContainer: { flex: 1, flexDirection: 'row' },
   input: {
     flex: 1,

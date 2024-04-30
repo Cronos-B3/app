@@ -2,6 +2,7 @@ import { EyeOpen } from 'assets/svg/Eye';
 import Text from 'components/atoms/BaseText/Text';
 import Pressable from 'components/atoms/Pressable/Pressable';
 import StyledInput from 'components/molecules/Input/StyledInput';
+import StyledPasswordInput from 'components/molecules/Input/StyledPasswordInput';
 import LoadingButton from 'components/molecules/LoadingButton/LoadingButton';
 import RULES from 'constants/rules';
 import { as, gs } from 'constants/styles';
@@ -19,7 +20,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { Trans, useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Toast } from 'react-native-toast-notifications';
-import StyledPasswordInput from 'components/PasswordInput/StyledPasswordInput';
 
 export default () => {
   if (__DEV__) console.log('🏳️  - login');
@@ -126,8 +126,6 @@ export default () => {
               onChangeText={onChange}
               value={value}
               ref={keyboards['ref2']}
-              maxLength={63}
-              autoCapitalize="none"
               onSubmitEditing={handleSubmit(request)}
             />
           )}

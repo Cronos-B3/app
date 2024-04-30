@@ -1,7 +1,7 @@
 import Pressable from 'components/atoms/Pressable/Pressable';
 import StyledInput from 'components/molecules/Input/StyledInput';
+import StyledPasswordInput from 'components/molecules/Input/StyledPasswordInput';
 import LoadingButton from 'components/molecules/LoadingButton/LoadingButton';
-import StyledPasswordInput from 'components/PasswordInput/StyledPasswordInput';
 import { DEVICE, LIMIT_AGE } from 'constants/config';
 import RULES from 'constants/rules';
 import { as, gs } from 'constants/styles';
@@ -105,19 +105,8 @@ export default () => {
                   <StyledInput
                     type={name}
                     style={gs.inputContainer}
-                    error={errors[name]?.type}
-                    onChangeText={onChange}
-                    value={
-                      value.length === 0
-                        ? ''
-                        : t('input:birthdate.format', {
-                            year: dateSplit?.[0],
-                            month: dateSplit?.[1],
-                            day: dateSplit?.[2]
-                          })
-                    }
+                    value={value ? moment(value).format(t('data:birthdate.format')) : ''}
                     readOnly
-                    pointerEvents={Platform.OS === 'ios' ? 'none' : 'auto'}
                   />
                 </Pressable>
                 {/* CANNOT BE USED IN EXPO GO */}
@@ -159,8 +148,6 @@ export default () => {
               onChangeText={onChange}
               value={value}
               ref={keyboards['ref2']}
-              maxLength={63}
-              autoCapitalize="none"
               onSubmitEditing={() => keyboards['ref3']?.current?.focus()}
             />
           )}
@@ -177,8 +164,6 @@ export default () => {
               onChangeText={onChange}
               value={value}
               ref={keyboards['ref3']}
-              maxLength={63}
-              autoCapitalize="none"
               onSubmitEditing={handleSubmit(request)}
             />
           )}

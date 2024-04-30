@@ -17,8 +17,6 @@ export default () => {
 
   const { top, bottom } = useSafeAreaInsets();
 
-  console.log(moment().format('YYYY-MM-DD HH:mm:ss'));
-
   return (
     <ScrollView
       style={[s.container, { marginTop: top }]}

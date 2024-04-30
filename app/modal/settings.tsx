@@ -5,8 +5,9 @@ import Profile from 'assets/svg/Profile';
 import SettingsButton from 'components/molecules/SettingsButton/SettingsButton';
 import ModalTemplate from 'components/templates/ModalTemplate/ModalTemplate';
 import { DEVICE } from 'constants/config';
-import { useUserStore } from 'hooks/store/useUserStore';
+import { router } from 'expo-router';
 import useUser from 'hooks/useUser';
+import { t } from 'i18next';
 import { StyleSheet, View } from 'react-native';
 
 export default () => {
@@ -15,14 +16,16 @@ export default () => {
   const { logoutUser } = useUser();
 
   return (
-    <ModalTemplate title="Settings" style={s.container}>
+    <ModalTemplate title={t('settings:title')} style={s.container} onBack={false}>
       <View style={s.otherModal}>
-        <SettingsButton Icon={Profile}>Account</SettingsButton>
-        <SettingsButton Icon={Mail}>Contact us</SettingsButton>
-        <SettingsButton Icon={Informations}>About us</SettingsButton>
+        <SettingsButton Icon={Profile} onPress={() => router.push('/modal/account/')}>
+          {t('settings:account.title')}
+        </SettingsButton>
+        {/* <SettingsButton Icon={Mail}>Contact us</SettingsButton>
+        <SettingsButton Icon={Informations}>About us</SettingsButton> */}
       </View>
       <SettingsButton isRed Icon={BoxArrowRight} onPress={() => logoutUser()}>
-        Logout
+        {t('settings:logout')}
       </SettingsButton>
     </ModalTemplate>
   );
