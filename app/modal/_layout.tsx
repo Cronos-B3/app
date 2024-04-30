@@ -11,8 +11,8 @@ export default () => {
       screenOptions={{
         headerShown: false,
         contentStyle: { backgroundColor: 'transparent' },
-        presentation: 'card',
-        animation: 'slide_from_bottom'
+        presentation: 'transparentModal',
+        animation: 'none'
       }}
     >
       <Stack.Screen name="settings" />

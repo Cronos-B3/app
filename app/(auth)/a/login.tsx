@@ -22,7 +22,7 @@ import { Toast } from 'react-native-toast-notifications';
 import StyledPasswordInput from 'components/PasswordInput/StyledPasswordInput';
 
 export default () => {
-  if (__DEV__) console.log('🏳️ - login');
+  if (__DEV__) console.log('🏳️  - login');
 
   const { setToken } = useTokenStore();
   const { setUser } = useUserStore();

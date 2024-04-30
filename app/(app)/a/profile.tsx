@@ -3,7 +3,7 @@ import { Redirect } from 'expo-router';
 import { useUserStore } from 'hooks/store/useUserStore';
 
 export default () => {
-  if (__DEV__) console.log('🏳️ - profile');
+  if (__DEV__) console.log('🏳️  - profile');
 
   const { user } = useUserStore();
 

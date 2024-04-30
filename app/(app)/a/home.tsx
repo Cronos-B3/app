@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DEVICE } from 'constants/config';
 
 export default () => {
-  if (__DEV__) console.log('🏳️ - home');
+  if (__DEV__) console.log('🏳️  - home');
 
   const { user } = useUserStore();
 
