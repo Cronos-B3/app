@@ -12,6 +12,7 @@ import { ScrollView } from 'react-native';
 import StatusBar from 'components/atoms/StatusBar/StatusBar';
 import { gs } from 'constants/styles';
 import useUser from 'hooks/useUser';
+import useErrorHandling from 'hooks/useErrorHandling';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -80,11 +81,18 @@ const LayoutUser = () => {
   const { loadUser } = useUser();
 
   const [userLoaded, setUserLoaded] = useState<'LOADED' | 'ERROR' | 'UNLOADED'>(() => 'UNLOADED');
+  const { handleError } = useErrorHandling();
 
   useEffect(() => {
     (async () => {
       if (userLoaded !== 'UNLOADED') return;
-      setUserLoaded((await loadUser()) ? 'LOADED' : 'ERROR');
+      try {
+        await loadUser();
+        setUserLoaded('LOADED');
+      } catch (error) {
+        setUserLoaded('ERROR');
+        handleError(error);
+      }
     })();
 
     if (userLoaded === 'UNLOADED') return;

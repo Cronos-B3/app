@@ -1,13 +1,11 @@
 import { AxiosError } from 'axios';
 import { Toast } from 'react-native-toast-notifications';
 import { useTranslation } from 'react-i18next';
-import { useUserStore } from './store/useUserStore';
-import { useTokenStore } from './store/useTokenStore';
+import useUser from './useUser';
 
 export default () => {
-  const { logout } = useUserStore();
-  const { removeToken } = useTokenStore();
   const { t } = useTranslation('error');
+  const { logoutUser } = useUser();
 
   const handleError = (error: unknown, doDisconnect = true): AxiosError['response'] | undefined => {
     if (!(error instanceof AxiosError)) {
@@ -38,8 +36,7 @@ export default () => {
       case 401:
         if (!doDisconnect) break;
         if (__DEV__) console.error('🔴 - TOKEN NOT VALID');
-        logout();
-        removeToken();
+        logoutUser();
         return;
 
       case 405:

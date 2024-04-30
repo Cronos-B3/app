@@ -1,31 +1,47 @@
 import Text from 'components/atoms/BaseText/Text';
-import Pressable from 'components/atoms/Pressable/Pressable';
 import { DEVICE } from 'constants/config';
 import { gs } from 'constants/styles';
 import { useTheme } from 'contexts/ThemeContext';
 import { router } from 'expo-router';
-import { ReactNode } from 'react';
-import { StyleSheet, View, ViewProps } from 'react-native';
+import { ReactNode, useState } from 'react';
+import { DimensionValue, StyleSheet, View, ViewProps } from 'react-native';
+import ReactNativeModal from 'react-native-modal';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type ModalTemplateProps = {
   children?: ReactNode;
-  style?: ViewProps['style'];
+  height?: DimensionValue;
   title?: string;
+  style?: ViewProps['style'];
 };
 
-const ModalTemplate = ({ children, style, title }: ModalTemplateProps) => {
+const ModalTemplate = ({ children, height = '50%', title, style }: ModalTemplateProps) => {
   const { bottom } = useSafeAreaInsets();
   const { colors } = useTheme();
 
+  const [isVisible, setIsVisible] = useState(() => true);
+
+  const onClose = () => setIsVisible(false);
+
   return (
-    <View style={gs.flex}>
-      <Pressable style={gs.flex} onPress={() => router.back()} pressedOpacity={1} />
+    <ReactNativeModal
+      isVisible={isVisible}
+      animationInTiming={500}
+      animationOutTiming={300}
+      hasBackdrop={true}
+      backdropColor="transparent"
+      backdropOpacity={0}
+      onBackdropPress={onClose}
+      onBackButtonPress={onClose}
+      onSwipeComplete={onClose}
+      swipeDirection={'down'}
+      onModalHide={() => router.back()}
+      style={s.modal}
+    >
       <View
         style={[
           s.container,
-          style,
-          { paddingBottom: bottom, backgroundColor: colors.modal_background }
+          { height, paddingBottom: bottom, backgroundColor: colors.modal_background }
         ]}
       >
         <View style={s.contentContainer}>
@@ -33,25 +49,29 @@ const ModalTemplate = ({ children, style, title }: ModalTemplateProps) => {
           <Text style={s.text} font="bold">
             {title}
           </Text>
-          {children}
+          <View style={[gs.flex, style]}>{children}</View>
         </View>
       </View>
-    </View>
+    </ReactNativeModal>
   );
 };
 
 export default ModalTemplate;
 
 const s = StyleSheet.create({
+  modal: {
+    margin: 0,
+    justifyContent: 'flex-end'
+  },
   container: {
-    flex: 1,
     paddingHorizontal: '6%',
     borderTopLeftRadius: 27,
     borderTopRightRadius: 27
   },
   contentContainer: {
     flex: 1,
-    marginVertical: '3%',
+    marginTop: '3%',
+    marginBottom: '6%',
     gap: DEVICE.height * 0.01
   },
   divider: {

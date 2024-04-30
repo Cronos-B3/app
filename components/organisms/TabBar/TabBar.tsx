@@ -3,12 +3,13 @@ import React, { useMemo, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTheme } from 'contexts/ThemeContext';
 import { router, useSegments } from 'expo-router';
-import { TabBarBackground, TabBarHome, TabBarMenu, TabBarProfile } from 'assets/svg/TabBar';
+import { TabBarBackground, TabBarHome, TabBarMenu } from 'assets/svg/TabBar';
 import Pressable from 'components/atoms/Pressable/Pressable';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Modify from 'assets/svg/Modify';
 import Settings from 'assets/svg/Settings';
 import Search from 'assets/svg/Search';
+import Profile from 'assets/svg/Profile';
 
 export const HEIGHT_TAB_BAR = (120 / 390) * DEVICE.width;
 
@@ -122,7 +123,7 @@ const TabBar = () => {
             onPress={() => router.navigate('/a/profile')}
             pressedOpacity={1}
           >
-            <TabBarProfile
+            <Profile
               color={colors.light}
               height={'45%'}
               opacity={segments[2] === 'profile' ? 1 : 0.6}

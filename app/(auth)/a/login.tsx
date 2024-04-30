@@ -76,7 +76,7 @@ export default () => {
       setToken(token);
       setUser(convertUser(user));
 
-      router.push('/a/home');
+      router.replace('/a/home');
     } catch (error) {
       const response = handleError(error);
       if (!response) return;
