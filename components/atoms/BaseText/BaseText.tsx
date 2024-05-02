@@ -38,7 +38,7 @@ const BaseText = ({
     );
 
   const fontSize = (StyleSheet.flatten(style) as TextStyle)?.fontSize || 14;
-  const displayFontSize = Platform.OS === 'android' ? fontSize : fontSize * 0.9;
+  const displayFontSize = Platform.OS === 'android' ? fontSize : fontSize * 0.8;
 
   const lineHeight = (StyleSheet.flatten(style) as TextStyle)?.lineHeight;
   const displayLineHeight =

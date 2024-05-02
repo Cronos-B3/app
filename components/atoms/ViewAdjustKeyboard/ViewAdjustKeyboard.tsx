@@ -5,7 +5,12 @@ const ViewAdjustKeyboard = ({ children, ...props }: ViewProps) => {
   if (__DEV__) console.log('🐙 - ViewAdjustKeyboard');
 
   return (
-    <ScrollView {...props} contentContainerStyle={gs.flex} automaticallyAdjustKeyboardInsets>
+    <ScrollView
+      {...props}
+      contentContainerStyle={gs.flex}
+      automaticallyAdjustKeyboardInsets
+      bounces={false}
+    >
       {children}
     </ScrollView>
   );
