@@ -61,6 +61,7 @@ const s = StyleSheet.create({
   inputContainer: { flex: 1, flexDirection: 'row' },
   input: {
     flex: 1,
-    paddingLeft: '1%'
+    paddingLeft: '1%',
+    textAlignVertical: 'top'
   }
 });

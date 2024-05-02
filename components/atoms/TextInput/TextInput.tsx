@@ -21,7 +21,7 @@ const TextInput: ForwardRefRenderFunction<TextInputRN, TextInputProps> = (
       maxLength={maxLength}
       ref={ref}
       style={[s.input, { color: colors.light }, style, { fontSize }]}
-      placeholderTextColor={placeholderTextColor || `${colors.light}60`}
+      placeholderTextColor={placeholderTextColor || `${colors.light}80`}
     />
   );
 };

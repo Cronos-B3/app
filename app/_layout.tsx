@@ -13,6 +13,8 @@ import StatusBar from 'components/atoms/StatusBar/StatusBar';
 import { gs } from 'constants/styles';
 import useUser from 'hooks/useUser';
 import useErrorHandling from 'hooks/useErrorHandling';
+import axios from 'axios';
+import { useTokenStore } from 'hooks/store/useTokenStore';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -107,6 +109,12 @@ const LayoutUser = () => {
 
 const LayoutNav = () => {
   const { colors } = useTheme();
+  const { token } = useTokenStore();
+
+  useEffect(() => {
+    // if (__DEV__) console.log('🔑 - token', token);
+    axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : '';
+  }, [token]);
 
   return (
     <Stack

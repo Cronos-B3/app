@@ -1,14 +1,13 @@
-import axios, { AxiosError } from 'axios';
-import { useTokenStore } from 'hooks/store/useTokenStore';
+import axios from 'axios';
 import { useCallback, useState } from 'react';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-interface CallParams {
+export interface CallParams {
   method: HttpMethod;
   url: string;
   data?: object;
-  tokenHeader?: string | null;
+  optionals?: { token?: string; timeout?: number };
 }
 
 interface CallData {
@@ -17,29 +16,36 @@ interface CallData {
 }
 
 export const useAPI = (baseURL?: string) => {
-  const { token } = useTokenStore();
-
   const [loading, setLoading] = useState<boolean>(() => false);
 
-  const call = useCallback(async ({ method, url, data = {}, tokenHeader = token }: CallParams) => {
+  const call = useCallback(async ({ method, url, data = {}, optionals }: CallParams) => {
     setLoading(true);
 
     if (__DEV__) console.log(`🛎️ - ${method} - ${baseURL ?? axios.defaults.baseURL + url}`);
 
     // Adapt the data to the method for axios
-    const callData: CallData = ['GET', 'DELETE'].includes(method) ? { params: data } : { data };
+    const callData: CallData = ['GET'].includes(method) ? { params: data } : { data };
+    const optionalsData = {};
+
+    if (optionals?.timeout) Object.assign(optionalsData, { timeout: optionals.timeout });
+
+    const headers = {};
+
+    if (optionals?.token) Object.assign(headers, { Authorization: `Bearer ${optionals.token}` });
 
     try {
       const { config, data, request, status, statusText } = await axios({
         method,
         baseURL,
-        headers: { Authorization: tokenHeader ? `Bearer ${tokenHeader}` : '' },
+        headers,
         url,
-        ...callData
+        ...callData,
+        ...optionalsData
       });
 
       if (__DEV__) {
         console.log('📀📀 - Request Response');
+        console.log('📀 - url', config.baseURL + (config.url ?? ''));
         // console.log('📀 - config', config);
         // console.log('📀 - data', data.data);
         // console.log('📀 - metadata', data.metadata);

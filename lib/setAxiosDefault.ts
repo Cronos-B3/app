@@ -6,6 +6,9 @@ export default () => {
   axios.defaults.headers.common['Content-Type'] = 'application/json';
   axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
+  // Set the default timeout for axios.
+  axios.defaults.timeout = 5000;
+
   // Set the default base URL for axios.
   axios.defaults.baseURL = `${process.env.EXPO_PUBLIC_CRONOS_API ?? 'http://localhost'}/api`;
 };
