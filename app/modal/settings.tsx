@@ -16,7 +16,7 @@ export default () => {
   const { logoutUser } = useUser();
 
   return (
-    <ModalTemplate title={t('settings:title')} style={s.container} onBack={false}>
+    <ModalTemplate title={t('settings:title')} style={s.container}>
       <View style={s.otherModal}>
         <SettingsButton Icon={Profile} onPress={() => router.push('/modal/account/')}>
           {t('settings:account.title')}

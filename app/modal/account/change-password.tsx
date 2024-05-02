@@ -96,7 +96,7 @@ export default () => {
         onPress={handleSubmit(request)}
         loading={loading}
       >
-        Confirm
+        {t('confirm')}
       </LoadingButton>
     </ModalTemplate>
   );

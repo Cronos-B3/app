@@ -7,7 +7,7 @@ export default () => {
         headerShown: false,
         contentStyle: { backgroundColor: 'transparent' },
         presentation: 'transparentModal',
-        animation: 'none'
+        animation: 'slide_from_bottom'
       }}
     >
       <Stack.Screen name="index" />
