@@ -20,6 +20,8 @@ export default () => {
       >
         <Stack.Screen name="settings" />
         <Stack.Screen name="account" />
+        <Stack.Screen name="create-post" />
+        <Stack.Screen name="search" />
       </Stack>
     </Pressable>
   );
