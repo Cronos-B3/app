@@ -7,6 +7,7 @@ import Pressable from 'components/atoms/Pressable/Pressable';
 import { DEVICE } from 'constants/config';
 import { gs } from 'constants/styles';
 import { useTheme } from 'contexts/ThemeContext';
+import { router } from 'expo-router';
 import { Cron } from 'hooks/store/useCronStore';
 import moment from 'moment';
 import { useMemo } from 'react';
@@ -33,7 +34,9 @@ const Post = ({ user, id, text, end_at, liked, upvoted }: PostProps) => {
     <View style={s.container}>
       <View style={s.userDataContainer}>
         <View>
-          <Image style={s.profilePicture} source={user.profile_picture} />
+          <Pressable style={s.profilePictureButton} onPress={()=>router.navigate("/a/profile")}>
+            <Image style={s.profilePicture} source={user.profile_picture} />
+          </Pressable>
         </View>
         <View style={s.textUserContainer}>
           <Text style={s.nickname} font="bold">
@@ -80,6 +83,12 @@ const s = StyleSheet.create({
     height: DEVICE.height * 0.08,
     flexDirection: 'row',
     gap: DEVICE.width * 0.033
+  },
+  profilePictureButton : {
+    height: '100%',
+    aspectRatio: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   profilePicture: {
     height: '100%',
