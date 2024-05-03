@@ -32,8 +32,6 @@ export const useCronStore = create<State & Actions>()(
       }),
     addCronsToTop: (crons: Cron[]) =>
       set((state) => {
-        console.log([...crons, ...state.crons]);
-
         state.crons = [...crons, ...state.crons];
       }),
     addCronsToBottom: (crons: Cron[]) =>

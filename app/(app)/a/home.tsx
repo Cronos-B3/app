@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { HEIGHT_TAB_BAR } from 'components/organisms/TabBar/TabBar';
+import { View, StyleSheet } from 'react-native';
 import { useUserStore } from 'hooks/store/useUserStore';
 import Post from 'components/molecules/Post/Post';
 import { Redirect } from 'expo-router';
@@ -20,23 +19,19 @@ export default () => {
   if (!user) return <Redirect href={'/a/login'} />;
 
   return (
-    <ScrollView
-      style={[s.container, { marginTop: top }]}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: HEIGHT_TAB_BAR + bottom }}
-    >
-      <View style={{ paddingHorizontal: '4%' }}>
-        <FlashList
-          estimatedListSize={{ height: DEVICE.height, width: DEVICE.width }}
-          estimatedItemSize={DEVICE.height * 0.2}
-          keyExtractor={(item) => item.id}
-          data={crons}
-          renderItem={({ item: cron }) => {
-            return <Post {...cron} />;
-          }}
-        />
-      </View>
-    </ScrollView>
+    <View style={{ flex: 1, marginTop: top, marginBottom: bottom, paddingHorizontal: '5%' }}>
+      <FlashList
+        key={crons.length}
+        estimatedListSize={{ height: DEVICE.height, width: DEVICE.width * 0.92 }}
+        estimatedItemSize={DEVICE.height * 0.18}
+        keyExtractor={(item, index) => index.toString()}
+        data={crons}
+        renderItem={({ item: cron }) => {
+          return <Post {...cron} />;
+        }}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      />
+    </View>
   );
 };
 
