@@ -84,16 +84,32 @@ const LayoutUser = () => {
 
   const [userLoaded, setUserLoaded] = useState<'LOADED' | 'ERROR' | 'UNLOADED'>(() => 'UNLOADED');
   const { handleError } = useErrorHandling();
+  const { logoutUser } = useUser();
 
   useEffect(() => {
     (async () => {
       if (userLoaded !== 'UNLOADED') return;
       try {
         await loadUser();
+        setUserLoaded('LOADED');
       } catch (error) {
-        handleError(error);
+        const response = handleError(error, false);
+        if (!response) {
+          setUserLoaded('ERROR');
+          return;
+        }
+
+        switch (response.status) {
+          case 401:
+            logoutUser();
+            setUserLoaded('LOADED');
+            break;
+
+          default:
+            setUserLoaded('ERROR');
+            break;
+        }
       }
-      setUserLoaded('LOADED');
     })();
 
     if (userLoaded === 'UNLOADED') return;
