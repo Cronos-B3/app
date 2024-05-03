@@ -11,23 +11,15 @@ import { Cron } from 'hooks/store/useCronStore';
 import moment from 'moment';
 import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
+import TextTimer from '../TextTimer/TextTimer';
 
 interface PostProps extends Cron {
   liked?: boolean;
   upvoted?: boolean;
 }
 
-const Post = ({ user, text, end_at, liked, upvoted }: PostProps) => {
+const Post = ({ user, id, text, end_at, liked, upvoted }: PostProps) => {
   const { colors } = useTheme();
-
-  const momentTimeLeft = moment.duration(moment(end_at).diff(moment()));
-
-  let stringTimeLeft = '';
-
-  if (Math.floor(momentTimeLeft.asHours()) > 0)
-    stringTimeLeft += `${Math.floor(momentTimeLeft.asHours())}:`;
-  if (momentTimeLeft.minutes() > 0) stringTimeLeft += `${momentTimeLeft.minutes()}:`;
-  if (momentTimeLeft.seconds() > 0) stringTimeLeft += `${momentTimeLeft.seconds()}`;
 
   const postTextMemo = useMemo(() => {
     return (
@@ -47,7 +39,9 @@ const Post = ({ user, text, end_at, liked, upvoted }: PostProps) => {
           <Text style={s.nickname} font="bold">
             {user.nickname}
           </Text>
-          <Text>{stringTimeLeft}</Text>
+          <TextTimer
+            msLeft={moment(end_at).utc(true).diff(moment().utc())} // utc(true) because moment is not recognizing the timezone
+          />
         </View>
         <View style={s.moreContainer}>
           <Dots color={colors.light} height="30%" width="30%" />
