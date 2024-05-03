@@ -7,25 +7,20 @@ import Pressable from 'components/atoms/Pressable/Pressable';
 import { DEVICE } from 'constants/config';
 import { gs } from 'constants/styles';
 import { useTheme } from 'contexts/ThemeContext';
+import { Cron } from 'hooks/store/useCronStore';
 import moment from 'moment';
 import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-type PostProps = {
-  postProfile: {
-    profile_picture: string;
-    nickname: string;
-  };
-  text: string;
-  timeLeft: string;
-  liked: boolean;
-  upvoted: boolean;
-};
+interface PostProps extends Cron {
+  liked?: boolean;
+  upvoted?: boolean;
+}
 
-const Post = ({ postProfile, text, timeLeft, liked, upvoted }: PostProps) => {
+const Post = ({ user, text, end_at, liked, upvoted }: PostProps) => {
   const { colors } = useTheme();
 
-  const momentTimeLeft = moment.duration(moment(timeLeft).diff(moment()));
+  const momentTimeLeft = moment.duration(moment(end_at).diff(moment()));
 
   let stringTimeLeft = '';
 
@@ -46,13 +41,13 @@ const Post = ({ postProfile, text, timeLeft, liked, upvoted }: PostProps) => {
     <View style={s.container}>
       <View style={s.userDataContainer}>
         <View>
-          <Image style={s.profilePicture} source={postProfile.profile_picture} />
+          <Image style={s.profilePicture} source={user.profile_picture} />
         </View>
         <View style={s.textUserContainer}>
           <Text style={s.nickname} font="bold">
-            {postProfile.nickname}
+            {user.nickname}
           </Text>
-          <Text>aelgkpogsw</Text>
+          <Text>{stringTimeLeft}</Text>
         </View>
         <View style={s.moreContainer}>
           <Dots color={colors.light} height="30%" width="30%" />

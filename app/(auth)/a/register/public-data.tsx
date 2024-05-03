@@ -84,7 +84,7 @@ export default () => {
               type={name}
               style={gs.inputContainer}
               error={errors[name]?.type}
-              onChangeText={onChange}
+              onChangeText={(text) => onChange(text.toLocaleLowerCase())}
               value={value}
               ref={keyboards['ref1']}
               maxLength={31}

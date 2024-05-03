@@ -1,14 +1,13 @@
-import { HttpMethod } from 'hooks/useAPI';
+import { CallParams } from 'hooks/useAPI';
 
 const url = '/v1/users';
-const method = 'GET' as HttpMethod;
 
 interface GetData {
   token: string;
 }
 
 const get = (data: GetData) => {
-  return { method, url, data };
+  return { method: 'GET', url, optionals: { token: data.token } } as CallParams;
 };
 
 export default { get };

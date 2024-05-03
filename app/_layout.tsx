@@ -90,11 +90,10 @@ const LayoutUser = () => {
       if (userLoaded !== 'UNLOADED') return;
       try {
         await loadUser();
-        setUserLoaded('LOADED');
       } catch (error) {
-        setUserLoaded('ERROR');
         handleError(error);
       }
+      setUserLoaded('LOADED');
     })();
 
     if (userLoaded === 'UNLOADED') return;

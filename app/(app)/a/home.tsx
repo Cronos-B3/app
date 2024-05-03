@@ -6,15 +6,18 @@ import Post from 'components/molecules/Post/Post';
 import { Redirect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DEVICE } from 'constants/config';
+import { useCronStore } from 'hooks/store/useCronStore';
+import { FlashList } from '@shopify/flash-list';
 
 export default () => {
   if (__DEV__) console.log('🏳️  - home');
 
+  const { top, bottom } = useSafeAreaInsets();
+
   const { user } = useUserStore();
+  const { crons } = useCronStore();
 
   if (!user) return <Redirect href={'/a/login'} />;
-
-  const { top, bottom } = useSafeAreaInsets();
 
   return (
     <ScrollView
@@ -22,13 +25,15 @@ export default () => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: HEIGHT_TAB_BAR + bottom }}
     >
-      <View style={{ paddingHorizontal: '4%', gap: DEVICE.height * 0.033 }}>
-        <Post
-          postProfile={{ profile_picture: user.profile_picture, nickname: user.nickname }}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget nunc nec purus."
-          timeLeft="2024-03-25 12:09:44"
-          liked
-          upvoted
+      <View style={{ paddingHorizontal: '4%' }}>
+        <FlashList
+          estimatedListSize={{ height: DEVICE.height, width: DEVICE.width }}
+          estimatedItemSize={DEVICE.height * 0.2}
+          keyExtractor={(item) => item.id}
+          data={crons}
+          renderItem={({ item: cron }) => {
+            return <Post {...cron} />;
+          }}
         />
       </View>
     </ScrollView>
