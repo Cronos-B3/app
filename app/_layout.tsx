@@ -4,6 +4,8 @@ import { TamaguiProvider } from 'tamagui';
 import { ToastProvider } from '@tamagui/toast';
 import { config } from '../tamagui.config';
 
+import '../i18n';
+
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';

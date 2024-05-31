@@ -1,0 +1,8 @@
+{
+  "common": {
+    "test": "test"
+  },
+  "test": {
+    "test": "testtest"
+  }
+}
