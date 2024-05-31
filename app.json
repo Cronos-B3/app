@@ -25,7 +25,15 @@
       "bundler": "metro",
       "output": "static"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/Heebo-Bold.otf", "./assets/fonts/Heebo-Regular.otf"]
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     }

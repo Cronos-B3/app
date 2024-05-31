@@ -1,6 +1,9 @@
 import 'react-native-reanimated';
 
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { TamaguiProvider } from 'tamagui';
+import { ToastProvider } from '@tamagui/toast';
+import { config } from '../tamagui.config';
+
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -13,16 +16,17 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'index',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  // These fonts are used by the TamaguiProvider.
   const [fontsLoaded, fontsFailed] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
+    Heebo: require('../assets/fonts/Heebo-Regular.ttf'),
+    HeeboBold: require('../assets/fonts/Heebo-Bold.ttf'),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -44,5 +48,14 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  return <Stack></Stack>;
+  return (
+    <TamaguiProvider config={config} defaultTheme={'dark'}>
+      <ToastProvider swipeDirection="horizontal" duration={3000}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)/a" />
+        </Stack>
+      </ToastProvider>
+    </TamaguiProvider>
+  );
 }
