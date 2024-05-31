@@ -1,6 +1,6 @@
 import 'react-native-reanimated';
 
-import { TamaguiProvider } from 'tamagui';
+import { TamaguiProvider, useTheme } from 'tamagui';
 import { ToastProvider } from '@tamagui/toast';
 import { config } from '../tamagui.config';
 
@@ -10,16 +10,12 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from 'expo-router';
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: 'index',
-};
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -46,18 +42,29 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
   return (
     <TamaguiProvider config={config} defaultTheme={'dark'}>
       <ToastProvider swipeDirection="horizontal" duration={3000}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="(auth)/a" />
-        </Stack>
+        <RootLayoutNav />
       </ToastProvider>
     </TamaguiProvider>
+  );
+}
+
+function RootLayoutNav() {
+  const theme = useTheme();
+
+  return (
+    <>
+      <StatusBar
+        style={theme.inversed_style.val as any}
+        backgroundColor={theme.not_inversed_background.val}
+      />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(auth)/a" />
+        <Stack.Screen name="(app)" />
+      </Stack>
+    </>
   );
 }

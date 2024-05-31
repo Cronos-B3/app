@@ -27,11 +27,13 @@ const tokens = createTokens({
     0: 0,
   },
   color: {
+    inversed_style: 'light',
     primary: '#9F62E4',
     secondary: '#6B21C0',
     tertiary: '#D4B9F3',
     inversed: '#FFFFFF',
     not_inversed: '#000000',
+    not_inversed_background: '#0F0F0F',
   },
   radius: {
     0: 0,
