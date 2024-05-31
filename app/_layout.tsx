@@ -56,10 +56,7 @@ function RootLayoutNav() {
 
   return (
     <>
-      <StatusBar
-        style={theme.inversed_style.val as any}
-        backgroundColor={theme.not_inversed_background.val}
-      />
+      <StatusBar style={theme.inversed_style.val as any} backgroundColor="transparent" />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="(auth)/a" />
