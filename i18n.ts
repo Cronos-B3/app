@@ -1,6 +1,6 @@
-// i18n.js
+// i18n.ts
 import 'intl-pluralrules';
-import i18n from 'i18next';
+import i18n, { LanguageDetectorAsyncModule } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import * as Localization from 'expo-localization';
 
@@ -8,10 +8,10 @@ const translationGetters = {
   'fr-FR': () => require('./assets/locales/fr/FR.json'),
 };
 
-const languageDetector = {
+const languageDetector: LanguageDetectorAsyncModule = {
   type: 'languageDetector',
   async: true,
-  detect: (callback) => {
+  detect: (callback: (lng: string) => void) => {
     callback(Localization.getLocales()[0].languageTag);
   },
   init: () => {},
