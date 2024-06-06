@@ -1,5 +1,6 @@
 import { DEVICE } from '@/constants/config';
 import IMG from '@/constants/images';
+import { Keyboard } from 'react-native';
 import { Image, YStack } from 'tamagui';
 
 type AuthHeaderProps = {
@@ -15,7 +16,8 @@ export default function AuthHeader({ top = 0 }: AuthHeaderProps) {
       paddingTop={top}
       backgroundColor={'$not_inversed_background'}
       justifyContent="center"
-      alignItems="center">
+      alignItems="center"
+      onPress={() => Keyboard.dismiss()}>
       <Image
         source={{ uri: IMG.logo }}
         height={'60%'}

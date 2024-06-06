@@ -5,6 +5,7 @@ const LoadingButton = styled(Button, {
   backgroundColor: '$secondary',
   borderRadius: '$round',
 
+  fontSize: '$4',
   color: '$inversed',
 
   pressStyle: { opacity: 0.6 },

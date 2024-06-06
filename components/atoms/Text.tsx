@@ -4,6 +4,10 @@ import { Text as TText } from 'tamagui';
 const Text = styled(TText, {
   name: 'Text',
 
+  ellipsizeMode: 'tail',
+  adjustsFontSizeToFit: true,
+  numberOfLines: 1,
+
   color: '$inversed',
   fontSize: '$3',
 });

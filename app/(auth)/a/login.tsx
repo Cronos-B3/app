@@ -1,5 +1,5 @@
-export default function Login() {
-  if (__DEV__) console.log('📃 - Login');
+import LoginPage from '@/components/pages/Login';
 
-  return <></>;
+export default function Login() {
+  return <LoginPage />;
 }

@@ -1,7 +1,9 @@
 {
   "common": {},
   "auth": {
-    "login": "Se connecter"
+    "login": "Se connecter",
+    "forgot_password": "Mot de passe oublié ?",
+    "no_account": "Pas encore de compte ? <underline>Inscrivez-vous !</underline>"
   },
   "form": {
     "identifier": {
