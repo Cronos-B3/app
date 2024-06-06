@@ -5,6 +5,8 @@ import LoadingButton from '../molecules/LoadingButton';
 import Text from '../atoms/Text';
 import { DEVICE } from '@/constants/config';
 import { Keyboard } from 'react-native';
+import { router } from 'expo-router';
+import { AR } from '@/constants/routes';
 
 export default function LoginPage() {
   if (__DEV__) console.log('📃 - LoginPage');
@@ -28,7 +30,11 @@ export default function LoginPage() {
       </YStack>
       <YStack>
         <LoadingButton>{t('login')}</LoadingButton>
-        <Text fontSize={'$2'} color={'$inversed75'} alignSelf="center">
+        <Text
+          fontSize={'$2'}
+          color={'$inversed75'}
+          alignSelf="center"
+          onPress={() => router.push(AR.policies)}>
           <Trans
             t={t}
             i18nKey="no_account"
