@@ -3,7 +3,10 @@
   "auth": {
     "login": "Se connecter",
     "forgot_password": "Mot de passe oublié ?",
-    "no_account": "Pas encore de compte ? <underline>Inscrivez-vous !</underline>"
+    "no_account": "Pas encore de compte ? <underline>Inscrivez-vous !</underline>",
+    "error": {
+      "invalid_credentials": "Identifiants invalides"
+    }
   },
   "form": {
     "identifier": {

@@ -11,6 +11,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import setAxiosDefault from '@/lib/setAxiosDefault';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -19,6 +21,8 @@ export {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   // These fonts are used by the TamaguiProvider.
@@ -42,12 +46,16 @@ export default function RootLayout() {
     return null;
   }
 
+  setAxiosDefault();
+
   return (
-    <TamaguiProvider config={config} defaultTheme={'dark'}>
-      <ToastProvider swipeDirection="horizontal" duration={3000}>
-        <RootLayoutNav />
-      </ToastProvider>
-    </TamaguiProvider>
+    <QueryClientProvider client={queryClient}>
+      <TamaguiProvider config={config} defaultTheme={'dark'}>
+        <ToastProvider native>
+          <RootLayoutNav />
+        </ToastProvider>
+      </TamaguiProvider>
+    </QueryClientProvider>
   );
 }
 

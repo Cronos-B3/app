@@ -56,9 +56,9 @@ const FormInput = FormInputFrame.styleable<FormInputProps>(
               color="$inversed"
               icon={
                 hidden ? (
-                  <Eye strokeWidth={1} size={'$4'} />
+                  <Eye strokeWidth={1.5} size={'$4'} />
                 ) : (
-                  <EyeOff strokeWidth={1} size={'$4'} />
+                  <EyeOff strokeWidth={1.5} size={'$4'} />
                 )
               }
               onPress={() => setHidden(!hidden)}

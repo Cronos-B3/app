@@ -1,14 +1,12 @@
-import { Button, GetProps, styled } from 'tamagui';
+import { Button, GetProps, Spinner, styled } from 'tamagui';
 import { DEVICE } from '@/constants/config';
 
-const LoadingButton = styled(Button, {
+const StyledLoadingButton = styled(Button, {
   backgroundColor: '$secondary',
   borderRadius: '$round',
 
   fontSize: '$4',
   color: '$inversed',
-
-  pressStyle: { opacity: 0.6 },
 
   variants: {
     customSize: {
@@ -23,6 +21,22 @@ const LoadingButton = styled(Button, {
   },
 });
 
-export default LoadingButton;
+export type LoadingButtonProps = GetProps<typeof StyledLoadingButton> & {
+  isLoading?: boolean;
+};
 
-export type LoadingButtonProps = GetProps<typeof LoadingButton>;
+const LoadingButton = StyledLoadingButton.styleable<LoadingButtonProps>(
+  ({ children, isLoading, ...props }, ref) => {
+    if (isLoading) {
+      return <StyledLoadingButton {...props} ref={ref} icon={<Spinner size={'small'} />} />;
+    }
+
+    return (
+      <StyledLoadingButton {...props} ref={ref}>
+        {children}
+      </StyledLoadingButton>
+    );
+  }
+);
+
+export default LoadingButton;
