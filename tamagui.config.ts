@@ -1,39 +1,17 @@
 // Custom config for theme https://tamagui.dev/docs/core/configuration
 
+import { Platform } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { createFont, createTamagui, createTokens } from 'tamagui';
 
 const tokens = createTokens({
   size: {
-    // TODO: Change these values to match your design system.
-    0: 0,
     true: 0,
-    1: 4,
-    2: 8,
-    3: 16,
-    4: 32,
-    5: 64,
-  },
-  space: {
-    // TODO: Change these values to match your design system.
     0: 0,
-    true: 0,
-    1: 4,
-    2: 8,
-    3: 16,
-    4: 32,
-    5: 64,
-  },
-  zIndex: {
-    0: 0,
-  },
-  color: {
-    inversed_style: 'light',
-    primary: '#9F62E4',
-    secondary: '#6B21C0',
-    tertiary: '#D4B9F3',
-    inversed: '#FFFFFF',
-    not_inversed: '#000000',
-    not_inversed_background: '#0F0F0F',
+    1: 7,
+    2: 14,
+    3: 21,
+    4: 28,
   },
   radius: {
     0: 0,
@@ -42,22 +20,39 @@ const tokens = createTokens({
     2: 8,
     3: 12,
     4: 16,
-    5: 20,
-    6: 24,
     round: 999,
+  },
+  space: { true: 0 },
+  zIndex: { true: 0 },
+  color: {
+    inversed_style: 'light',
+    primary: '#9F62E4',
+    secondary: '#6B21C0',
+    tertiary: '#D4B9F3',
+    inversed: '#FFFFFF',
+    inversed75: 'rgba(255, 255, 255, 0.75)',
+    inversed50: 'rgba(255, 255, 255, 0.5)',
+    not_inversed: '#000000',
+    not_inversed_background: '#0F0F0F',
   },
 });
 
-const fontsParams = {
-  size: {
-    xxs: 8,
-    xs: 10,
-    s: 12,
-    m: 14,
-    l: 16,
-    xl: 18,
+const fontsParams = Platform.select({
+  android: {
+    size: {
+      2: RFValue(13),
+      3: RFValue(14),
+      4: RFValue(15),
+    },
   },
-};
+  default: {
+    size: {
+      2: RFValue(10),
+      3: RFValue(11),
+      4: RFValue(12),
+    },
+  },
+});
 
 const defaultFont = createFont({
   family: 'Heebo',
@@ -75,6 +70,7 @@ export const config = createTamagui({
     // light: {}, // TODO: Add a light theme.
     dark: tokens.color,
   },
+  defaultFont: 'body',
   fonts: {
     // Required keys for tamagui.
     heading: boldFont,

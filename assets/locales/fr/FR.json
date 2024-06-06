@@ -1,8 +1,16 @@
 {
-  "common": {
-    "test": "test"
+  "common": {},
+  "auth": {
+    "login": "Se connecter"
   },
-  "test": {
-    "test": "testtest"
+  "form": {
+    "identifier": {
+      "label": "Nom d'utilisateur ou email",
+      "placeholder": "Entrez votre identifiant"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "placeholder": "Entrez votre mot de passe"
+    }
   }
 }

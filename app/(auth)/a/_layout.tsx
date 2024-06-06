@@ -1,31 +1,20 @@
-import View from '@/components/atoms/View';
-import { DEVICE } from '@/constants/config';
-import IMG from '@/constants/images';
+import AuthHeader from '@/components/organisms/AuthHeader';
 import { Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Image } from 'tamagui';
+import { useTheme } from 'tamagui';
 
 export default () => {
   const { top } = useSafeAreaInsets();
+  const { not_inversed_background: background } = useTheme();
+
   return (
     <>
-      <View
-        height={top + DEVICE.height * 0.3}
-        paddingTop={top}
-        backgroundColor={'$not_inversed_background'}
-        centered>
-        <Image
-          source={{ uri: IMG.logo }}
-          height={'50%'}
-          maxWidth={'50%'}
-          aspectRatio={1}
-          resizeMode="contain"
-        />
-      </View>
+      <AuthHeader top={top} />
       <Stack
         screenOptions={{
           animation: 'slide_from_right',
           headerShown: false,
+          contentStyle: { backgroundColor: background.val },
         }}>
         <Stack.Screen name="login" />
       </Stack>
