@@ -70,4 +70,6 @@ const FormInput = FormInputFrame.styleable<FormInputProps>(
   }
 );
 
+FormInput.displayName = 'FormInput';
+
 export default FormInput;

@@ -17,6 +17,9 @@ export default () => {
           contentStyle: { backgroundColor: background.val },
         }}>
         <Stack.Screen name="login" />
+        <Stack.Screen name="register/policies" />
+        <Stack.Screen name="register/private-data" />
+        <Stack.Screen name="register/public-data" />
       </Stack>
     </>
   );

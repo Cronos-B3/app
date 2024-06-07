@@ -14,6 +14,9 @@ const tokens = createTokens({
     4: 28,
     5: 35,
     6: 42,
+    7: 49,
+    8: 56,
+    9: 63,
   },
   radius: {
     0: 0,
@@ -42,16 +45,32 @@ const tokens = createTokens({
 const fontsParams = Platform.select({
   android: {
     size: {
+      1: RFValue(13),
+      // Used font size
       2: RFValue(13),
       3: RFValue(14),
       4: RFValue(15),
+      // Useless, but required for tamagui
+      5: RFValue(16),
+      6: RFValue(16),
+      7: RFValue(16),
+      8: RFValue(16),
+      9: RFValue(16),
     },
   },
   default: {
     size: {
+      1: RFValue(10),
+      // Used font size
       2: RFValue(10),
       3: RFValue(11),
       4: RFValue(12),
+      // Useless, but required for tamagui
+      5: RFValue(12),
+      6: RFValue(12),
+      7: RFValue(12),
+      8: RFValue(12),
+      9: RFValue(12),
     },
   },
 });

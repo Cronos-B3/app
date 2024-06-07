@@ -1,9 +1,14 @@
 {
-  "common": {},
+  "common": {
+    "next": "Suivant"
+  },
   "auth": {
     "login": "Se connecter",
     "forgot_password": "Mot de passe oublié ?",
     "no_account": "Pas encore de compte ? <underline>Inscrivez-vous !</underline>",
+    "old_enough": "J'ai plus de 15 ans",
+    "terms": "J'accepte les <underline>conditions d'utilisation</underline>",
+    "privacy": "J'accepte la <underline>politique de confidentialité</underline>",
     "error": {
       "invalid_credentials": "Identifiants invalides"
     }

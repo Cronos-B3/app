@@ -5,6 +5,12 @@ export type LoginForm = {
   password: string;
 };
 
+export type PoliciesForm = {
+  old_enough: boolean;
+  terms: boolean;
+  privacy: boolean;
+};
+
 // All api typescript types
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';

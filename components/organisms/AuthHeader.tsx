@@ -14,7 +14,7 @@ export default function AuthHeader({ top = 0 }: AuthHeaderProps) {
 
   return (
     <YStack
-      height={top + DEVICE.height * 0.25}
+      height={top + DEVICE.height * 0.3}
       paddingTop={top}
       backgroundColor={'$not_inversed_background'}
       justifyContent="center"
@@ -22,8 +22,8 @@ export default function AuthHeader({ top = 0 }: AuthHeaderProps) {
       onPress={() => Keyboard.dismiss()}>
       <Image
         source={{ uri: IMG.logo }}
-        height={'60%'}
-        maxWidth={'60%'}
+        height={'50%'}
+        maxWidth={'50%'}
         aspectRatio={1}
         resizeMode="contain"
       />

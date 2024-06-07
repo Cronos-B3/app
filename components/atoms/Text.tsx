@@ -14,4 +14,4 @@ const Text = styled(TText, {
 
 export default Text;
 
-export type InputProps = GetProps<typeof Text>;
+export type TextProps = GetProps<typeof Text>;

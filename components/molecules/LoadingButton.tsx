@@ -8,6 +8,8 @@ const StyledLoadingButton = styled(Button, {
   fontSize: '$4',
   color: '$inversed',
 
+  disabledStyle: { opacity: 0.75 },
+
   variants: {
     customSize: {
       small: { height: DEVICE.height * 0.035 },
@@ -38,5 +40,7 @@ const LoadingButton = StyledLoadingButton.styleable<LoadingButtonProps>(
     );
   }
 );
+
+LoadingButton.displayName = 'LoadingButton';
 
 export default LoadingButton;
