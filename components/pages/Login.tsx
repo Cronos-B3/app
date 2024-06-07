@@ -6,23 +6,20 @@ import Text from '../atoms/Text';
 import { DEVICE } from '@/constants/config';
 import { Keyboard, TextInput } from 'react-native';
 import { router } from 'expo-router';
-import { AAR, AR } from '@/constants/routes';
+import { AR } from '@/constants/routes';
 import { Controller, useForm } from 'react-hook-form';
 import { useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { LoginForm } from '@/constants/types';
-import useApi from '@/hooks/useApi';
-import RULES from '@/constants/rules';
-import { useToastController } from '@tamagui/toast';
+import useAuthApi from '@/hooks/api/useAuthApi';
 
 export default function LoginPage() {
   if (__DEV__) console.log('📃 - LoginPage');
 
   const { t } = useTranslation('auth');
-  const { post } = useApi();
-  const toast = useToastController();
+  const { login } = useAuthApi();
 
-  const { control, handleSubmit } = useForm<LoginForm>({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       identifier: '',
       password: '',
@@ -35,31 +32,9 @@ export default function LoginPage() {
   };
 
   const { mutate: fetchLogin, isPending } = useMutation({
-    mutationFn: async (data: LoginForm) => {
-      // Wait 250ms so user can see the loading state
-      await new Promise((resolve) => setTimeout(resolve, 250));
-
-      const { identifier, password } = data;
-
-      if (!RULES.identifier.pattern.test(identifier) || !RULES.password.pattern.test(password)) {
-        throw new Error(t('error.invalid_credentials'), { cause: 'invalid_credentials' });
-      }
-
-      return post(AAR.login, data);
-    },
-    onSuccess: (data: any) => {
-      // TODO: Handle success
-      console.log('success', data);
-    },
-    onError: (error: any) => {
-      if (error?.cause === 'invalid_credentials') {
-        toast.show(error.message);
-        return;
-      }
-
-      // TODO: Handle other errors
-      console.log('error', error);
-    },
+    mutationFn: login.process,
+    onSuccess: login.onSuccess,
+    onError: login.onError,
   });
 
   const onSubmit = (data: LoginForm) => fetchLogin(data);
