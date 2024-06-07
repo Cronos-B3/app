@@ -12,6 +12,8 @@ const tokens = createTokens({
     2: 14,
     3: 21,
     4: 28,
+    5: 35,
+    6: 42,
   },
   radius: {
     0: 0,

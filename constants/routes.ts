@@ -7,4 +7,8 @@ const AUTH_ROUTES = {
   policies: registerPrefix + '/policies',
 };
 
-export { AUTH_ROUTES as AR };
+const AUTH_API_ROUTES = {
+  login: '',
+};
+
+export { AUTH_ROUTES as AR, AUTH_API_ROUTES as AAR };

@@ -6,7 +6,7 @@ import Text from '../atoms/Text';
 import { DEVICE } from '@/constants/config';
 import { Keyboard, TextInput } from 'react-native';
 import { router } from 'expo-router';
-import { AR } from '@/constants/routes';
+import { AAR, AR } from '@/constants/routes';
 import { Controller, useForm } from 'react-hook-form';
 import { useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
@@ -45,9 +45,10 @@ export default function LoginPage() {
         throw new Error(t('error.invalid_credentials'), { cause: 'invalid_credentials' });
       }
 
-      return post('/auth/login', data);
+      return post(AAR.login, data);
     },
     onSuccess: (data: any) => {
+      // TODO: Handle success
       console.log('success', data);
     },
     onError: (error: any) => {
@@ -56,6 +57,7 @@ export default function LoginPage() {
         return;
       }
 
+      // TODO: Handle other errors
       console.log('error', error);
     },
   });

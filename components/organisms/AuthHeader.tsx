@@ -1,7 +1,9 @@
 import { DEVICE } from '@/constants/config';
 import IMG from '@/constants/images';
+import { ArrowLeft } from '@tamagui/lucide-icons';
+import { router } from 'expo-router';
 import { Keyboard } from 'react-native';
-import { Image, YStack } from 'tamagui';
+import { Button, Image, YStack } from 'tamagui';
 
 type AuthHeaderProps = {
   top?: number;
@@ -25,6 +27,16 @@ export default function AuthHeader({ top = 0 }: AuthHeaderProps) {
         aspectRatio={1}
         resizeMode="contain"
       />
+      {router.canGoBack() && (
+        <Button
+          color={'$inversed'}
+          icon={<ArrowLeft size={'$6'} />}
+          position="absolute"
+          top={'50%'}
+          left={'8%'}
+          onPress={() => router.back()}
+        />
+      )}
     </YStack>
   );
 }
