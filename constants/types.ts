@@ -1,4 +1,4 @@
-// All form typescript types
+// Form types
 
 export type LoginForm = {
   identifier: string;
@@ -11,7 +11,15 @@ export type PoliciesForm = {
   privacy: boolean;
 };
 
-// All api typescript types
+export type RegisterForm = {
+  email: string;
+  password: string;
+  password_confirmation: string;
+  username: string;
+  nickname: string;
+};
+
+// API types
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 

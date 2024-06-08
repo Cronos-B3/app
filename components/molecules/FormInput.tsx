@@ -17,6 +17,7 @@ const FormInputFrame = styled(Input, {
     type: {
       identifier: {
         maxLength: 127,
+        autoCapitalize: 'none',
       },
       password: {
         autoCapitalize: 'none',

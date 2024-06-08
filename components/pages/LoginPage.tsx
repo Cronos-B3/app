@@ -6,25 +6,20 @@ import Text from '../atoms/Text';
 import { TextInput } from 'react-native';
 import { router } from 'expo-router';
 import { AR } from '@/constants/routes';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { LoginForm } from '@/constants/types';
 import useAuthApi from '@/hooks/api/useAuthApi';
 import AuthTemplate from '../templates/AuthTemplate';
+import RULES from '@/constants/rules';
+import useForm from '@/hooks/useForm';
 
 export default function LoginPage() {
   if (__DEV__) console.log('📃 - LoginPage');
 
   const { t } = useTranslation('auth');
   const { login } = useAuthApi();
-
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      identifier: '',
-      password: '',
-    },
-  });
 
   const refs = {
     identifier: useRef<TextInput>(null),
@@ -37,13 +32,20 @@ export default function LoginPage() {
     onError: login.onError,
   });
 
-  const onSubmit = (data: LoginForm) => fetchLogin(data);
+  const { control, onSubmit, isFormPending } = useForm<LoginForm>({
+    defaultValues: {
+      identifier: '',
+      password: '',
+    },
+    onSuccess: fetchLogin,
+    onError: login.onFormError,
+  });
 
   return (
     <AuthTemplate
       customButton={
         <YStack>
-          <LoadingButton onPress={handleSubmit(onSubmit)} isLoading={isPending}>
+          <LoadingButton onPress={onSubmit} isLoading={isPending || isFormPending}>
             {t('login')}
           </LoadingButton>
           <Text
@@ -64,6 +66,7 @@ export default function LoginPage() {
       <Controller
         control={control}
         name="identifier"
+        rules={{ required: true, ...RULES.identifier }}
         render={({ field: { onChange, value, name } }) => (
           <FormInput
             ref={refs.identifier}
@@ -78,13 +81,14 @@ export default function LoginPage() {
         <Controller
           control={control}
           name="password"
+          rules={{ required: true, ...RULES.password }}
           render={({ field: { onChange, value, name } }) => (
             <FormInput
               ref={refs.password}
               type={name}
               onChangeText={onChange}
               value={value}
-              onSubmitEditing={handleSubmit(onSubmit)}
+              onSubmitEditing={onSubmit}
             />
           )}
         />
