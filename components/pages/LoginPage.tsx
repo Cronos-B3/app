@@ -14,6 +14,7 @@ import useAuthApi from '@/hooks/api/useAuthApi';
 import AuthTemplate from '../templates/AuthTemplate';
 import RULES from '@/constants/rules';
 import useForm from '@/hooks/useForm';
+import { DEVICE } from '@/constants/config';
 
 export default function LoginPage() {
   if (__DEV__) console.log('📃 - LoginPage');
@@ -62,14 +63,15 @@ export default function LoginPage() {
             />
           </Text>
         </YStack>
-      }>
+      }
+      gap={DEVICE.height * 0.08}>
       <Controller
         control={control}
         name="identifier"
         rules={{ required: true, ...RULES.identifier }}
         render={({ field: { onChange, value, name } }) => (
           <FormInput
-            ref={refs.identifier}
+            ref={refs[name]}
             type={name}
             onChangeText={onChange}
             value={value}
@@ -84,7 +86,7 @@ export default function LoginPage() {
           rules={{ required: true, ...RULES.password }}
           render={({ field: { onChange, value, name } }) => (
             <FormInput
-              ref={refs.password}
+              ref={refs[name]}
               type={name}
               onChangeText={onChange}
               value={value}

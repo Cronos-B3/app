@@ -45,8 +45,8 @@ const tokens = createTokens({
 const fontsParams = Platform.select({
   android: {
     size: {
-      1: RFValue(13),
       // Used font size
+      1: RFValue(12),
       2: RFValue(13),
       3: RFValue(14),
       4: RFValue(15),

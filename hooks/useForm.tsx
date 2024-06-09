@@ -4,13 +4,15 @@ import {
   FieldValues,
   DefaultValues,
   SubmitHandler,
+  SubmitErrorHandler,
+  FieldErrors,
 } from 'react-hook-form';
 import { useState } from 'react';
 
 type UseFormProps<T extends FieldValues> = {
   defaultValues: DefaultValues<T>;
   onSuccess?: (data: T) => void;
-  onError?: () => void;
+  onError?: (error: FieldErrors<T>) => void;
   delay?: number;
 };
 
@@ -39,10 +41,10 @@ const useForm = <T extends FieldValues>({
     });
   };
 
-  const onFormError = async () => {
+  const onFormError: SubmitErrorHandler<T> = async (error) => {
     makeFormPending(() => {
       if (!onError) return;
-      onError();
+      onError(error);
     });
   };
 

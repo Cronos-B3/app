@@ -9,8 +9,20 @@
     "old_enough": "J'ai plus de 15 ans",
     "terms": "J'accepte les <underline>conditions d'utilisation</underline>",
     "privacy": "J'accepte la <underline>politique de confidentialité</underline>",
+    "password_requirements": "Votre mot de passe doit contenir au moins 8 caractères dont une majuscule, une minuscule et un chiffre",
     "error": {
-      "invalid_credentials": "Identifiants invalides"
+      "invalid_credentials": "Identifiants invalides",
+      "email": {
+        "required": "Email requis",
+        "pattern": "Email invalide"
+      },
+      "password": {
+        "required": "Mot de passe requis",
+        "pattern": "Mot de passe invalide"
+      },
+      "password_confirmation": {
+        "validate": "Les mots de passe ne correspondent pas"
+      }
     }
   },
   "form": {
@@ -20,7 +32,14 @@
     },
     "password": {
       "label": "Mot de passe",
-      "placeholder": "Entrez votre mot de passe"
+      "placeholder": "Entrez votre mot de passe",
+      "confirmation": {
+        "placeholder": "Confirmez votre mot de passe"
+      }
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "Entrez votre email"
     }
   }
 }

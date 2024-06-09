@@ -19,12 +19,7 @@ export default function AuthTemplate({
 
   return (
     <YStack flex={1} marginHorizontal="5%" onPress={() => Keyboard.dismiss()}>
-      <YStack
-        flex={1}
-        justifyContent="center"
-        gap={DEVICE.height * 0.06}
-        marginHorizontal="2.5%"
-        {...props}>
+      <YStack flex={1} justifyContent="center" marginHorizontal="2.5%" {...props}>
         {children}
       </YStack>
       <YStack flex={1} justifyContent="center">

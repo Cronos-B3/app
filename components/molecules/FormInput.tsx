@@ -4,7 +4,7 @@ import { DEVICE } from '@/constants/config';
 import { useTranslation } from 'react-i18next';
 import { Eye, EyeOff } from '@tamagui/lucide-icons';
 import Text from '../atoms/Text';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 const FormInputFrame = styled(Input, {
   flex: 1,
@@ -22,23 +22,38 @@ const FormInputFrame = styled(Input, {
       password: {
         autoCapitalize: 'none',
       },
+      password_confirmation: {
+        autoCapitalize: 'none',
+      },
+      email: {
+        maxLength: 127,
+        autoCapitalize: 'none',
+      },
     },
   } as const,
 });
 
+const INPUT_TO_HIDE = ['password', 'password_confirmation'];
+
 export type FormInputProps = GetProps<typeof FormInputFrame> & {
   containerProps?: StackProps;
+  subLabel?: ReactNode;
 };
 
 const FormInput = FormInputFrame.styleable<FormInputProps>(
-  ({ type, containerProps, ...props }, ref) => {
+  ({ type, containerProps, subLabel, ...props }, ref) => {
     const { t } = useTranslation('form');
 
-    const [hidden, setHidden] = useState(() => type === 'password');
+    const inputType = type?.replace('_confirmation', '.confirmation');
+    const isLabelHidden = !inputType?.includes('.confirmation');
+
+    const isInputHidden = INPUT_TO_HIDE.includes(type ?? '');
+    const [hidden, setHidden] = useState(() => isInputHidden);
 
     return (
       <YStack {...containerProps}>
-        <Text color={'$inversed'}>{t(`${type}.label`)}</Text>
+        {isLabelHidden && <Text color={'$inversed'}>{t(`${type}.label`)}</Text>}
+        {subLabel}
         <XStack
           alignItems="center"
           borderBottomWidth={1}
@@ -50,9 +65,9 @@ const FormInput = FormInputFrame.styleable<FormInputProps>(
             type={type}
             {...props}
             secureTextEntry={hidden}
-            placeholder={t(`${type}.placeholder`)}
+            placeholder={t(`${inputType}.placeholder`)}
           />
-          {type === 'password' && (
+          {isInputHidden && (
             <Button
               color="$inversed"
               icon={

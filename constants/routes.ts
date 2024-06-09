@@ -9,4 +9,8 @@ const AUTH_ROUTES = {
   publicData: registerPrefix + '/public-data',
 };
 
-export { AUTH_ROUTES as AR };
+const APP_ROUTES = {
+  home: '/(app)/a/(private)/home',
+};
+
+export { AUTH_ROUTES as AR, APP_ROUTES as PR };
