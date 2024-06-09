@@ -12,7 +12,7 @@ import useForm from '@/hooks/useForm';
 export default function PoliciesPage() {
   if (__DEV__) console.log('📃 - PoliciesPage');
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('auth');
 
   const { control, onSubmit, watch } = useForm<PoliciesForm>({
     defaultValues: {
@@ -35,7 +35,7 @@ export default function PoliciesPage() {
         <CheckboxWithLabel onCheckedChange={onChange} checked={value}>
           <Trans
             t={t}
-            i18nKey={`auth:${name}`}
+            i18nKey={`${name}`}
             components={{ underline: <Text unstyled textDecorationLine="underline" /> }}
           />
         </CheckboxWithLabel>
@@ -46,7 +46,6 @@ export default function PoliciesPage() {
   return (
     <AuthTemplate
       button={{
-        children: t('next'),
         disabled: !checkboxChecked,
         disabledStyle: { opacity: 0.75 },
         onPress: onSubmit,

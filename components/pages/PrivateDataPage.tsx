@@ -19,7 +19,7 @@ export default function PrivateDataPage() {
   if (__DEV__) console.log('📃 - PrivateDataPage');
 
   const { registerForm, setRegisterForm } = useRegister();
-  const { t } = useTranslation();
+  const { t } = useTranslation('auth');
   const toast = useToastController();
 
   const refs = {
@@ -40,7 +40,7 @@ export default function PrivateDataPage() {
         const keyError = error[key];
         if (keyError) {
           console.log(keyError.type);
-          toast.show(t(`auth:error.${key}.${keyError.type}`));
+          toast.show(t(`error.${key}.${keyError.type}`));
           return false;
         }
         return true;
@@ -51,7 +51,6 @@ export default function PrivateDataPage() {
   return (
     <AuthTemplate
       button={{
-        children: t('next'),
         isLoading: isFormPending,
         onPress: onSubmit,
       }}
@@ -85,7 +84,7 @@ export default function PrivateDataPage() {
                   color={'$inversed75'}
                   numberOfLines={2}
                   paddingHorizontal={'2%'}>
-                  {t('auth:password_requirements')}
+                  {t('password_requirements')}
                 </Text>
               }
               onChangeText={onChange}
