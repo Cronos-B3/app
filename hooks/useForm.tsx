@@ -8,7 +8,6 @@ import {
   FieldErrors,
 } from 'react-hook-form';
 import { useState } from 'react';
-import stringToLowerCase from '@/lib/stringToLowerCase';
 import { useToastController } from '@tamagui/toast';
 import { useTranslation } from 'react-i18next';
 
