@@ -23,7 +23,7 @@ export default function LoginPage() {
   const { login } = useAuthApi();
 
   const refs = {
-    id_or_email: useRef<TextInput>(null),
+    idOrEmail: useRef<TextInput>(null),
     password: useRef<TextInput>(null),
   };
 
@@ -35,7 +35,7 @@ export default function LoginPage() {
 
   const { control, onSubmit, isFormPending } = useForm<LoginForm>({
     defaultValues: {
-      id_or_email: '',
+      idOrEmail: '',
       password: '',
     },
     onSuccess: fetchLogin,
@@ -58,7 +58,7 @@ export default function LoginPage() {
             onPress={() => router.push(AR.policies)}>
             <Trans
               t={t}
-              i18nKey="no_account"
+              i18nKey="noAccount"
               components={{ underline: <Text unstyled textDecorationLine="underline" /> }}
             />
           </Text>
@@ -67,7 +67,7 @@ export default function LoginPage() {
       gap={DEVICE.height * 0.08}>
       <Controller
         control={control}
-        name="id_or_email"
+        name="idOrEmail"
         rules={{ required: true, ...RULES.idOrEmail }}
         render={({ field: { onChange, value, name } }) => (
           <FormInput
@@ -95,7 +95,7 @@ export default function LoginPage() {
           )}
         />
         <Text fontSize={'$2'} color={'$inversed75'} alignSelf="flex-end">
-          {t('forgot_password')}
+          {t('forgotPassword')}
         </Text>
       </YStack>
     </AuthTemplate>

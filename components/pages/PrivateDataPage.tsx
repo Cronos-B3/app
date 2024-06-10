@@ -73,7 +73,7 @@ export default function PrivateDataPage() {
                   color={'$inversed75'}
                   numberOfLines={2}
                   paddingHorizontal={'2%'}>
-                  {t('password_requirements')}
+                  {t('passwordRequirements')}
                 </Text>
               }
               onChangeText={onChange}

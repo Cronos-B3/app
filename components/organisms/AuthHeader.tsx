@@ -16,7 +16,7 @@ export default function AuthHeader({ top = 0 }: AuthHeaderProps) {
     <YStack
       height={top + DEVICE.height * 0.3}
       paddingTop={top}
-      backgroundColor={'$not_inversed_background'}
+      backgroundColor={'$notInversedBackground'}
       justifyContent="center"
       alignItems="center"
       onPress={() => Keyboard.dismiss()}>

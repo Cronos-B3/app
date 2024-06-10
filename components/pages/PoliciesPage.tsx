@@ -16,7 +16,7 @@ export default function PoliciesPage() {
 
   const { control, onSubmit, watch } = useForm<PoliciesForm>({
     defaultValues: {
-      old_enough: false,
+      oldEnough: false,
       terms: false,
       privacy: false,
     },
@@ -24,7 +24,7 @@ export default function PoliciesPage() {
     onSuccess: () => router.push(AR.privateData),
   });
 
-  const checkboxChecked = watch('old_enough') && watch('terms') && watch('privacy');
+  const checkboxChecked = watch('oldEnough') && watch('terms') && watch('privacy');
 
   const CheckboxPolicies = ({ name }: { name: keyof PoliciesForm }) => (
     <Controller
@@ -52,7 +52,7 @@ export default function PoliciesPage() {
       }}
       alignItems="center">
       <YStack flex={1} justifyContent="space-evenly">
-        <CheckboxPolicies name="old_enough" />
+        <CheckboxPolicies name="oldEnough" />
         <CheckboxPolicies name="terms" />
         <CheckboxPolicies name="privacy" />
       </YStack>

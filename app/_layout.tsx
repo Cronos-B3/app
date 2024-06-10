@@ -60,11 +60,11 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { not_inversed_background: background, inversed_style } = useTheme();
+  const { notInversedBackground: background, inversedStyle } = useTheme();
 
   return (
     <>
-      <StatusBar style={inversed_style.val as any} backgroundColor="transparent" />
+      <StatusBar style={inversedStyle.val as any} backgroundColor="transparent" />
       <Stack
         screenOptions={{
           headerShown: false,

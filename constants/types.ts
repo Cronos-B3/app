@@ -1,12 +1,12 @@
 // Form types
 
 export type LoginForm = {
-  id_or_email: string;
+  idOrEmail: string;
   password: string;
 };
 
 export type PoliciesForm = {
-  old_enough: boolean;
+  oldEnough: boolean;
   terms: boolean;
   privacy: boolean;
 };

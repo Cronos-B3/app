@@ -15,7 +15,7 @@ const FormInputFrame = styled(Input, {
 
   variants: {
     type: {
-      id_or_email: {
+      idOrEmail: {
         maxLength: 127,
       },
       password: {

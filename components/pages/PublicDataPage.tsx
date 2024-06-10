@@ -63,7 +63,7 @@ export default function PublicDataPage() {
             onSubmitEditing={() => refs.username.current?.focus()}
             subLabel={
               <Text color={'$inversed75'} fontSize={'$1'} numberOfLines={undefined}>
-                {t('identifier_requirements')}
+                {t('identifierRequirements')}
               </Text>
             }
           />

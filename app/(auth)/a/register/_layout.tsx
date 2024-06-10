@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
 
 export default () => {
-  const { not_inversed_background: background } = useTheme();
+  const { notInversedBackground: background } = useTheme();
 
   return (
     <RegisterProvider>

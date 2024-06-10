@@ -5,7 +5,7 @@ import { useTheme } from 'tamagui';
 
 export default () => {
   const { top } = useSafeAreaInsets();
-  const { not_inversed_background: background } = useTheme();
+  const { notInversedBackground: background } = useTheme();
 
   return (
     <>

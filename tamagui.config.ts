@@ -30,15 +30,15 @@ const tokens = createTokens({
   space: { true: 0 },
   zIndex: { true: 0 },
   color: {
-    inversed_style: 'light',
+    inversedStyle: 'light',
     primary: '#9F62E4',
     secondary: '#6B21C0',
     tertiary: '#D4B9F3',
     inversed: '#FFFFFF',
     inversed75: 'rgba(255, 255, 255, 0.75)',
     inversed50: 'rgba(255, 255, 255, 0.5)',
-    not_inversed: '#000000',
-    not_inversed_background: '#0F0F0F',
+    notInversed: '#000000',
+    notInversedBackground: '#0F0F0F',
   },
 });
 

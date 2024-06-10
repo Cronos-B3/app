@@ -54,7 +54,7 @@ const useForm = <T extends FieldValues>({
         keysError.every((key) => {
           const keyError = error[key];
           if (keyError) {
-            toast.show(t(`error.${String(key)}.${stringToLowerCase(String(keyError.type))}`));
+            toast.show(t(`error.${String(key)}.${String(keyError.type).toLocaleLowerCase()}`));
             return false;
           }
           return true;
