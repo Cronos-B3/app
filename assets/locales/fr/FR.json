@@ -10,25 +10,15 @@
     "terms": "J'accepte les <underline>conditions d'utilisation</underline>",
     "privacy": "J'accepte la <underline>politique de confidentialité</underline>",
     "password_requirements": "Votre mot de passe doit contenir au moins 8 caractères dont une majuscule, une minuscule et un chiffre",
+    "identifier_requirements": "L'identifiant vous servira à vous connecter à votre compte.\nIl doit contenir au moins 3 caractères et uniquement des lettres",
     "error": {
-      "invalid_credentials": "Identifiants invalides",
-      "email": {
-        "required": "Email requis",
-        "pattern": "Email invalide"
-      },
-      "password": {
-        "required": "Mot de passe requis",
-        "pattern": "Mot de passe invalide"
-      },
-      "password_confirmation": {
-        "validate": "Les mots de passe ne correspondent pas"
-      }
+      "credentials": "Informations d'identification incorrectes"
     }
   },
   "form": {
-    "identifier": {
-      "label": "Nom d'utilisateur ou email",
-      "placeholder": "Entrez votre identifiant"
+    "id_or_email": {
+      "label": "Identifiant ou email",
+      "placeholder": "Entrez votre identifiant ou votre email"
     },
     "password": {
       "label": "Mot de passe",
@@ -40,6 +30,36 @@
     "email": {
       "label": "Email",
       "placeholder": "Entrez votre email"
+    },
+    "identifier": {
+      "label": "Identifiant",
+      "placeholder": "Entrez votre identifiant"
+    },
+    "username": {
+      "label": "Nom d'utilisateur",
+      "placeholder": "Entrez votre nom d'utilisateur"
+    },
+    "error": {
+      "email": {
+        "required": "Email requis",
+        "pattern": "Email invalide"
+      },
+      "password": {
+        "required": "Mot de passe requis",
+        "pattern": "Mot de passe invalide",
+        "min_length": "Mot de passe trop court"
+      },
+      "password_confirmation": {
+        "validate": "Les mots de passe ne correspondent pas"
+      },
+      "username": {
+        "required": "Nom d'utilisateur requis"
+      },
+      "identifier": {
+        "required": "Identifiant requis",
+        "min_length": "Identifiant trop court",
+        "pattern": "Identifiant invalide"
+      }
     }
   }
 }

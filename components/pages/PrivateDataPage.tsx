@@ -34,18 +34,7 @@ export default function PrivateDataPage() {
       setRegisterForm(data);
       router.push(AR.publicData);
     },
-    onError: (error) => {
-      const keys = ['email', 'password', 'password_confirmation'] as const;
-      keys.every((key) => {
-        const keyError = error[key];
-        if (keyError) {
-          console.log(keyError.type);
-          toast.show(t(`error.${key}.${keyError.type}`));
-          return false;
-        }
-        return true;
-      });
-    },
+    keysError: ['email', 'password', 'password_confirmation'],
   });
 
   return (
@@ -63,7 +52,7 @@ export default function PrivateDataPage() {
           <FormInput
             ref={refs[name]}
             type={name}
-            onChangeText={(text) => onChange(text.trim())}
+            onChangeText={(text) => onChange(text.replace(' ', ''))}
             value={value}
             onSubmitEditing={() => refs.password.current?.focus()}
           />

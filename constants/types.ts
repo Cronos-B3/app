@@ -1,7 +1,7 @@
 // Form types
 
 export type LoginForm = {
-  identifier: string;
+  id_or_email: string;
   password: string;
 };
 
@@ -12,11 +12,12 @@ export type PoliciesForm = {
 };
 
 export type RegisterForm = {
+  profile_picture: any;
   email: string;
   password: string;
   password_confirmation: string;
   username: string;
-  nickname: string;
+  identifier: string;
 };
 
 // API types

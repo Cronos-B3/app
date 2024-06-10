@@ -12,11 +12,12 @@ export const RegisterProvider = ({ children }: { children: ReactNode }) => {
   if (__DEV__) console.log('🙌 - RegisterProvider');
 
   const [registerForm, setRegisterForm] = useState<RegisterForm>({
+    profile_picture: '',
+    identifier: '',
     email: '',
     password: '',
     password_confirmation: '',
     username: '',
-    nickname: '',
   });
 
   return (

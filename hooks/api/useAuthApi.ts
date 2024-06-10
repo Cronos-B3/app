@@ -1,4 +1,4 @@
-import { LoginForm } from '@/constants/types';
+import { LoginForm, RegisterForm } from '@/constants/types';
 import useApi from './useApi';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
@@ -21,10 +21,16 @@ const useAuthApi = () => {
       // TODO: Handle other errors
       console.log('error', error);
     },
-    onFormError: () => toast.show(t('error.invalid_credentials')),
+    onFormError: () => toast.show(t('error.credentials')),
   };
 
-  return { login };
+  const register = {
+    process: async (data: RegisterForm) => post('/auth/register', data),
+    onSuccess: (data: any) => {},
+    onError: (error: any) => {},
+  };
+
+  return { login, register };
 };
 
 export default useAuthApi;

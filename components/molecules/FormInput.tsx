@@ -15,9 +15,8 @@ const FormInputFrame = styled(Input, {
 
   variants: {
     type: {
-      identifier: {
+      id_or_email: {
         maxLength: 127,
-        autoCapitalize: 'none',
       },
       password: {
         autoCapitalize: 'none',
@@ -28,6 +27,12 @@ const FormInputFrame = styled(Input, {
       email: {
         maxLength: 127,
         autoCapitalize: 'none',
+      },
+      identifier: {
+        maxLength: 63,
+      },
+      username: {
+        maxLength: 63,
       },
     },
   } as const,

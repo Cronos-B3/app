@@ -1,4 +1,4 @@
-import { HttpMethod, LoginForm, OptionalsData } from '@/constants/types';
+import { HttpMethod, OptionalsData } from '@/constants/types';
 import axios from 'axios';
 
 const useApi = () => {

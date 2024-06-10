@@ -23,7 +23,7 @@ export default function LoginPage() {
   const { login } = useAuthApi();
 
   const refs = {
-    identifier: useRef<TextInput>(null),
+    id_or_email: useRef<TextInput>(null),
     password: useRef<TextInput>(null),
   };
 
@@ -35,7 +35,7 @@ export default function LoginPage() {
 
   const { control, onSubmit, isFormPending } = useForm<LoginForm>({
     defaultValues: {
-      identifier: '',
+      id_or_email: '',
       password: '',
     },
     onSuccess: fetchLogin,
@@ -67,8 +67,8 @@ export default function LoginPage() {
       gap={DEVICE.height * 0.08}>
       <Controller
         control={control}
-        name="identifier"
-        rules={{ required: true, ...RULES.identifier }}
+        name="id_or_email"
+        rules={{ required: true, ...RULES.idOrEmail }}
         render={({ field: { onChange, value, name } }) => (
           <FormInput
             ref={refs[name]}
