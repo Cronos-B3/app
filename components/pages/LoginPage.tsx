@@ -5,7 +5,7 @@ import LoadingButton from '../molecules/LoadingButton';
 import Text from '../atoms/Text';
 import { TextInput } from 'react-native';
 import { router } from 'expo-router';
-import { AR } from '@/constants/routes';
+import { AUTHR } from '@/constants/routes';
 import { Controller } from 'react-hook-form';
 import { useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
@@ -55,7 +55,7 @@ export default function LoginPage() {
             fontSize={'$2'}
             color={'$inversed75'}
             alignSelf="center"
-            onPress={() => router.push(AR.policies)}>
+            onPress={() => router.push(AUTHR.policies)}>
             <Trans
               t={t}
               i18nKey="noAccount"

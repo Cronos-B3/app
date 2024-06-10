@@ -5,7 +5,7 @@ import CheckboxWithLabel from '../molecules/CheckboxWithLabel';
 import { Controller } from 'react-hook-form';
 import { PoliciesForm } from '@/constants/types';
 import { router } from 'expo-router';
-import { AR } from '@/constants/routes';
+import { AUTHR } from '@/constants/routes';
 import Text from '../atoms/Text';
 import useForm from '@/hooks/useForm';
 
@@ -21,7 +21,7 @@ export default function PoliciesPage() {
       privacy: false,
     },
     delay: 0,
-    onSuccess: () => router.push(AR.privateData),
+    onSuccess: () => router.push(AUTHR.privateData),
   });
 
   const checkboxChecked = watch('oldEnough') && watch('terms') && watch('privacy');

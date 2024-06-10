@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { RegisterForm } from '@/constants/types';
 import useForm from '@/hooks/useForm';
 import { router } from 'expo-router';
-import { AR } from '@/constants/routes';
+import { AUTHR } from '@/constants/routes';
 import { Controller } from 'react-hook-form';
 import RULES from '@/constants/rules';
 import FormInput from '../molecules/FormInput';
@@ -32,7 +32,7 @@ export default function PrivateDataPage() {
     defaultValues: registerForm,
     onSuccess: (data) => {
       setRegisterForm(data);
-      router.push(AR.publicData);
+      router.push(AUTHR.publicData);
     },
     keysError: ['email', 'password', 'password_confirmation'],
   });

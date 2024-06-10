@@ -13,4 +13,4 @@ const APP_ROUTES = {
   home: '/(app)/a/(private)/home',
 };
 
-export { AUTH_ROUTES as AR, APP_ROUTES as PR };
+export { AUTH_ROUTES as AUTHR, APP_ROUTES as APPR };
