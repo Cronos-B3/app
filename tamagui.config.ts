@@ -38,6 +38,8 @@ const tokens = createTokens({
     inversed75: 'rgba(255, 255, 255, 0.75)',
     inversed50: 'rgba(255, 255, 255, 0.5)',
     notInversed: '#000000',
+    notInversed75: 'rgba(0, 0, 0, 0.75)',
+    notInversed50: 'rgba(0, 0, 0, 0.5)',
     notInversedBackground: '#0F0F0F',
   },
 });

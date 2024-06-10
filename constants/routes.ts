@@ -9,8 +9,11 @@ const AUTH_ROUTES = {
   publicData: registerPrefix + '/public-data',
 };
 
+const appPrefix = '/(app)/a';
+
 const APP_ROUTES = {
-  home: '/(app)/a/(private)/home',
+  home: appPrefix + '/(private)/home',
+  privateProfile: appPrefix + '/(private)/profile',
 };
 
 export { AUTH_ROUTES as AUTHR, APP_ROUTES as APPR };
