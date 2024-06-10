@@ -10,9 +10,7 @@ export default () => {
         headerShown: false,
         contentStyle: { backgroundColor: background.val },
       }}>
-      <Stack.Screen name="a/(modal)" />
-      <Stack.Screen name="a/(private)" />
-      <Stack.Screen name="(public)" />
+      <Stack.Screen name="[profile]" />
     </Stack>
   );
 };
