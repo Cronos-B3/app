@@ -1,3 +1,5 @@
-export default function PrivateProfile() {
-  return <></>;
+import MyProfilePage from '@/components/pages/MyProfilePage';
+
+export default function MyProfile() {
+  return <MyProfilePage />;
 }

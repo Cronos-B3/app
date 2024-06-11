@@ -1,3 +1,14 @@
+// User types
+
+export type UserType = {
+  identifier: string;
+  username: string;
+  profilePicture?: any; // TODO: type
+  backgroundPicture?: any; // TODO: type
+  bio: string;
+  numFollowers: string;
+};
+
 // Form types
 
 export type LoginForm = {
@@ -12,12 +23,12 @@ export type PoliciesForm = {
 };
 
 export type RegisterForm = {
-  profile_picture: any;
+  identifier: string;
+  username: string;
   email: string;
+  profile_picture?: any; // TODO: type
   password: string;
   password_confirmation: string;
-  username: string;
-  identifier: string;
 };
 
 // API types

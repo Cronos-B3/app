@@ -34,6 +34,7 @@ const tokens = createTokens({
     primary: '#9F62E4',
     secondary: '#6B21C0',
     tertiary: '#D4B9F3',
+    overBackground: '#1E1E1E',
     inversed: '#FFFFFF',
     inversed75: 'rgba(255, 255, 255, 0.75)',
     inversed50: 'rgba(255, 255, 255, 0.5)',
@@ -47,32 +48,28 @@ const tokens = createTokens({
 const fontsParams = Platform.select({
   android: {
     size: {
-      // Used font size
       1: RFValue(12),
       2: RFValue(13),
       3: RFValue(14),
       4: RFValue(15),
-      // Useless, but required for tamagui
-      5: RFValue(16),
-      6: RFValue(16),
-      7: RFValue(16),
-      8: RFValue(16),
-      9: RFValue(16),
+      5: RFValue(17),
+      6: RFValue(19),
+      7: RFValue(21),
+      8: RFValue(23),
+      9: RFValue(25),
     },
   },
   default: {
     size: {
-      1: RFValue(10),
-      // Used font size
-      2: RFValue(10),
-      3: RFValue(11),
-      4: RFValue(12),
-      // Useless, but required for tamagui
-      5: RFValue(12),
-      6: RFValue(12),
-      7: RFValue(12),
-      8: RFValue(12),
-      9: RFValue(12),
+      1: RFValue(12 * 0.8),
+      2: RFValue(13 * 0.8),
+      3: RFValue(14 * 0.8),
+      4: RFValue(15 * 0.8),
+      5: RFValue(17 * 0.8),
+      6: RFValue(19 * 0.8),
+      7: RFValue(21 * 0.8),
+      8: RFValue(23 * 0.8),
+      9: RFValue(25 * 0.8),
     },
   },
 });

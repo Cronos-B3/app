@@ -2,6 +2,14 @@
   "common": {
     "next": "Suivant"
   },
+  "app": {
+    "follow": "Suivre",
+    "followers": "{{numFollowers}} abonnés",
+    "stats": "Statistiques",
+    "success": "Succès",
+    "post": "Cron",
+    "posts": "Crons"
+  },
   "auth": {
     "login": "Se connecter",
     "forgotPassword": "Mot de passe oublié ?",

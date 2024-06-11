@@ -13,7 +13,7 @@ const appPrefix = '/(app)/a';
 
 const APP_ROUTES = {
   home: appPrefix + '/(private)/home',
-  privateProfile: appPrefix + '/(private)/profile',
+  myProfile: appPrefix + '/(private)/profile',
 };
 
 export { AUTH_ROUTES as AUTHR, APP_ROUTES as APPR };

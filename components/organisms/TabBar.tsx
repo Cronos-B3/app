@@ -40,7 +40,7 @@ export default function TabBar({ navigation, tabIndex, insetBottom }: TabBarProp
           position="absolute"
           top={'-75%'}
           borderRadius={'$round'}
-          icon={<LayoutGrid color={'$inversed'} size={'$6'} strokeWidth={1.25} />}
+          icon={<LayoutGrid color={'$inversed'} size={'$5'} strokeWidth={1.25} />}
         />
         <Button
           height={'100%'}
