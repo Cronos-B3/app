@@ -1,7 +1,7 @@
-import Modal from '../organisms/Modal';
+import ModalTemplate from '../templates/ModalTemplate';
 
 export default function PostModal() {
   if (__DEV__) console.log('📃 - PostModal');
 
-  return <Modal />;
+  return <ModalTemplate />;
 }

@@ -12,12 +12,12 @@ import Text from '../atoms/Text';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import { router } from 'expo-router';
 
-type ModalProps = {
+type ModalTemplateProps = {
   title?: string;
   height?: number;
 } & Omit<YStackProps, 'bottom'>;
 
-const Modal = YStack.styleable<ModalProps>(({ children, title, height = 50, ...props }, ref) => {
+const ModalTemplate = YStack.styleable<ModalTemplateProps>(({ children, title, height = 50, ...props }, ref) => {
   const { bottom: insetBottom } = useSafeAreaInsets();
 
   const modalHeight = (DEVICE.height * height) / 100 + insetBottom;
@@ -67,6 +67,6 @@ const Modal = YStack.styleable<ModalProps>(({ children, title, height = 50, ...p
   );
 });
 
-Modal.displayName = 'Modal';
+ModalTemplate.displayName = 'ModalTemplate';
 
-export default Modal;
+export default ModalTemplate;

@@ -1,7 +1,7 @@
-import Modal from '../organisms/Modal';
+import ModalTemplate from '../templates/ModalTemplate';
 
 export default function SettingsModal() {
   if (__DEV__) console.log('📃 - SettingsModal');
 
-  return <Modal title="CezGain" />;
+  return <ModalTemplate title="CezGain" />;
 }
