@@ -11,9 +11,20 @@ const AUTH_ROUTES = {
 
 const appPrefix = '/(app)/a';
 
+const mainAppPrefix = appPrefix + '/(private)';
+
 const APP_ROUTES = {
-  home: appPrefix + '/(private)/home',
-  myProfile: appPrefix + '/(private)/profile',
+  home: mainAppPrefix + '/home',
+  myProfile: mainAppPrefix + '/profile',
 };
 
-export { AUTH_ROUTES as AUTHR, APP_ROUTES as APPR };
+const menuPrefix = appPrefix + '/(menu)';
+
+const MODAL_ROUTES = {
+  menu: menuPrefix + '/menu',
+  settings: menuPrefix + '/settings',
+  search: menuPrefix + '/search',
+  post: menuPrefix + '/post',
+};
+
+export { AUTH_ROUTES as AUTHR, APP_ROUTES as APPR, MODAL_ROUTES as MODALR };

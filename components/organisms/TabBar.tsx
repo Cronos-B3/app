@@ -6,6 +6,9 @@ import { LayoutGrid } from '@tamagui/lucide-icons';
 import { Button, useTheme, View, XStack, YStack } from 'tamagui';
 import { NavigationHelpers, ParamListBase } from '@react-navigation/native';
 import type { BottomTabNavigationEventMap } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
+import { router } from 'expo-router';
+import { MODALR } from '@/constants/routes';
+import ButtonTabBar from '../molecules/ButtonTabBar';
 
 type TabBarProps = {
   navigation: NavigationHelpers<ParamListBase, BottomTabNavigationEventMap>;
@@ -13,7 +16,7 @@ type TabBarProps = {
   insetBottom: number;
 };
 
-const TAB_BAR_HEIGHT = (DEVICE.width * 64) / 390;
+export const TAB_BAR_HEIGHT = (DEVICE.width * 64) / 390;
 
 export default function TabBar({ navigation, tabIndex, insetBottom }: TabBarProps) {
   // if (__DEV__) console.log('🐙 - TabBar');
@@ -32,15 +35,11 @@ export default function TabBar({ navigation, tabIndex, insetBottom }: TabBarProp
           preserveAspectRatio="none"
           style={{ position: 'absolute' }}
         />
-        <Button
-          height={'110%'}
-          aspectRatio={1}
-          backgroundColor={'$primary'}
-          borderColor={'$notInversed50'}
-          position="absolute"
-          top={'-75%'}
-          borderRadius={'$round'}
+        <ButtonTabBar
+          big
+          placement="middle"
           icon={<LayoutGrid color={'$inversed'} size={'$5'} strokeWidth={1.25} />}
+          onPress={() => router.push(MODALR.menu)}
         />
         <Button
           height={'100%'}
