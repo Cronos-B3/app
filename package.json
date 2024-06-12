@@ -9,6 +9,7 @@
   "dependencies": {
     "@expo/vector-icons": "14.0.0",
     "@react-navigation/native": "6.0.2",
+    "@shopify/flash-list": "1.6.4",
     "@tamagui/babel-plugin": "1.99.1",
     "@tamagui/config": "1.99.1",
     "@tamagui/lucide-icons": "1.99.1",
