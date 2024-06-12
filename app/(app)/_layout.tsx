@@ -1,5 +1,5 @@
-import { router, Stack } from 'expo-router';
-import { useTheme, YStack } from 'tamagui';
+import { Stack } from 'expo-router';
+import { useTheme } from 'tamagui';
 
 export default () => {
   const { notInversedBackground: background, notInversed50: backgroundModal } = useTheme();
@@ -11,7 +11,7 @@ export default () => {
         contentStyle: { backgroundColor: background.val },
       }}>
       <Stack.Screen
-        name="a/(menu)"
+        name="a/(modal)"
         options={{
           animation: 'none',
           presentation: 'transparentModal',

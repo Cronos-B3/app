@@ -18,7 +18,7 @@ const APP_ROUTES = {
   myProfile: mainAppPrefix + '/profile',
 };
 
-const menuPrefix = appPrefix + '/(menu)';
+const menuPrefix = appPrefix + '/(modal)';
 
 const MODAL_ROUTES = {
   menu: menuPrefix + '/menu',

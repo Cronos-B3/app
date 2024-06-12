@@ -25,6 +25,8 @@ const tokens = createTokens({
     2: 8,
     3: 12,
     4: 16,
+    5: 20,
+    6: 24,
     round: 999,
   },
   space: { true: 0 },
@@ -42,6 +44,7 @@ const tokens = createTokens({
     notInversed75: 'rgba(0, 0, 0, 0.75)',
     notInversed50: 'rgba(0, 0, 0, 0.5)',
     notInversedBackground: '#0F0F0F',
+    modalBackground: '#18072C',
   },
 });
 

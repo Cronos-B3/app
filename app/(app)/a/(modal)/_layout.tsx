@@ -7,7 +7,7 @@ export default () => {
       <Stack
         screenOptions={{
           headerShown: false,
-          animation: 'slide_from_bottom',
+          animation: 'none',
           contentStyle: { backgroundColor: 'transparent', justifyContent: 'flex-end' },
         }}>
         <Stack.Screen name="menu" />
