@@ -12,23 +12,25 @@ export default function MenuModal() {
   const { bottom } = useSafeAreaInsets();
 
   return (
-    <YStack bottom={bottom} height={TAB_BAR_HEIGHT} width={'100%'}>
-      <ButtonTabBar
-        big
-        placement="middle"
-        icon={<SquarePen color={'$inversed'} size={'$5'} strokeWidth={1.5} />}
-        onPress={() => router.replace(MODALR.post)}
-      />
-      <ButtonTabBar
-        placement="left"
-        icon={<Settings color={'$inversed'} size={'$4'} strokeWidth={1.5} />}
-        onPress={() => router.replace(MODALR.settings)}
-      />
-      <ButtonTabBar
-        placement="right"
-        icon={<Search color={'$inversed'} size={'$4'} strokeWidth={1.5} />}
-        onPress={() => router.replace(MODALR.search)}
-      />
-    </YStack>
+    <Stack flex={1} justifyContent="flex-end" onPress={() => router.back()}>
+      <YStack bottom={bottom} height={TAB_BAR_HEIGHT} width={'100%'}>
+        <ButtonTabBar
+          big
+          placement="middle"
+          icon={<SquarePen color={'$inversed'} size={'$5'} strokeWidth={1.5} />}
+          onPress={() => router.replace(MODALR.post)}
+        />
+        <ButtonTabBar
+          placement="left"
+          icon={<Settings color={'$inversed'} size={'$4'} strokeWidth={1.5} />}
+          onPress={() => router.replace(MODALR.settings)}
+        />
+        <ButtonTabBar
+          placement="right"
+          icon={<Search color={'$inversed'} size={'$4'} strokeWidth={1.5} />}
+          onPress={() => router.replace(MODALR.search)}
+        />
+      </YStack>
+    </Stack>
   );
 }
