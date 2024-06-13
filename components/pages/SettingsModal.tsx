@@ -13,15 +13,22 @@ export default function SettingsModal() {
   const { t } = useTranslation();
 
   return (
-    <ModalTemplate title={t('app:settings')} justifyContent="space-between" paddingBottom={'10%'}>
+    <ModalTemplate title={t('app:settings')} justifyContent="space-between" bottomPadding>
       <YStack gap={DEVICE.height * 0.025}>
-        <LoadingButton customSize="large" icon={<User size={'$4'} strokeWidth={1.5} />}>
+        <LoadingButton
+          customSize="large"
+          icon={<User size={'$4'} strokeWidth={1.5} />}
+          onPress={() => router.push(MODALR.account)}>
           {t('app:myAccount')}
         </LoadingButton>
-        <LoadingButton customSize="large" icon={<Mail size={'$4'} strokeWidth={1.5} />}>
+        <LoadingButton customSize="large" icon={<Mail size={'$4'} strokeWidth={1.5} />}
+          onPress={() => router.push(MODALR.contact)}
+        >
           {t('static:contact')}
         </LoadingButton>
-        <LoadingButton customSize="large" icon={<Info size={'$4'} strokeWidth={1.5} />}>
+        <LoadingButton customSize="large" icon={<Info size={'$4'} strokeWidth={1.5} />}
+          onPress={() => router.push(MODALR.about)}
+        >
           {t('static:about')}
         </LoadingButton>
       </YStack>

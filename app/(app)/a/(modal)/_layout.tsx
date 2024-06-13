@@ -11,7 +11,10 @@ export default () => {
           contentStyle: { backgroundColor: 'transparent', justifyContent: 'flex-end' },
         }}>
         <Stack.Screen name="menu" />
-        <Stack.Screen name="settings" />
+        <Stack.Screen name="settings/index" />
+        <Stack.Screen name="settings/account" />
+        <Stack.Screen name="settings/about" />
+        <Stack.Screen name="settings/contact" />
         <Stack.Screen name="search" />
         <Stack.Screen name="post" />
       </Stack>

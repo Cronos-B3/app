@@ -1,5 +1,4 @@
 const authPrefix = '/(auth)/a';
-
 const registerPrefix = authPrefix + '/register';
 
 const AUTH_ROUTES = {
@@ -10,7 +9,6 @@ const AUTH_ROUTES = {
 };
 
 const appPrefix = '/(app)/a';
-
 const mainAppPrefix = appPrefix + '/(private)';
 
 const APP_ROUTES = {
@@ -19,10 +17,14 @@ const APP_ROUTES = {
 };
 
 const menuPrefix = appPrefix + '/(modal)';
+const settingsPrefix = menuPrefix + '/settings';
 
 const MODAL_ROUTES = {
   menu: menuPrefix + '/menu',
-  settings: menuPrefix + '/settings',
+  settings: settingsPrefix,
+  account: settingsPrefix + '/account',
+  contact: settingsPrefix + '/contact',
+  about: settingsPrefix + '/about',
   search: menuPrefix + '/search',
   post: menuPrefix + '/post',
 };

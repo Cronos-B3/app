@@ -8,10 +8,11 @@ import { router } from 'expo-router';
 type ModalTemplateProps = {
   title?: string;
   height?: number;
+  bottomPadding?: boolean;
 } & Omit<YStackProps, 'bottom'>;
 
 const ModalTemplate = YStack.styleable<ModalTemplateProps>(
-  ({ children, title, height = 50, ...props }, ref) => {
+  ({ children, title, height = 50, bottomPadding, ...props }, ref) => {
     const { bottom } = useSafeAreaInsets();
 
     return (
@@ -39,7 +40,7 @@ const ModalTemplate = YStack.styleable<ModalTemplateProps>(
             </Text>
           </Stack>
         )}
-        <YStack flex={1} {...props}>
+        <YStack flex={1} paddingBottom={bottomPadding && '10%'} {...props}>
           {children}
         </YStack>
       </YStack>
