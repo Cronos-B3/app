@@ -1,5 +1,5 @@
 import { LoginForm, RegisterForm } from '@/constants/types';
-import useApi from './useApi';
+import useApi, { UseApiProcess } from './useApi';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
 import { router } from 'expo-router';
@@ -10,24 +10,30 @@ const useAuthApi = () => {
   const { t } = useTranslation('auth');
   const toast = useToastController();
 
-  const login = {
-    process: async (data: LoginForm) => post('/auth/login', data),
+  const login: UseApiProcess<LoginForm> = {
+    process: async (data) => post('/auth/login', data),
     onSuccess: (data: any) => {
       // TODO: Handle success
       console.log('success', data);
       router.push(APPR.home);
     },
-    onError: (error: any) => {
+    onError: (error) => {
       // TODO: Handle other errors
       console.log('error', error);
     },
     onFormError: () => toast.show(t('error.credentials')),
   };
 
-  const register = {
-    process: async (data: RegisterForm) => post('/auth/register', data),
-    onSuccess: (data: any) => {},
-    onError: (error: any) => {},
+  const register: UseApiProcess<RegisterForm> = {
+    process: async (data) => post('/auth/register', data),
+    onSuccess: (data) => {
+      // TODO: Handle success
+      console.log('success', data);
+    },
+    onError: (error) => {
+      // TODO: Handle other errors
+      console.log('error', error);
+    },
   };
 
   return { login, register };

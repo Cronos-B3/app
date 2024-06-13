@@ -4,6 +4,7 @@ import { Button, Stack, YStack, YStackProps } from 'tamagui';
 import Text from '../atoms/Text';
 import { ArrowLeft } from '@tamagui/lucide-icons';
 import { router } from 'expo-router';
+import { Keyboard } from 'react-native';
 
 type ModalTemplateProps = {
   title?: string;
@@ -19,7 +20,7 @@ const ModalTemplate = YStack.styleable<ModalTemplateProps>(
       <YStack
         height={(DEVICE.height * height) / 100 + bottom}
         paddingBottom={bottom}
-        onPress={() => null}
+        onPress={() => Keyboard.dismiss()}
         backgroundColor={'$modalBackground'}
         paddingHorizontal={'6%'}
         ref={ref}
@@ -27,14 +28,18 @@ const ModalTemplate = YStack.styleable<ModalTemplateProps>(
         borderTopRightRadius={'$6'}>
         <Button
           color={'$inversed'}
-          icon={<ArrowLeft size={'$6'} />}
+          icon={<ArrowLeft size={'$5'} />}
           position="absolute"
           top={DEVICE.height * 0.05}
           left={'5%'}
           onPress={() => router.back()}
         />
         {title && (
-          <Stack height={DEVICE.height * 0.1} justifyContent="center" alignItems="center">
+          <Stack
+            height={DEVICE.height * 0.1}
+            paddingHorizontal={'13%'}
+            justifyContent="center"
+            alignItems="center">
             <Text fontSize={'$8'} fontFamily={'$bold'}>
               {title}
             </Text>

@@ -21,7 +21,13 @@ const FormInputFrame = styled(Input, {
       password: {
         autoCapitalize: 'none',
       },
-      password_confirmation: {
+      passwordConfirmation: {
+        autoCapitalize: 'none',
+      },
+      newPassword: {
+        autoCapitalize: 'none',
+      },
+      newPasswordConfirmation: {
         autoCapitalize: 'none',
       },
       email: {
@@ -38,7 +44,12 @@ const FormInputFrame = styled(Input, {
   } as const,
 });
 
-const INPUT_TO_HIDE = ['password', 'password_confirmation'];
+const INPUT_TO_HIDE = [
+  'password',
+  'passwordConfirmation',
+  'newPassword',
+  'newPasswordConfirmation',
+];
 
 export type FormInputProps = GetProps<typeof FormInputFrame> & {
   containerProps?: StackProps;
@@ -49,7 +60,7 @@ const FormInput = FormInputFrame.styleable<FormInputProps>(
   ({ type, containerProps, subLabel, ...props }, ref) => {
     const { t } = useTranslation('form');
 
-    const inputType = type?.replace('_confirmation', '.confirmation');
+    const inputType = type?.replace('Confirmation', '.confirmation');
     const isLabelHidden = !inputType?.includes('.confirmation');
 
     const isInputHidden = INPUT_TO_HIDE.includes(type ?? '');

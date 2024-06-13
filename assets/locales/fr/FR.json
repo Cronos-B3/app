@@ -1,6 +1,7 @@
 {
   "common": {
-    "next": "Suivant"
+    "next": "Suivant",
+    "confirm": "Confirmer"
   },
   "app": {
     "settings": "Paramètres",
@@ -40,6 +41,13 @@
         "placeholder": "Confirmez votre mot de passe"
       }
     },
+    "newPassword": {
+      "label": "Nouveau mot de passe",
+      "placeholder": "Entrez votre nouveau mot de passe",
+      "confirmation": {
+        "placeholder": "Confirmez votre nouveau mot de passe"
+      }
+    },
     "email": {
       "label": "Email",
       "placeholder": "Entrez votre email"
@@ -58,12 +66,21 @@
         "pattern": "Email invalide"
       },
       "password": {
+        "incorrect": "Votre mot de passe n'est pas correct",
         "required": "Mot de passe requis",
         "pattern": "Mot de passe invalide",
         "minLength": "Mot de passe trop court"
       },
-      "password_confirmation": {
+      "passwordConfirmation": {
         "validate": "Les mots de passe ne correspondent pas"
+      },
+      "newPassword": {
+        "required": "Nouveau mot de passe requis",
+        "pattern": "Nouveau mot de passe invalide",
+        "minLength": "Nouveau mot de passe trop court"
+      },
+      "newPasswordConfirmation": {
+        "validate": "Les nouveaux mots de passe ne correspondent pas"
       },
       "username": {
         "required": "Nom d'utilisateur requis"

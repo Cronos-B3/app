@@ -10,7 +10,6 @@ import RULES from '@/constants/rules';
 import FormInput from '../molecules/FormInput';
 import { TextInput } from 'react-native';
 import { useRef } from 'react';
-import { useToastController } from '@tamagui/toast';
 import { YStack } from 'tamagui';
 import { DEVICE } from '@/constants/config';
 import Text from '../atoms/Text';
@@ -20,12 +19,11 @@ export default function PrivateDataPage() {
 
   const { registerForm, setRegisterForm } = useRegister();
   const { t } = useTranslation('auth');
-  const toast = useToastController();
 
   const refs = {
     email: useRef<TextInput>(null),
     password: useRef<TextInput>(null),
-    password_confirmation: useRef<TextInput>(null),
+    passwordConfirmation: useRef<TextInput>(null),
   };
 
   const { control, onSubmit, isFormPending, watch } = useForm<RegisterForm>({
@@ -34,7 +32,7 @@ export default function PrivateDataPage() {
       setRegisterForm(data);
       router.push(AUTHR.publicData);
     },
-    keysError: ['email', 'password', 'password_confirmation'],
+    keysError: ['email', 'password', 'passwordConfirmation'],
   });
 
   return (
@@ -78,13 +76,13 @@ export default function PrivateDataPage() {
               }
               onChangeText={onChange}
               value={value}
-              onSubmitEditing={() => refs.password_confirmation.current?.focus()}
+              onSubmitEditing={() => refs.passwordConfirmation.current?.focus()}
             />
           )}
         />
         <Controller
           control={control}
-          name="password_confirmation"
+          name="passwordConfirmation"
           rules={{ validate: (value) => value === watch('password') }}
           render={({ field: { onChange, value, name } }) => (
             <FormInput

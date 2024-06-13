@@ -16,7 +16,7 @@ export const RegisterProvider = ({ children }: { children: ReactNode }) => {
     identifier: '',
     email: '',
     password: '',
-    password_confirmation: '',
+    passwordConfirmation: '',
     username: '',
   });
 

@@ -1,5 +1,14 @@
 import { HttpMethod, OptionalsData } from '@/constants/types';
 import axios from 'axios';
+import { FieldValues } from 'react-hook-form';
+import { UseFormProps } from '../useForm';
+
+export type UseApiProcess<T extends FieldValues> = {
+  process: (data: T) => Promise<any>;
+  onSuccess: (data: any) => void;
+  onError: (error: any) => void;
+  onFormError?: UseFormProps<T>['onError'];
+};
 
 const useApi = () => {
   const fetchUrl = async (

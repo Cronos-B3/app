@@ -28,7 +28,13 @@ export type RegisterForm = {
   email: string;
   profile_picture?: any; // TODO: type
   password: string;
-  password_confirmation: string;
+  passwordConfirmation: string;
+};
+
+export type ChangePasswordForm = {
+  password: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
 };
 
 // API types
