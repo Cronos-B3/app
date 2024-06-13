@@ -17,55 +17,60 @@ type ModalTemplateProps = {
   height?: number;
 } & Omit<YStackProps, 'bottom'>;
 
-const ModalTemplate = YStack.styleable<ModalTemplateProps>(({ children, title, height = 50, ...props }, ref) => {
-  const { bottom: insetBottom } = useSafeAreaInsets();
+const ModalTemplate = YStack.styleable<ModalTemplateProps>(
+  ({ children, title, height = 50, ...props }, ref) => {
+    const { bottom: insetBottom } = useSafeAreaInsets();
 
-  const modalHeight = (DEVICE.height * height) / 100 + insetBottom;
+    const modalHeight = (DEVICE.height * height) / 100 + insetBottom;
 
-  const translateY = useSharedValue(modalHeight);
+    const translateY = useSharedValue(modalHeight);
 
-  useEffect(() => {
-    translateY.value = withTiming(0, {
-      duration: 350,
-      easing: Easing.inOut(Easing.ease),
+    useEffect(() => {
+      translateY.value = withTiming(0, {
+        duration: 350,
+        easing: Easing.inOut(Easing.ease),
+      });
+    }, []);
+
+    const animatedStyle = useAnimatedStyle(() => {
+      return {
+        transform: [{ translateY: translateY.value }],
+      };
     });
-  }, []);
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: translateY.value }],
-    };
-  });
-
-  return (
-    <Animated.View style={[{ height: modalHeight, paddingBottom: insetBottom }, animatedStyle]}>
-      <YStack
-        backgroundColor={'$modalBackground'}
-        {...props}
-        flex={1}
-        ref={ref}
-        borderTopLeftRadius={'$6'}
-        borderTopRightRadius={'$6'}>
-        <Button
-          color={'$inversed'}
-          icon={<ArrowLeft size={'$6'} />}
-          position="absolute"
-          top={DEVICE.height * 0.05}
-          left={'5%'}
-          onPress={() => router.back()}
-        />
-        {title && (
-          <Stack height={DEVICE.height * 0.1} justifyContent="center" alignItems="center">
-            <Text fontSize={'$8'} fontFamily={'$bold'}>
-              {title}
-            </Text>
-          </Stack>
-        )}
-        <YStack flex={1}>{children}</YStack>
-      </YStack>
-    </Animated.View>
-  );
-});
+    return (
+      <Animated.View style={[{ height: modalHeight, paddingBottom: insetBottom }, animatedStyle]}>
+        <YStack
+          onPress={() => null}
+          backgroundColor={'$modalBackground'}
+          paddingHorizontal={'6%'}
+          flex={1}
+          ref={ref}
+          borderTopLeftRadius={'$6'}
+          borderTopRightRadius={'$6'}>
+          <Button
+            color={'$inversed'}
+            icon={<ArrowLeft size={'$6'} />}
+            position="absolute"
+            top={DEVICE.height * 0.05}
+            left={'5%'}
+            onPress={() => router.back()}
+          />
+          {title && (
+            <Stack height={DEVICE.height * 0.1} justifyContent="center" alignItems="center">
+              <Text fontSize={'$8'} fontFamily={'$bold'}>
+                {title}
+              </Text>
+            </Stack>
+          )}
+          <YStack flex={1} {...props}>
+            {children}
+          </YStack>
+        </YStack>
+      </Animated.View>
+    );
+  }
+);
 
 ModalTemplate.displayName = 'ModalTemplate';
 

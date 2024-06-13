@@ -46,7 +46,10 @@ export default function LoginPage() {
     <AuthTemplate
       customButton={
         <YStack>
-          <LoadingButton onPress={onSubmit} isLoading={isPending || isFormPending}>
+          <LoadingButton
+            borderRadius={'$round'}
+            onPress={onSubmit}
+            isLoading={isPending || isFormPending}>
             {t('login')}
           </LoadingButton>
           <Text

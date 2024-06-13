@@ -3,16 +3,31 @@ import { DEVICE } from '@/constants/config';
 
 const StyledLoadingButton = styled(Button, {
   backgroundColor: '$secondary',
-  borderRadius: '$round',
 
   fontSize: '$4',
   color: '$inversed',
 
   variants: {
     customSize: {
-      small: { height: DEVICE.height * 0.035 },
-      medium: { height: DEVICE.height * 0.045 },
-      large: { height: DEVICE.height * 0.055 },
+      small: {
+        height: DEVICE.height * 0.045,
+        fontSize: '$3',
+      },
+      medium: {
+        height: DEVICE.height * 0.0525,
+        fontSize: '$4',
+      },
+      large: {
+        height: DEVICE.height * 0.06,
+        borderRadius: '$3',
+        fontSize: '$5',
+      },
+    },
+
+    red: {
+      true: {
+        backgroundColor: '$inversedRed',
+      },
     },
 
     isLoading: {
@@ -23,7 +38,7 @@ const StyledLoadingButton = styled(Button, {
   } as const,
 
   defaultVariants: {
-    customSize: 'large',
+    customSize: 'medium',
     isLoading: false,
   },
 });
@@ -33,7 +48,9 @@ export type LoadingButtonProps = GetProps<typeof StyledLoadingButton>;
 const LoadingButton = StyledLoadingButton.styleable<LoadingButtonProps>(
   ({ children, isLoading, ...props }, ref) => {
     if (isLoading) {
-      return <StyledLoadingButton {...props} isLoading ref={ref} icon={<Spinner size={'small'} />} />;
+      return (
+        <StyledLoadingButton {...props} isLoading ref={ref} icon={<Spinner size={'small'} />} />
+      );
     }
 
     return (

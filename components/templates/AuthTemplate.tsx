@@ -29,7 +29,9 @@ export default function AuthTemplate({
         {customButton ? (
           customButton
         ) : (
-          <LoadingButton {...button}>{button?.children ?? t('next')}</LoadingButton>
+          <LoadingButton borderRadius={'$round'} {...button}>
+            {button?.children ?? t('next')}
+          </LoadingButton>
         )}
       </YStack>
     </YStack>

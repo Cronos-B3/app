@@ -45,6 +45,7 @@ const tokens = createTokens({
     notInversed50: 'rgba(0, 0, 0, 0.5)',
     notInversedBackground: '#0F0F0F',
     modalBackground: '#18072C',
+    inversedRed: '#AA2222',
   },
 });
 

@@ -3,6 +3,8 @@
     "next": "Suivant"
   },
   "app": {
+    "settings": "Paramètres",
+    "myAccount": "Mon compte",
     "follow": "Suivre",
     "followers": "{{numFollowers}} abonnés",
     "stats": "Statistiques",
@@ -12,6 +14,7 @@
   },
   "auth": {
     "login": "Se connecter",
+    "logout": "Se déconnecter",
     "forgotPassword": "Mot de passe oublié ?",
     "noAccount": "Pas encore de compte ? <underline>Inscrivez-vous !</underline>",
     "oldEnough": "J'ai plus de 15 ans",
@@ -69,5 +72,9 @@
         "pattern": "Identifiant invalide"
       }
     }
+  },
+  "static": {
+    "about": "À propos",
+    "contact": "Nous contacter"
   }
 }
