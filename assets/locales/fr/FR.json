@@ -5,6 +5,8 @@
   "app": {
     "settings": "Paramètres",
     "myAccount": "Mon compte",
+    "deleteAccount": "Supprimer mon compte",
+    "changePassword": "Changer de mot de passe",
     "follow": "Suivre",
     "followers": "{{numFollowers}} abonnés",
     "stats": "Statistiques",

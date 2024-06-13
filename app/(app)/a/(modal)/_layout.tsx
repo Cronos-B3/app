@@ -12,7 +12,8 @@ export default () => {
         }}>
         <Stack.Screen name="menu" />
         <Stack.Screen name="settings/index" />
-        <Stack.Screen name="settings/account" />
+        <Stack.Screen name="settings/account/index" />
+        <Stack.Screen name="settings/account/change-password" />
         <Stack.Screen name="settings/about" />
         <Stack.Screen name="settings/contact" />
         <Stack.Screen name="search" />

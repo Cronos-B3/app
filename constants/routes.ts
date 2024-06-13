@@ -23,6 +23,7 @@ const MODAL_ROUTES = {
   menu: menuPrefix + '/menu',
   settings: settingsPrefix,
   account: settingsPrefix + '/account',
+  changePassword: settingsPrefix + '/account/change-password',
   contact: settingsPrefix + '/contact',
   about: settingsPrefix + '/about',
   search: menuPrefix + '/search',
