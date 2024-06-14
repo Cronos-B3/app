@@ -9,6 +9,16 @@ export type UserType = {
   numFollowers: string;
 };
 
+export type PostType = {
+  id: string;
+  username: UserType['username'];
+  profilePicture: UserType['profilePicture'];
+  content: string;
+  liked: boolean;
+  upvoted: boolean;
+  timeLeft: number;
+};
+
 // Form types
 
 export type LoginForm = {
