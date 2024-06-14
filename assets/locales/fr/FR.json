@@ -2,7 +2,8 @@
   "common": {
     "catchphrase": "Tic tac, le temps tourne...",
     "next": "Suivant",
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "search": "Rechercher"
   },
   "app": {
     "settings": "Paramètres",
@@ -14,7 +15,8 @@
     "stats": "Statistiques",
     "success": "Succès",
     "post": "Cron",
-    "posts": "Crons"
+    "posts": "Crons",
+    "users": "Utilisateurs"
   },
   "auth": {
     "login": "Se connecter",

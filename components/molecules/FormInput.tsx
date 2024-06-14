@@ -9,8 +9,6 @@ import { ReactNode, useState } from 'react';
 const FormInputFrame = styled(Input, {
   flex: 1,
   height: DEVICE.height * 0.04,
-  borderWidth: 0,
-  color: '$inversed',
   maxLength: 255,
 
   variants: {

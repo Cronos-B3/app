@@ -4,6 +4,7 @@ import { Input as TInput } from 'tamagui';
 const Input = styled(TInput, {
   name: 'Input',
 
+  color: '$inversed',
   placeholderTextColor: '$inversed50',
   borderWidth: 0,
   fontSize: '$3',
