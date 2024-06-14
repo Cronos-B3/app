@@ -15,8 +15,8 @@ export default function Post({ post }: { post: PostType }) {
   });
 
   return (
-    <YStack marginBottom={TAB_BAR_HEIGHT * 0.5} gap={DEVICE.height * 0.015}>
-      <XStack height={DEVICE.height * 0.07} gap={DEVICE.width * 0.035} alignItems="center">
+    <YStack marginVertical={TAB_BAR_HEIGHT * 0.3} gap={DEVICE.height * 0.015}>
+      <XStack height={DEVICE.height * 0.06} gap={DEVICE.width * 0.035} alignItems="center">
         <Image
           height={'100%'}
           aspectRatio={1}
@@ -24,10 +24,10 @@ export default function Post({ post }: { post: PostType }) {
           source={{ uri: post.profilePicture }}
         />
         <YStack flex={1}>
-          <Text fontSize={'$5'} fontFamily={'$bold'}>
+          <Text fontSize={'$4'} fontFamily={'$bold'}>
             {post.username}
           </Text>
-          <Text fontSize={'$3'}>{timeToString}</Text>
+          <Text fontSize={'$2'}>{timeToString}</Text>
         </YStack>
         <Button color={'$inversed'} icon={<MoreHorizontal size={'$4'} strokeWidth={1.5} />} />
       </XStack>
