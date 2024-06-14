@@ -47,6 +47,10 @@ export type ChangePasswordForm = {
   newPasswordConfirmation: string;
 };
 
+export type PostForm = {
+  content: string;
+};
+
 // API types
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';

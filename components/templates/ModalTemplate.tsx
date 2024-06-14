@@ -10,10 +10,11 @@ type ModalTemplateProps = {
   title?: string;
   height?: number;
   bottomPadding?: boolean;
+  topPadding?: boolean;
 } & Omit<YStackProps, 'bottom'>;
 
 const ModalTemplate = YStack.styleable<ModalTemplateProps>(
-  ({ children, title, height = 50, bottomPadding, ...props }, ref) => {
+  ({ children, title, height = 50, bottomPadding, topPadding, ...props }, ref) => {
     const { bottom } = useSafeAreaInsets();
 
     return (
@@ -45,7 +46,11 @@ const ModalTemplate = YStack.styleable<ModalTemplateProps>(
             </Text>
           </Stack>
         )}
-        <YStack flex={1} paddingBottom={bottomPadding && '10%'} {...props}>
+        <YStack
+          flex={1}
+          paddingBottom={bottomPadding && '10%'}
+          paddingTop={topPadding && DEVICE.height * 0.1}
+          {...props}>
           {children}
         </YStack>
       </YStack>

@@ -5,6 +5,7 @@ const Input = styled(TInput, {
   name: 'Input',
 
   placeholderTextColor: '$inversed50',
+  borderWidth: 0,
   fontSize: '$3',
 });
 

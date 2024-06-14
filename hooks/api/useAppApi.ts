@@ -1,4 +1,4 @@
-import { ChangePasswordForm } from '@/constants/types';
+import { ChangePasswordForm, PostForm } from '@/constants/types';
 import useApi, { UseApiProcess } from './useApi';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
@@ -34,7 +34,19 @@ const useAppApi = () => {
     },
   };
 
-  return { changePassword };
+  const createPost: UseApiProcess<PostForm> = {
+    process: async (data) => post('', data),
+    onSuccess: (data) => {
+      // TODO: Handle success
+      console.log('success', data);
+    },
+    onError: (error) => {
+      // TODO: Handle other errors
+      console.log('error', error);
+    },
+  };
+
+  return { changePassword, createPost };
 };
 
 export default useAppApi;

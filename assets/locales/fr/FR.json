@@ -1,5 +1,6 @@
 {
   "common": {
+    "catchphrase": "Tic tac, le temps tourne...",
     "next": "Suivant",
     "confirm": "Confirmer"
   },
@@ -89,6 +90,9 @@
         "required": "Identifiant requis",
         "minLength": "Identifiant trop court",
         "pattern": "Identifiant invalide"
+      },
+      "content": {
+        "required": "Le post ne peut pas être vide"
       }
     }
   },
