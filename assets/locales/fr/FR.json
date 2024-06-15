@@ -8,7 +8,12 @@
   "app": {
     "settings": "Paramètres",
     "myAccount": "Mon compte",
-    "deleteAccount": "Supprimer mon compte",
+    "deleteAccount": {
+      "title": "Supprimer mon compte",
+      "text": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+      "cancel": "J'ai changé d'avis",
+      "confirm": "SUPPRIMER DEFINITIVEMENT"
+    },
     "changePassword": "Changer de mot de passe",
     "follow": "Suivre",
     "followers": "{{numFollowers}} abonnés",

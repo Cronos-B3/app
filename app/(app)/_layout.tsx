@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
 
 export default () => {
-  const { notInversedBackground: background, notInversed50: backgroundModal } = useTheme();
+  const { notInversedBackground: background } = useTheme();
 
   return (
     <Stack
@@ -15,7 +15,7 @@ export default () => {
         options={{
           animation: 'none',
           presentation: 'transparentModal',
-          contentStyle: { backgroundColor: backgroundModal.val },
+          contentStyle: { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
         }}
       />
       <Stack.Screen name="a/(private)" />
