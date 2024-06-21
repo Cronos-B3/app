@@ -3,9 +3,13 @@
 export type UserType = {
   identifier: string;
   username: string;
-  profilePicture?: any; // TODO: type
-  backgroundPicture?: any; // TODO: type
+  email: string;
+  profilePicture: string;
+  bannerPicture: string;
   bio: string;
+};
+
+export type ProfileUserType = UserType & {
   numFollowers: string;
 };
 

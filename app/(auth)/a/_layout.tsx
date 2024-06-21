@@ -1,11 +1,16 @@
 import AuthHeader from '@/components/organisms/AuthHeader';
-import { Stack } from 'expo-router';
+import { APPR } from '@/constants/routes';
+import useTokenStore from '@/hooks/store/useTokenStore';
+import { Redirect, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'tamagui';
 
 export default () => {
   const { top } = useSafeAreaInsets();
   const { notInversedBackground: background } = useTheme();
+  const { token } = useTokenStore();
+
+  if (token) return <Redirect href={APPR.home} />;
 
   return (
     <>

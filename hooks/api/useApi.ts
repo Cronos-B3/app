@@ -2,6 +2,7 @@ import { HttpMethod, OptionalsData } from '@/constants/types';
 import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
 import { UseFormProps } from '../useForm';
+import useTokenStore from '../store/useTokenStore';
 
 export type UseApiProcess<T extends FieldValues> = {
   process: (data: T) => Promise<any>;
@@ -11,6 +12,8 @@ export type UseApiProcess<T extends FieldValues> = {
 };
 
 const useApi = () => {
+  const { token } = useTokenStore();
+
   const fetchUrl = async (
     url: string,
     method: HttpMethod,
@@ -22,6 +25,9 @@ const useApi = () => {
       url,
       ...(['GET'].includes(method) ? { params: requestData } : { data: requestData }),
       ...optionals,
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+      },
     });
 
     if (__DEV__) {

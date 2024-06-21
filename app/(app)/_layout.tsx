@@ -1,8 +1,14 @@
-import { Stack } from 'expo-router';
+import { AUTHR } from '@/constants/routes';
+import useTokenStore from '@/hooks/store/useTokenStore';
+import { Redirect, Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
 
 export default () => {
   const { notInversedBackground: background } = useTheme();
+
+  const { token } = useTokenStore();
+
+  if (!token) return <Redirect href={AUTHR.login} />;
 
   return (
     <Stack

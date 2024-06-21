@@ -2,7 +2,7 @@ import { Button, Image, ScrollView, Stack, XStack, YStack, YStackProps } from 't
 import Text from '../atoms/Text';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DEVICE } from '@/constants/config';
-import { UserType } from '@/constants/types';
+import { ProfileUserType } from '@/constants/types';
 import { Clipboard, Gem, MoreHorizontal } from '@tamagui/lucide-icons';
 import { NamedExoticComponent, ReactNode } from 'react';
 import type { IconProps } from '@tamagui/helpers-icon';
@@ -15,12 +15,13 @@ export default function MyProfilePage() {
   const { top } = useSafeAreaInsets();
   const { t } = useTranslation('app');
 
-  const tempUser: UserType = {
+  const tempUser: ProfileUserType = {
     identifier: 'CezGain',
     username: 'CezGain',
+    email: '',
     profilePicture:
       'https://ih1.redbubble.net/image.866593086.1888/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg',
-    backgroundPicture:
+    bannerPicture:
       'https://img.freepik.com/photos-gratuite/peinture-lac-montagne-montagne-arriere-plan_188544-9126.jpg?w=1060&t=st=1718028586~exp=1718029186~hmac=a3cd39d48083fcd630e7df8f20d1abc25f1ec9185bbf06fad47aebc85688e20b',
     bio: 'Je suis la biographie',
     numFollowers: formatFollowersNumber(123),
@@ -29,7 +30,7 @@ export default function MyProfilePage() {
   return (
     <YStack marginTop={top}>
       <ScrollView contentContainerStyle={{ paddingBottom: DEVICE.height * 0.15 }}>
-        <Image height={DEVICE.height * 0.2} source={{ uri: tempUser.backgroundPicture }} />
+        <Image height={DEVICE.height * 0.2} source={{ uri: tempUser.bannerPicture }} />
         <YStack paddingHorizontal={'4%'} gap={DEVICE.height * 0.035}>
           <YStack>
             <XStack height={DEVICE.height * 0.225} gap={DEVICE.width * 0.07} paddingVertical={'6%'}>
