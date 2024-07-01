@@ -19,6 +19,7 @@
     "followers": "{{numFollowers}} abonnés",
     "stats": "Statistiques",
     "success": "Succès",
+    "noPost": "Aucun cron trouvé",
     "post": "Cron",
     "posts": "Crons",
     "users": "Utilisateurs"

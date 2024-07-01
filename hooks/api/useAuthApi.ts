@@ -1,4 +1,4 @@
-import { LoginForm, RegisterForm, UserType } from '@/constants/types';
+import { LoginForm, RegisterForm, MyUserType } from '@/constants/types';
 import useApi, { UseApiProcess } from './useApi';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
@@ -16,7 +16,7 @@ const useAuthApi = () => {
 
   const login: UseApiProcess<LoginForm> = {
     process: async (data) => post('/v1/auth/login', data),
-    onSuccess: ({ jwt, user }: { jwt: string; user: UserType }) => {
+    onSuccess: ({ jwt, user }: { jwt: string; user: MyUserType }) => {
       setToken(jwt);
       setUser(user);
       router.push(APPR.home);
@@ -30,7 +30,7 @@ const useAuthApi = () => {
 
   const register: UseApiProcess<RegisterForm> = {
     process: async (data) => post('/v1/auth/register', data),
-    onSuccess: ({ jwt, user }: { jwt: string; user: UserType }) => {
+    onSuccess: ({ jwt, user }: { jwt: string; user: MyUserType }) => {
       setToken(jwt);
       setUser(user);
       router.push(APPR.home);

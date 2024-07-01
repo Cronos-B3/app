@@ -1,7 +1,7 @@
 import { DEVICE } from '@/constants/config';
 import LoadingButton from '../molecules/LoadingButton';
 import ModalTemplate from '../templates/ModalTemplate';
-import { Image, TextArea, XStack } from 'tamagui';
+import { Image, Select, Stack, TextArea, useTheme, XStack } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import useForm from '@/hooks/useForm';
 import { PostForm } from '@/constants/types';
@@ -9,12 +9,30 @@ import { useMutation } from '@tanstack/react-query';
 import { Controller } from 'react-hook-form';
 import useAppApi from '@/hooks/api/useAppApi';
 import { Keyboard } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Dropdown } from 'react-native-element-dropdown';
 
 export default function PostModal() {
   if (__DEV__) console.log('📃 - PostModal');
 
   const { t } = useTranslation();
   const { createPost } = useAppApi();
+  const [keyboardHeight, setKeyboardHeight] = useState(() => 0);
+  const theme = useTheme();
+
+  const items = [
+    { value: 1, label: '1 minutes' },
+    { value: 5, label: '5 minutes' },
+    { value: 15, label: '15 minutes' },
+    { value: 30, label: '30 minutes' },
+    { value: 1 * 60, label: '1 heure' },
+    { value: 3 * 60, label: '3 heures' },
+    { value: 6 * 60, label: '6 heures' },
+    { value: 12 * 60, label: '12 heures' },
+    { value: 1 * 24 * 60, label: '1 jour' },
+  ];
+
+  const [selected, setSelected] = useState(() => items[0]);
 
   const { mutate: fetchCreatePost, isPending } = useMutation({
     mutationFn: createPost.process,
@@ -25,10 +43,26 @@ export default function PostModal() {
   const { control, onSubmit, isFormPending } = useForm<PostForm>({
     defaultValues: {
       content: '',
+      finishedAt: items[0].value,
     },
     onSuccess: fetchCreatePost,
     keysError: ['content'],
   });
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (e) => {
+      setKeyboardHeight(e.endCoordinates.height);
+    });
+
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardHeight(0);
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
     <ModalTemplate height={90} topPadding>
@@ -75,6 +109,46 @@ export default function PostModal() {
             />
           )}
         />
+      </XStack>
+      <XStack justifyContent="flex-end" marginBottom={keyboardHeight + DEVICE.height * 0.02}>
+        <Stack
+          height={DEVICE.height * 0.045}
+          aspectRatio={4}
+          borderRadius={'$round'}
+          backgroundColor={'$secondary'}>
+          <Controller
+            control={control}
+            name="finishedAt"
+            rules={{ required: true }}
+            render={({ field: { onChange } }) => (
+              <Dropdown
+                mode="modal"
+                labelField="label"
+                valueField="value"
+                data={items}
+                onChange={(item) => {
+                  setSelected(item);
+                  onChange(item.value);
+                }}
+                value={selected}
+                style={{ flex: 1, paddingHorizontal: '10%' }}
+                selectedTextStyle={{ color: theme.inversed.val }}
+                iconColor={theme.inversed.val}
+                containerStyle={{
+                  height: DEVICE.height,
+                  width: DEVICE.width,
+                  backgroundColor: theme.notInversed25.val,
+                  borderWidth: 0,
+                  justifyContent: 'center',
+                  paddingHorizontal: '10%',
+                }}
+                itemContainerStyle={{ backgroundColor: theme.modalBackground.val }}
+                itemTextStyle={{ color: theme.inversed.val }}
+                activeColor={theme.secondary.val}
+              />
+            )}
+          />
+        </Stack>
       </XStack>
     </ModalTemplate>
   );

@@ -7,8 +7,7 @@ import { config } from '../tamagui.config';
 import '../i18n';
 
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
+import { Stack, SplashScreen } from 'expo-router';
 import { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -25,6 +24,8 @@ SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
+  if (__DEV__) console.log('🥇 - RootLayout');
+
   // These fonts are used by the TamaguiProvider.
   const [fontsLoaded, fontsFailed] = useFonts({
     Heebo: require('../assets/fonts/Heebo-Regular.ttf'),
@@ -60,6 +61,8 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  if (__DEV__) console.log('🥈 - RootLayoutNav');
+
   const { notInversedBackground: background, inversedStyle } = useTheme();
 
   return (
@@ -69,6 +72,7 @@ function RootLayoutNav() {
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: background.val },
+          animation: 'none',
         }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="(auth)/a" />

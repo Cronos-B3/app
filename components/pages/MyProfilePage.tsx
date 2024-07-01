@@ -1,36 +1,45 @@
-import { Button, Image, ScrollView, Stack, XStack, YStack, YStackProps } from 'tamagui';
+import { Button, Image, ScrollView, Spinner, Stack, XStack, YStack, YStackProps } from 'tamagui';
 import Text from '../atoms/Text';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DEVICE } from '@/constants/config';
-import { ProfileUserType } from '@/constants/types';
 import { Clipboard, Gem, MoreHorizontal } from '@tamagui/lucide-icons';
-import { NamedExoticComponent, ReactNode } from 'react';
+import { NamedExoticComponent, ReactNode, useEffect } from 'react';
 import type { IconProps } from '@tamagui/helpers-icon';
 import { useTranslation } from 'react-i18next';
 import formatFollowersNumber from '@/lib/formatFollowersNumber';
+import { useQuery } from '@tanstack/react-query';
+import useAppApi from '@/hooks/api/useAppApi';
+import useUserStore from '@/hooks/store/useUserStore';
+import usePostsStore from '@/hooks/store/usePostsStore';
+import { TAB_BAR_HEIGHT } from '../organisms/TabBar';
+import Post from '../molecules/Post';
 
 export default function MyProfilePage() {
   if (__DEV__) console.log('📃 - MyProfilePage');
 
   const { top } = useSafeAreaInsets();
   const { t } = useTranslation('app');
+  const { getMe } = useAppApi();
 
-  const tempUser: ProfileUserType = {
-    identifier: 'CezGain',
-    username: 'CezGain',
-    email: '',
-    profilePicture:
-      'https://ih1.redbubble.net/image.866593086.1888/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg',
-    bannerPicture:
-      'https://img.freepik.com/photos-gratuite/peinture-lac-montagne-montagne-arriere-plan_188544-9126.jpg?w=1060&t=st=1718028586~exp=1718029186~hmac=a3cd39d48083fcd630e7df8f20d1abc25f1ec9185bbf06fad47aebc85688e20b',
-    bio: 'Je suis la biographie',
-    numFollowers: formatFollowersNumber(123),
-  };
+  const { user } = useUserStore();
+  const { myPosts } = usePostsStore();
 
+  // TODO: When I scroll up, a loader should appear at the top of the screen and reload the profile data.
+  const { data, isLoading } = useQuery({
+    queryKey: ['me'],
+    queryFn: getMe.process,
+  });
+
+  useEffect(() => {
+    if (!data) return;
+    getMe.onSuccess(data);
+  }, [data]);
+
+  // TODO: Review this page and add the missing parts
   return (
     <YStack marginTop={top}>
-      <ScrollView contentContainerStyle={{ paddingBottom: DEVICE.height * 0.15 }}>
-        <Image height={DEVICE.height * 0.2} source={{ uri: tempUser.bannerPicture }} />
+      <ScrollView contentContainerStyle={{ paddingBottom: TAB_BAR_HEIGHT * 2 }}>
+        <Image height={DEVICE.height * 0.2} source={{ uri: user?.bannerPicture }} />
         <YStack paddingHorizontal={'4%'} gap={DEVICE.height * 0.035}>
           <YStack>
             <XStack height={DEVICE.height * 0.225} gap={DEVICE.width * 0.07} paddingVertical={'6%'}>
@@ -38,18 +47,16 @@ export default function MyProfilePage() {
                 height={'70%'}
                 aspectRatio={1}
                 borderRadius={'$round'}
-                source={{ uri: tempUser.profilePicture }}
+                source={{ uri: user?.profilePicture }}
               />
               <YStack flex={1} justifyContent="space-between">
                 <YStack>
-                  <Text>@{tempUser.identifier}</Text>
+                  <Text>@{user?.identifier}</Text>
                   <Text fontSize={'$7'} fontFamily={'$bold'}>
-                    {tempUser.username}
+                    {user?.username}
                   </Text>
                 </YStack>
-                <Text fontSize={'$4'}>
-                  {t('followers', { numFollowers: tempUser.numFollowers })}
-                </Text>
+                <Text fontSize={'$4'}>{t('followers', { numFollowers: 'TO_CHANGE' })}</Text>
                 <XStack
                   height={'28%'}
                   width={'100%'}
@@ -76,7 +83,7 @@ export default function MyProfilePage() {
                 </XStack>
               </YStack>
             </XStack>
-            <Text>{tempUser.bio}</Text>
+            <Text>{user?.bio}</Text>
           </YStack>
           <ProfileCategory title={t('stats')}>
             <YStack flex={1} gap={DEVICE.height * 0.02}>
@@ -84,7 +91,58 @@ export default function MyProfilePage() {
               <StatsStack title={t('success')} Icon={Gem}></StatsStack>
             </YStack>
           </ProfileCategory>
-          <ProfileCategory title={t('posts')}></ProfileCategory>
+          <ProfileCategory title={t('posts')}>
+            {isLoading ? (
+              // TODO: Add a post skeleton
+              <Spinner size={'large'} alignSelf="center" />
+            ) : myPosts.length === 0 ? (
+              <Text fontFamily={'$bold'} fontSize={'$7'} alignSelf="center">
+                {t('noPost')}
+              </Text>
+            ) : (
+              <YStack paddingHorizontal={'2%'}>
+                <Post
+                  post={{
+                    id: '45357375835732572',
+                    username: 'CezGain',
+                    profilePicture:
+                      'https://ih1.redbubble.net/image.866593086.1888/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg',
+                    content:
+                      'Je suis une petite carotte de ma personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne',
+                    liked: true,
+                    upvoted: true,
+                    timeLeft: 1023456,
+                  }}
+                />
+                <Post
+                  post={{
+                    id: '45357375835732572',
+                    username: 'CezGain',
+                    profilePicture:
+                      'https://ih1.redbubble.net/image.866593086.1888/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg',
+                    content:
+                      'Je suis une petite carotte de ma personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne',
+                    liked: true,
+                    upvoted: true,
+                    timeLeft: 1023456,
+                  }}
+                />
+                <Post
+                  post={{
+                    id: '45357375835732572',
+                    username: 'CezGain',
+                    profilePicture:
+                      'https://ih1.redbubble.net/image.866593086.1888/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg',
+                    content:
+                      'Je suis une petite carotte de ma personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne Je suis une petite carotte de ma mere la gentille personne',
+                    liked: true,
+                    upvoted: true,
+                    timeLeft: 1023456,
+                  }}
+                />
+              </YStack>
+            )}
+          </ProfileCategory>
         </YStack>
       </ScrollView>
     </YStack>

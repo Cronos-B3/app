@@ -1,13 +1,35 @@
-import { ChangePasswordForm, PostForm } from '@/constants/types';
-import useApi, { UseApiProcess } from './useApi';
+import { ChangePasswordForm, MyUserType, PostForm, PostType } from '@/constants/types';
+import useApi, { UseApiProcess, UseApiQuery } from './useApi';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
+import useUserStore from '../store/useUserStore';
+import moment from 'moment';
+import usePostsStore from '../store/usePostsStore';
 
 const useAppApi = () => {
-  const { post } = useApi();
+  const { get, post } = useApi();
 
   const { t } = useTranslation('form');
+  const { setUser } = useUserStore();
+  const { setMyPosts } = usePostsStore();
   const toast = useToastController();
+
+  const getMe: UseApiQuery = {
+    process: async () => get('/v1/me'),
+    onSuccess: (data: MyUserType) => setUser(data),
+  };
+
+  const getMyPosts: UseApiQuery = {
+    process: async () => get('/v1/me/posts'),
+    onSuccess: (data: PostType[]) => setMyPosts(data),
+  };
+
+  const getMyFeed: UseApiQuery = {
+    process: async () => get('/v1/posts/feed'),
+    onSuccess: (data) => {
+      console.log('success', data);
+    },
+  };
 
   const changePassword: UseApiProcess<ChangePasswordForm> = {
     process: async (data) => post('', data),
@@ -35,18 +57,24 @@ const useAppApi = () => {
   };
 
   const createPost: UseApiProcess<PostForm> = {
-    process: async (data) => post('', data),
+    process: async (rawData) => {
+      const data = {
+        ...rawData,
+        finishedAt: moment().add(rawData.finishedAt, 'minutes').toDate(),
+      };
+      return post('/v1/posts', data);
+    },
     onSuccess: (data) => {
       // TODO: Handle success
       console.log('success', data);
     },
-    onError: (error) => {
+    onError: ({ response }) => {
       // TODO: Handle other errors
-      console.log('error', error);
+      console.log('error', response.data);
     },
   };
 
-  return { changePassword, createPost };
+  return { getMe, getMyPosts, getMyFeed, changePassword, createPost };
 };
 
 export default useAppApi;

@@ -43,6 +43,7 @@ const tokens = createTokens({
     notInversed: '#000000',
     notInversed75: 'rgba(0, 0, 0, 0.75)',
     notInversed50: 'rgba(0, 0, 0, 0.5)',
+    notInversed25: 'rgba(0, 0, 0, 0.25)',
     notInversedBackground: '#0F0F0F',
     modalBackground: '#18072C',
     liked: '#FF2222',

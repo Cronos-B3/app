@@ -3,10 +3,15 @@
 export type UserType = {
   identifier: string;
   username: string;
-  email: string;
   profilePicture: string;
   bannerPicture: string;
   bio: string;
+  followers: number;
+  follows: number;
+};
+
+export type MyUserType = UserType & {
+  email: string;
 };
 
 export type ProfileUserType = UserType & {
@@ -18,9 +23,11 @@ export type PostType = {
   username: UserType['username'];
   profilePicture: UserType['profilePicture'];
   content: string;
-  liked: boolean;
-  upvoted: boolean;
-  timeLeft: number;
+  isLiked: boolean;
+  likes: number;
+  isUpvoted: boolean;
+  upvotes: number;
+  finishedAt: string;
 };
 
 // Form types
@@ -40,7 +47,7 @@ export type RegisterForm = {
   identifier: string;
   username: string;
   email: string;
-  profile_picture?: any; // TODO: type
+  profilePicture?: any; // TODO: type
   password: string;
   passwordConfirmation: string;
 };
@@ -53,6 +60,7 @@ export type ChangePasswordForm = {
 
 export type PostForm = {
   content: string;
+  finishedAt: number;
 };
 
 // API types

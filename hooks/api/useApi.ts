@@ -4,12 +4,16 @@ import { FieldValues } from 'react-hook-form';
 import { UseFormProps } from '../useForm';
 import useTokenStore from '../store/useTokenStore';
 
+export type UseApiQuery = {
+  process: () => Promise<any>;
+  onSuccess: (data: any) => void;
+  onError?: (error: any) => void;
+};
+
 export type UseApiProcess<T extends FieldValues> = {
   process: (data: T) => Promise<any>;
-  onSuccess: (data: any) => void;
-  onError: (error: any) => void;
   onFormError?: UseFormProps<T>['onError'];
-};
+} & Omit<UseApiQuery, 'process'>;
 
 const useApi = () => {
   const { token } = useTokenStore();
@@ -20,6 +24,8 @@ const useApi = () => {
     requestData: object = {},
     optionals?: OptionalsData
   ) => {
+    if (__DEV__) console.log('📀📀📀 - Request Sent', axios.defaults.baseURL + (url ?? ''));
+
     const { config, data, request, status, statusText } = await axios({
       method,
       url,

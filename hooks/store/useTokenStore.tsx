@@ -14,8 +14,7 @@ type Actions = {
 export default create<State & Actions>()(
   persist(
     immer((set) => ({
-      token: undefined,
-      setToken: (token: string) =>
+      setToken: (token) =>
         set((state) => {
           state.token = token;
         }),
