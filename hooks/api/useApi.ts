@@ -4,16 +4,20 @@ import { FieldValues } from 'react-hook-form';
 import { UseFormProps } from '../useForm';
 import useTokenStore from '../store/useTokenStore';
 
-export type UseApiQuery = {
-  process: () => Promise<any>;
+type UseApiDefault = {
   onSuccess: (data: any) => void;
   onError?: (error: any) => void;
 };
 
-export type UseApiProcess<T extends FieldValues> = {
+export type UseApiQuery = {
+  queryKey: string[];
+  process: (data?: any) => Promise<any>;
+} & UseApiDefault;
+
+export type UseApiForm<T extends FieldValues> = {
   process: (data: T) => Promise<any>;
   onFormError?: UseFormProps<T>['onError'];
-} & Omit<UseApiQuery, 'process'>;
+} & UseApiDefault;
 
 const useApi = () => {
   const { token } = useTokenStore();

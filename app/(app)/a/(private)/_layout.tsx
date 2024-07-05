@@ -10,15 +10,21 @@ export default () => {
 
   const { getMe } = useAppApi();
 
-  const { data: userData } = useQuery({
-    queryKey: ['me'],
+  const { data: userData, error } = useQuery({
+    queryKey: getMe.queryKey,
     queryFn: getMe.process,
+    retry: false,
   });
 
   useEffect(() => {
     if (!userData) return;
     getMe.onSuccess(userData);
   }, [userData]);
+
+  useEffect(() => {
+    if (!error || !getMe.onError) return;
+    getMe.onError(error);
+  }, [error]);
 
   return (
     <Tabs

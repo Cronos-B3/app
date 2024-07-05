@@ -9,6 +9,7 @@ type State = {
 
 type Actions = {
   setToken: (token: string) => void;
+  removeToken: () => void;
 };
 
 export default create<State & Actions>()(
@@ -17,6 +18,10 @@ export default create<State & Actions>()(
       setToken: (token) =>
         set((state) => {
           state.token = token;
+        }),
+      removeToken: () =>
+        set((state) => {
+          state.token = undefined;
         }),
     })),
     { name: 'TokenStore', version: 1, storage }

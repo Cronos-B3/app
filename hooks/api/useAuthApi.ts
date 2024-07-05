@@ -1,5 +1,5 @@
 import { LoginForm, RegisterForm, MyUserType } from '@/constants/types';
-import useApi, { UseApiProcess } from './useApi';
+import useApi, { UseApiForm } from './useApi';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
 import { router } from 'expo-router';
@@ -14,7 +14,7 @@ const useAuthApi = () => {
   const { setToken } = useTokenStore();
   const toast = useToastController();
 
-  const login: UseApiProcess<LoginForm> = {
+  const login: UseApiForm<LoginForm> = {
     process: async (data) => post('/v1/auth/login', data),
     onSuccess: ({ jwt, user }: { jwt: string; user: MyUserType }) => {
       setToken(jwt);
@@ -28,7 +28,7 @@ const useAuthApi = () => {
     onFormError: () => toast.show(t('error.credentials')),
   };
 
-  const register: UseApiProcess<RegisterForm> = {
+  const register: UseApiForm<RegisterForm> = {
     process: async (data) => post('/v1/auth/register', data),
     onSuccess: ({ jwt, user }: { jwt: string; user: MyUserType }) => {
       setToken(jwt);
