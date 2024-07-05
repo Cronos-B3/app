@@ -22,7 +22,7 @@ const useAppApi = () => {
     onSuccess: (data: MyUserType) => setUser(data),
     onError: (error) => {
       if (!(error instanceof AxiosError)) return;
-      if (error.status === 401) {
+      if (error.response?.status === 401) {
         removeToken();
         router.push(AUTHR.login);
       }
