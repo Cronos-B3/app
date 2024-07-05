@@ -1,10 +1,8 @@
-import { ChangePasswordForm, MyUserType, PostForm, PostType } from '@/constants/types';
+import { ChangePasswordForm, MyUserType } from '@/constants/types';
 import useApi, { UseApiForm, UseApiQuery } from './useApi';
 import { useTranslation } from 'react-i18next';
 import { useToastController } from '@tamagui/toast';
 import useUserStore from '../store/useUserStore';
-import moment from 'moment';
-import usePostsStore from '../store/usePostsStore';
 import { AxiosError } from 'axios';
 import useTokenStore from '../store/useTokenStore';
 import { router } from 'expo-router';
@@ -16,7 +14,6 @@ const useAppApi = () => {
   const { t } = useTranslation('form');
   const { setUser } = useUserStore();
   const { removeToken } = useTokenStore();
-  const { setMyPosts } = usePostsStore();
   const toast = useToastController();
 
   const getMe: UseApiQuery = {
