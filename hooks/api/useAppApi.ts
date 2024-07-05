@@ -16,15 +16,7 @@ const useAppApi = () => {
   const { t } = useTranslation('form');
   const { setUser } = useUserStore();
   const { removeToken } = useTokenStore();
-  const {
-    setMyPosts,
-    setPosts,
-    addPostsToTop,
-    addPostsToBottom,
-    firstPostId,
-    lastPostId,
-    lastMyPostId,
-  } = usePostsStore();
+  const { setMyPosts } = usePostsStore();
   const toast = useToastController();
 
   const getMe: UseApiQuery = {
@@ -39,32 +31,6 @@ const useAppApi = () => {
       }
     },
   };
-
-  const getMyPosts: UseApiQuery = {
-    queryKey: ['myPosts'],
-    process: async () => {
-      if (!lastMyPostId) return get('/v1/me/posts');
-      return get(`/v1/me/posts/${lastMyPostId}`);
-    },
-    onSuccess: (data: PostType[]) => setMyPosts(data),
-  };
-
-  const getMyFeed = {
-    queryKey: ['myFeed'],
-    process: async () => get('/v1/feed'),
-    onSuccess: (data: PostType[]) => setPosts(data),
-    up: {
-      queryKey: ['myFeedUp'],
-      process: async () => get(`/v1/feed/up/${firstPostId}`),
-      onSuccess: (data: PostType[]) => addPostsToTop(data),
-    },
-    down: {
-      queryKey: ['myFeedDown'],
-      process: async () => get(`/v1/feed/down/${lastPostId}`),
-      onSuccess: (data: PostType[]) => addPostsToBottom(data),
-    },
-  } as UseApiQuery & { up: UseApiQuery; down: UseApiQuery };
-
   const changePassword: UseApiForm<ChangePasswordForm> = {
     process: async (data) => post('', data),
     onSuccess: (data) => {
@@ -90,24 +56,7 @@ const useAppApi = () => {
     },
   };
 
-  const createPost: UseApiForm<PostForm> = {
-    process: async (rawData) => {
-      const data = {
-        ...rawData,
-        finishedAt: moment().add(rawData.finishedAt, 'minutes').toDate(),
-      };
-      return post('/v1/posts', data);
-    },
-    onSuccess: (data: PostType) => {
-      setMyPosts([data]);
-    },
-    onError: ({ response }) => {
-      // TODO: Handle other errors
-      console.log('error', response.data);
-    },
-  };
-
-  return { getMe, getMyPosts, getMyFeed, changePassword, createPost };
+  return { getMe, changePassword };
 };
 
 export default useAppApi;

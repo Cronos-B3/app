@@ -1,22 +1,22 @@
 import { DEVICE } from '@/constants/config';
 import LoadingButton from '../molecules/LoadingButton';
 import ModalTemplate from '../templates/ModalTemplate';
-import { Image, Select, Stack, TextArea, useTheme, XStack } from 'tamagui';
+import { Image, Stack, TextArea, useTheme, XStack } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import useForm from '@/hooks/useForm';
 import { PostForm } from '@/constants/types';
 import { useMutation } from '@tanstack/react-query';
 import { Controller } from 'react-hook-form';
-import useAppApi from '@/hooks/api/useAppApi';
 import { Keyboard } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
+import usePostsApi from '@/hooks/api/app/usePostApi';
 
 export default function PostModal() {
   if (__DEV__) console.log('📃 - PostModal');
 
   const { t } = useTranslation();
-  const { createPost } = useAppApi();
+  const { createPost } = usePostsApi();
   const [keyboardHeight, setKeyboardHeight] = useState(() => 0);
   const theme = useTheme();
 

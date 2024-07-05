@@ -4,17 +4,17 @@ import PostsList from '../molecules/PostsList';
 import { TAB_BAR_HEIGHT } from '../organisms/TabBar';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
-import useAppApi from '@/hooks/api/useAppApi';
 import usePostsStore from '@/hooks/store/usePostsStore';
 import { FlashList } from '@shopify/flash-list';
 import { PostType } from '@/constants/types';
 import { useToastController } from '@tamagui/toast';
+import usePostsApi from '@/hooks/api/app/usePostApi';
 
 export default function HomePage() {
   if (__DEV__) console.log('📃 - HomePage');
 
   const { top, bottom } = useSafeAreaInsets();
-  const { getMyFeed } = useAppApi();
+  const { getMyFeed } = usePostsApi();
   const { posts, lastPostId } = usePostsStore();
   const toast = useToastController();
 
@@ -62,7 +62,7 @@ export default function HomePage() {
     console.log('downData', downData);
   }, [downData]);
 
-  const onScroll = async (event) => {
+  const onScroll = async (event: any) => {
     const currentOffsetY = event.nativeEvent.contentOffset.y;
 
     // Check if the user is at the top of the list and scrolling up
