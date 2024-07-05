@@ -12,7 +12,7 @@ const RULES = {
   } as UseControllerProps['rules'],
   password: {
     // Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 digit and be at least 8 characters long
-    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\W_]{8,}$/,
     minLength: 8,
   } as UseControllerProps['rules'],
   email: {
