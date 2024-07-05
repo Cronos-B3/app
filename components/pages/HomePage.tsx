@@ -20,7 +20,7 @@ export default function HomePage() {
 
   const listRef = useRef<FlashList<PostType>>(null);
 
-  const { data } = useQuery({
+  const { data, refetch: fetch } = useQuery({
     queryKey: getMyFeed.queryKey,
     queryFn: getMyFeed.process,
   });
@@ -29,21 +29,6 @@ export default function HomePage() {
     if (!data) return;
     getMyFeed.onSuccess(data);
   }, [data]);
-
-  const { data: upData, refetch: fetchUp } = useQuery({
-    queryKey: getMyFeed.up.queryKey,
-    queryFn: getMyFeed.up.process,
-    enabled: false,
-  });
-
-  useEffect(() => {
-    if (!upData) return;
-    if (upData.length === 0) {
-      toast.show('Vous êtes au cron le plus récent.');
-      return;
-    }
-    getMyFeed.up.onSuccess(upData);
-  }, [upData]);
 
   const { data: downData, refetch: fetchDown } = useQuery({
     queryKey: getMyFeed.down.queryKey,
@@ -67,7 +52,7 @@ export default function HomePage() {
 
     // Check if the user is at the top of the list and scrolling up
     if (currentOffsetY <= 0 && currentOffsetY < lastOffsetY) {
-      await fetchUp();
+      await fetch();
       listRef.current?.scrollToItem({ item: posts[0], animated: false });
     }
 

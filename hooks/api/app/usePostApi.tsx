@@ -6,15 +6,7 @@ import usePostsStore from '../../store/usePostsStore';
 const usePostsApi = () => {
   const { get, post } = useApi();
 
-  const {
-    setMyPosts,
-    setPosts,
-    addPostsToTop,
-    addPostsToBottom,
-    firstPostId,
-    lastPostId,
-    lastMyPostId,
-  } = usePostsStore();
+  const { setMyPosts, setPosts, addPostsToBottom, lastPostId, lastMyPostId } = usePostsStore();
 
   const getMyPosts: UseApiQuery = {
     queryKey: ['myPosts'],
@@ -29,17 +21,12 @@ const usePostsApi = () => {
     queryKey: ['myFeed'],
     process: async () => get('/v1/feed'),
     onSuccess: (data: PostType[]) => setPosts(data),
-    up: {
-      queryKey: ['myFeedUp'],
-      process: async () => get(`/v1/feed/up/${firstPostId}`),
-      onSuccess: (data: PostType[]) => addPostsToTop(data),
-    },
     down: {
       queryKey: ['myFeedDown'],
       process: async () => get(`/v1/feed/down/${lastPostId}`),
       onSuccess: (data: PostType[]) => addPostsToBottom(data),
     },
-  } as UseApiQuery & { up: UseApiQuery; down: UseApiQuery };
+  } as UseApiQuery & { down: UseApiQuery };
 
   const createPost: UseApiForm<PostForm> = {
     process: async (rawData) => {
