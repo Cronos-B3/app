@@ -24,9 +24,10 @@ export type PostType = {
   profilePicture: UserType['profilePicture'];
   content: string;
   isLiked: boolean;
-  likes: number;
   isUpvoted: boolean;
+  likes: number;
   upvotes: number;
+  comments: number;
   finishedAt: string;
 };
 

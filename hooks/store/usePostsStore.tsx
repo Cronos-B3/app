@@ -15,6 +15,8 @@ type Actions = {
   setPosts: (posts: PostType[]) => void;
   addPostsToBottom: (posts: PostType[]) => void;
   deletePost: (postId: PostType['id']) => void;
+  likePost: (postId: PostType['id']) => void;
+  upVotePost: (postId: PostType['id']) => void;
 };
 
 export default create<State & Actions>()(
@@ -58,5 +60,33 @@ export default create<State & Actions>()(
         state.myPosts = state.myPosts.filter((post) => post.id !== postId);
         state.posts = state.posts.filter((post) => post.id !== postId);
       }),
+
+    likePost: (postId) => {
+      set((state) => {
+        const post = state.posts.find((p) => p.id === postId);
+        if (post) {
+          if (post.isLiked) {
+            post.likes -= 1; // Remove like if already liked
+          } else {
+            post.likes += 1; // Add like if not already liked
+          }
+          post.isLiked = !post.isLiked; // Toggle the like state
+        }
+      });
+    },
+
+    upVotePost: (postId) => {
+      set((state) => {
+        const post = state.posts.find((p) => p.id === postId);
+        if (post) {
+          if (post.isUpvoted) {
+            post.upvotes -= 1; // Remove vote if already voted
+          } else {
+            post.upvotes += 1; // Add vote if not already voted
+          }
+          post.isUpvoted = !post.isUpvoted; // Toggle the vote state
+        }
+      });
+    },
   }))
 );

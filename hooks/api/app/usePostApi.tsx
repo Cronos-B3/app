@@ -4,9 +4,19 @@ import moment from 'moment';
 import usePostsStore from '../../store/usePostsStore';
 
 const usePostsApi = () => {
-  const { get, post } = useApi();
+  const { get, post, del } = useApi();
 
-  const { setMyPosts, setPosts, addPostsToBottom, lastPostId, lastMyPostId } = usePostsStore();
+  const { setMyPosts, setPosts, addPostsToBottom, lastPostId, lastMyPostId, likePost, upVotePost } =
+    usePostsStore();
+
+  type ApiActionResponse = {
+    postId: string;
+    response: any; // Vous pouvez remplacer 'any' par un type plus spécifique selon la réponse de votre API
+  };
+
+  type ApiActionError = {
+    response: any;
+  };
 
   const getMyPosts: UseApiQuery = {
     queryKey: ['myPosts'],
@@ -45,7 +55,59 @@ const usePostsApi = () => {
     },
   };
 
-  return { getMyPosts, getMyFeed, createPost };
+  const likePostApi = {
+    process: async (postId: string) => {
+      const response = await post(`/v1/posts/${postId}/likes`);
+      return { postId, response };
+    },
+    onSuccess: ({ postId }: ApiActionResponse) => likePost(postId),
+    onerror: ({ response }: ApiActionError) => {
+      console.log('error', response.data);
+    },
+  };
+
+  const unlikePostApi = {
+    process: async (postId: string) => {
+      const response = await del(`/v1/posts/${postId}/likes`);
+      return { postId, response };
+    },
+    onSuccess: ({ postId }: ApiActionResponse) => likePost(postId),
+    onerror: ({ response }: ApiActionError) => {
+      console.log('error', response.data);
+    },
+  };
+
+  const upVotePostApi = {
+    process: async (postId: string) => {
+      const response = await post(`/v1/posts/${postId}/upvotes`);
+      return { postId, response };
+    },
+    onSuccess: ({ postId }: ApiActionResponse) => upVotePost(postId),
+    onerror: ({ response }: ApiActionError) => {
+      console.log('error', response.data);
+    },
+  };
+
+  const unUpVotePostApi = {
+    process: async (postId: string) => {
+      const response = await del(`/v1/posts/${postId}/upvotes`);
+      return { postId, response };
+    },
+    onSuccess: ({ postId }: ApiActionResponse) => upVotePost(postId),
+    onerror: ({ response }: ApiActionError) => {
+      console.log('error', response.data);
+    },
+  };
+
+  return {
+    getMyPosts,
+    getMyFeed,
+    createPost,
+    likePostApi,
+    unlikePostApi,
+    upVotePostApi,
+    unUpVotePostApi,
+  };
 };
 
 export default usePostsApi;
