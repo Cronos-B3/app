@@ -13,6 +13,7 @@ type State = {
 type Actions = {
   setMyPosts: (myPosts: PostType[]) => void;
   setPosts: (posts: PostType[]) => void;
+  addPostToTop: (posts: PostType) => void;
   addPostsToBottom: (posts: PostType[]) => void;
   deletePost: (postId: PostType['id']) => void;
   likePost: (postId: PostType['id']) => void;
@@ -46,6 +47,11 @@ export default create<State & Actions>()(
         if (posts.length === 0) return;
         state.lastPostId = posts[posts.length - 1]?.id;
         state.posts = posts;
+      });
+    },
+    addPostToTop: (posts) => {
+      set((state) => {
+        state.posts = [posts, ...state.posts];
       });
     },
     addPostsToBottom: (posts) => {

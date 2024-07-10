@@ -74,6 +74,7 @@ export default function Post({ post, ...props }: PostProps) {
           aspectRatio={1}
           borderRadius={'$round'}
           source={{ uri: post.profilePicture }}
+          onPress={() => router.push('/' + post.userId)}
         />
         <YStack flex={1}>
           <Text fontSize={'$4'} fontFamily={'$bold'}>

@@ -19,7 +19,7 @@ const PostsList = forwardRef<FlashList<PostType>, Omit<FlashListProps<PostType>,
         onEndReachedThreshold={0.2}
         ItemSeparatorComponent={() => <Stack height={DEVICE.height * 0.025} />}
         {...props}
-        renderItem={({ item }: { item: PostType }) => <Post post={item} />}
+        renderItem={({ item }: { item: PostType }) => <Post key={item.id} post={item} />}
       />
     );
   }

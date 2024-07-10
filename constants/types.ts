@@ -1,6 +1,7 @@
 // User types
 
 export type UserType = {
+  id: string;
   identifier: string;
   username: string;
   profilePicture: string;
@@ -14,12 +15,9 @@ export type MyUserType = UserType & {
   email: string;
 };
 
-export type ProfileUserType = UserType & {
-  numFollowers: string;
-};
-
 export type PostType = {
   id: string;
+  userId: UserType['id'];
   username: UserType['username'];
   profilePicture: UserType['profilePicture'];
   content: string;

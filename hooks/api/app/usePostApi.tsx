@@ -2,12 +2,21 @@ import { CommentForm, PostForm, PostType } from '@/constants/types';
 import useApi, { UseApiForm, UseApiQuery } from './../useApi';
 import moment from 'moment';
 import usePostsStore from '../../store/usePostsStore';
+import { router } from 'expo-router';
 
 const usePostsApi = () => {
   const { get, post, del } = useApi();
 
-  const { setMyPosts, setPosts, addPostsToBottom, lastPostId, lastMyPostId, likePost, upVotePost } =
-    usePostsStore();
+  const {
+    setMyPosts,
+    setPosts,
+    addPostToTop,
+    addPostsToBottom,
+    lastPostId,
+    lastMyPostId,
+    likePost,
+    upVotePost,
+  } = usePostsStore();
 
   type ApiActionResponse = {
     postId: string;
@@ -25,6 +34,12 @@ const usePostsApi = () => {
       return get(`/v1/me/posts/${lastMyPostId}`);
     },
     onSuccess: (data: PostType[]) => setMyPosts(data),
+  };
+
+  const getUserPosts: UseApiQuery = {
+    queryKey: ['userPosts'],
+    process: async (userId: string) => get(`/v1/users/${userId}/posts`),
+    onSuccess: () => null,
   };
 
   const getMyFeed = {
@@ -47,7 +62,9 @@ const usePostsApi = () => {
       return post('/v1/posts', data);
     },
     onSuccess: (data: PostType) => {
+      addPostToTop(data);
       setMyPosts([data]);
+      router.back();
     },
     onError: ({ response }) => {
       // TODO: Handle other errors
@@ -68,7 +85,7 @@ const usePostsApi = () => {
   };
 
   const unlikePostApi = {
-    queryKey : ['unlikePost'],
+    queryKey: ['unlikePost'],
     process: async (postId: string) => {
       const response = await del(`/v1/posts/${postId}/likes`);
       return { postId, response };
@@ -80,7 +97,6 @@ const usePostsApi = () => {
   };
 
   const upVotePostApi = {
-
     process: async (postId: string) => {
       const response = await post(`/v1/posts/${postId}/upvotes`);
       return { postId, response };
@@ -112,7 +128,7 @@ const usePostsApi = () => {
       const data = {
         ...rawData,
       };
-      return post('/v1/posts/'+ data.postId + '/comments', data);
+      return post('/v1/posts/' + data.postId + '/comments', data);
     },
     onSuccess: (data: PostType) => {
       setMyPosts([data]);
@@ -123,6 +139,7 @@ const usePostsApi = () => {
   };
   return {
     getMyPosts,
+    getUserPosts,
     getMyFeed,
     createPost,
     likePostApi,

@@ -10,7 +10,7 @@ export default () => {
         headerShown: false,
         contentStyle: { backgroundColor: background.val },
       }}>
-      <Stack.Screen name="[profile]" />
+      <Stack.Screen name="[id]" />
     </Stack>
   );
 };

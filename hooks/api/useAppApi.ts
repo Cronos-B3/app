@@ -28,6 +28,13 @@ const useAppApi = () => {
       }
     },
   };
+
+  const getUser: UseApiQuery = {
+    queryKey: ['user'],
+    process: async (userId: string) => get(`/v1/users/${userId}`),
+    onSuccess: () => null,
+  };
+
   const changePassword: UseApiForm<ChangePasswordForm> = {
     process: async (data) => post('', data),
     onSuccess: (data) => {
@@ -53,7 +60,7 @@ const useAppApi = () => {
     },
   };
 
-  return { getMe, changePassword };
+  return { getMe, getUser, changePassword };
 };
 
 export default useAppApi;
