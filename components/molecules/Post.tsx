@@ -1,13 +1,28 @@
 import { Button, Image, SizableText, useTheme, XStack, YStack, YStackProps } from 'tamagui';
 import { DEVICE } from '@/constants/config';
 import Text from '../atoms/Text';
-import { ArrowBigUp, Heart, MoreHorizontal, Share2 } from '@tamagui/lucide-icons';
+import {
+  ArrowBigUp,
+  Heart,
+  MessageCircle,
+  MessageCircleCode,
+  MessageSquare,
+  MessageSquareShare,
+  MoreHorizontal,
+  Share2,
+} from '@tamagui/lucide-icons';
 import { PostType } from '@/constants/types';
 import useTimer from '@/hooks/useTimer';
 import moment from 'moment';
 import usePostsStore from '@/hooks/store/usePostsStore';
 import { Children, useState } from 'react';
 import usePostsApi from '@/hooks/api/app/usePostApi';
+import CommentModal from '../pages/CommentModal';
+import { router } from 'expo-router';
+import { MODALR } from '@/constants/routes';
+// import * as Sharing from 'expo-sharing';
+// import * as Clipboard from 'expo-clipboard';
+// import Share from 'react-native-share';
 
 type PostProps = {
   post: PostType;
@@ -27,6 +42,7 @@ export default function Post({ post, ...props }: PostProps) {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [upvote, setUpvote] = useState(post.upvotes);
   const [isUpvoted, setIsUpvoted] = useState(post.isUpvoted);
+  const [comment, setComment] = useState(post.comments);
 
   const { likePostApi, unlikePostApi, upVotePostApi, unUpVotePostApi } = usePostsApi();
 
@@ -42,8 +58,16 @@ export default function Post({ post, ...props }: PostProps) {
     isUpvoted ? unUpVotePostApi.process(post.id) : upVotePostApi.process(post.id);
   };
 
+  const navigateToComment = (id: string) => {
+    router.push(MODALR.comment + id);
+  };
+
+  const navigateToPostComment = (id: string) => {
+    router.push(MODALR.postComment + id);
+  };
+
   return (
-    <YStack gap={DEVICE.height * 0.015} {...props}>
+    <YStack gap={DEVICE.height * 0.015} {...props} onPress={() => navigateToComment(post.id)}>
       <XStack height={DEVICE.height * 0.06} gap={DEVICE.width * 0.035} alignItems="center">
         <Image
           height={'100%'}
@@ -57,7 +81,7 @@ export default function Post({ post, ...props }: PostProps) {
           </Text>
           <Text fontSize={'$2'}>{timeToString}</Text>
         </YStack>
-        <Button color={'$inversed'} icon={<MoreHorizontal size={'$4'} strokeWidth={1.5} />} />
+        {/* <Button color={'$inversed'} icon={<MoreHorizontal size={'$4'} strokeWidth={1.5} />} /> */}
       </XStack>
       <Text fontSize={'$3'} numberOfLines={undefined}>
         {post.content}
@@ -91,8 +115,21 @@ export default function Post({ post, ...props }: PostProps) {
               {upvote}
             </SizableText>
           </YStack>
+          <YStack justifyContent="center" alignItems="center" flexDirection="row">
+            <Button
+              onPress={() => navigateToPostComment(post.id)}
+              color={'$inversed'}
+              icon={<MessageCircle size={'$4'} strokeWidth={1.5} fill={undefined} />}
+            />
+            <SizableText color={'white'} size="$4" marginLeft={8}>
+              {comment}
+            </SizableText>
+          </YStack>
         </XStack>
-        <Button color={'$inversed'} icon={<Share2 size={'$4'} strokeWidth={1.5} />} />
+        {/* <Button
+          color={'$inversed'}
+          icon={<Share2 size={'$3'} strokeWidth={1.5} />}
+        /> */}
       </XStack>
     </YStack>
   );

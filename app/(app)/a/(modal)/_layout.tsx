@@ -18,6 +18,8 @@ export default () => {
         <Stack.Screen name="settings/contact" />
         <Stack.Screen name="search" />
         <Stack.Screen name="post" />
+        <Stack.Screen name="comment/[id]" />
+        <Stack.Screen name="post-comment/[id]" />
       </Stack>
     </StackT>
   );

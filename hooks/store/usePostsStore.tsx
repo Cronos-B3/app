@@ -24,28 +24,31 @@ export default create<State & Actions>()(
     myPosts: [],
     actionMyPosts: 'set',
     posts: [],
-    setMyPosts: (myPosts) =>
+    setMyPosts: (myPosts) => {
+      // Check if myPosts is an array
       set((state) => {
         if (myPosts.length === 0) return;
         state.lastMyPostId = myPosts[myPosts.length - 1]?.id;
         if (state.actionMyPosts === 'set') {
           state.myPosts = myPosts;
           state.actionMyPosts = 'push';
-          return;
+        } else {
+          myPosts.forEach((post) => {
+            if (!state.myPosts.find((p) => p.id === post.id)) {
+              state.myPosts.push(post);
+            }
+          });
         }
-        myPosts.forEach((post) => {
-          if (!state.myPosts.find((p) => p.id === post.id)) {
-            state.myPosts.push(post);
-          }
-        });
-      }),
-    setPosts: (posts) =>
+      });
+    },
+    setPosts: (posts) => {
       set((state) => {
         if (posts.length === 0) return;
         state.lastPostId = posts[posts.length - 1]?.id;
         state.posts = posts;
-      }),
-    addPostsToBottom: (posts) =>
+      });
+    },
+    addPostsToBottom: (posts) => {
       set((state) => {
         if (posts.length === 0) return;
         state.lastPostId = posts[posts.length - 1]?.id;
@@ -54,13 +57,14 @@ export default create<State & Actions>()(
             state.posts.push(post);
           }
         });
-      }),
-    deletePost: (postId) =>
+      });
+    },
+    deletePost: (postId) => {
       set((state) => {
         state.myPosts = state.myPosts.filter((post) => post.id !== postId);
         state.posts = state.posts.filter((post) => post.id !== postId);
-      }),
-
+      });
+    },
     likePost: (postId) => {
       set((state) => {
         const post = state.posts.find((p) => p.id === postId);
@@ -74,7 +78,6 @@ export default create<State & Actions>()(
         }
       });
     },
-
     upVotePost: (postId) => {
       set((state) => {
         const post = state.posts.find((p) => p.id === postId);

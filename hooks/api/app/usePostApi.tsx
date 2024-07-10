@@ -1,4 +1,4 @@
-import { PostForm, PostType } from '@/constants/types';
+import { CommentForm, PostForm, PostType } from '@/constants/types';
 import useApi, { UseApiForm, UseApiQuery } from './../useApi';
 import moment from 'moment';
 import usePostsStore from '../../store/usePostsStore';
@@ -56,6 +56,7 @@ const usePostsApi = () => {
   };
 
   const likePostApi = {
+    queryKey: ['likePost'],
     process: async (postId: string) => {
       const response = await post(`/v1/posts/${postId}/likes`);
       return { postId, response };
@@ -67,6 +68,7 @@ const usePostsApi = () => {
   };
 
   const unlikePostApi = {
+    queryKey : ['unlikePost'],
     process: async (postId: string) => {
       const response = await del(`/v1/posts/${postId}/likes`);
       return { postId, response };
@@ -78,6 +80,7 @@ const usePostsApi = () => {
   };
 
   const upVotePostApi = {
+
     process: async (postId: string) => {
       const response = await post(`/v1/posts/${postId}/upvotes`);
       return { postId, response };
@@ -99,6 +102,25 @@ const usePostsApi = () => {
     },
   };
 
+  const getComments = {
+    queryKey: ['comments'],
+    process: async (postId: string) => get(`/v1/posts/${postId}/comments`),
+  };
+
+  const createComment: UseApiForm<CommentForm> = {
+    process: async (rawData) => {
+      const data = {
+        ...rawData,
+      };
+      return post('/v1/posts/'+ data.postId + '/comments', data);
+    },
+    onSuccess: (data: PostType) => {
+      setMyPosts([data]);
+    },
+    onError: ({ response }) => {
+      console.log('error', response.data);
+    },
+  };
   return {
     getMyPosts,
     getMyFeed,
@@ -107,6 +129,8 @@ const usePostsApi = () => {
     unlikePostApi,
     upVotePostApi,
     unUpVotePostApi,
+    getComments,
+    createComment,
   };
 };
 

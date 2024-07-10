@@ -43,6 +43,8 @@ export default function MyProfilePage() {
     return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
   };
 
+  // console.log('👀 MyProfilePage', myPosts);
+
   return (
     <YStack marginTop={top}>
       <ScrollView
@@ -77,7 +79,7 @@ export default function MyProfilePage() {
                   justifyContent="flex-end"
                   gap={DEVICE.width * 0.06}
                   paddingRight={'5%'}>
-                  <Button
+                  {/* <Button
                     backgroundColor={'$primary'}
                     height={'100%'}
                     aspectRatio={3.75}
@@ -85,7 +87,7 @@ export default function MyProfilePage() {
                     fontSize={'$4'}
                     borderRadius={'$3'}>
                     {t('follow')}
-                  </Button>
+                  </Button> */}
                   <Button
                     backgroundColor={'$primary'}
                     height={'100%'}

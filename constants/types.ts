@@ -28,6 +28,7 @@ export type PostType = {
   likes: number;
   upvotes: number;
   comments: number;
+  url: string;
   finishedAt: string;
 };
 
@@ -62,6 +63,11 @@ export type ChangePasswordForm = {
 export type PostForm = {
   content: string;
   finishedAt: number;
+};
+
+export type CommentForm = {
+  postId: string;
+  content: string;
 };
 
 // API types

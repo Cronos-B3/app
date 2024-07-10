@@ -28,6 +28,8 @@ const MODAL_ROUTES = {
   about: settingsPrefix + '/about',
   search: menuPrefix + '/search',
   post: menuPrefix + '/post',
+  comment: `${menuPrefix}/comment/`,
+  postComment: `${menuPrefix}/post-comment/`,
 };
 
 export { AUTH_ROUTES as AUTHR, APP_ROUTES as APPR, MODAL_ROUTES as MODALR };
