@@ -11,11 +11,13 @@ import { Keyboard } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import usePostsApi from '@/hooks/api/app/usePostApi';
+import useUserStore from '@/hooks/store/useUserStore';
 
 export default function PostModal() {
   if (__DEV__) console.log('📃 - PostModal');
 
   const { t } = useTranslation();
+  const {user} = useUserStore();
   const { createPost } = usePostsApi();
   const [keyboardHeight, setKeyboardHeight] = useState(() => 0);
   const theme = useTheme();
@@ -86,7 +88,7 @@ export default function PostModal() {
           aspectRatio={1}
           borderRadius={'$round'}
           source={{
-            uri: 'https://ih1.redbubble.net/image.866593086.1888/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg',
+            uri: user?.profilePicture,
           }}
         />
 

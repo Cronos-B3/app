@@ -14,18 +14,9 @@ const usePostsApi = () => {
     addPostsToBottom,
     lastPostId,
     lastMyPostId,
-    likePost,
-    upVotePost,
+    addComment
   } = usePostsStore();
 
-  type ApiActionResponse = {
-    postId: string;
-    response: any; // Vous pouvez remplacer 'any' par un type plus spécifique selon la réponse de votre API
-  };
-
-  type ApiActionError = {
-    response: any;
-  };
 
   const getMyPosts: UseApiQuery = {
     queryKey: ['myPosts'],
@@ -74,53 +65,28 @@ const usePostsApi = () => {
 
   const likePostApi = {
     queryKey: ['likePost'],
-    process: async (postId: string) => {
-      const response = await post(`/v1/posts/${postId}/likes`);
-      return { postId, response };
-    },
-    onSuccess: ({ postId }: ApiActionResponse) => likePost(postId),
-    onerror: ({ response }: ApiActionError) => {
-      console.log('error', response.data);
-    },
+    process: async (postId: string) => post(`/v1/posts/${postId}/likes`),
   };
+
 
   const unlikePostApi = {
     queryKey: ['unlikePost'],
-    process: async (postId: string) => {
-      const response = await del(`/v1/posts/${postId}/likes`);
-      return { postId, response };
-    },
-    onSuccess: ({ postId }: ApiActionResponse) => likePost(postId),
-    onerror: ({ response }: ApiActionError) => {
-      console.log('error', response.data);
-    },
+    process: async (postId: string) => del(`/v1/posts/${postId}/likes`),
   };
 
   const upVotePostApi = {
-    process: async (postId: string) => {
-      const response = await post(`/v1/posts/${postId}/upvotes`);
-      return { postId, response };
-    },
-    onSuccess: ({ postId }: ApiActionResponse) => upVotePost(postId),
-    onerror: ({ response }: ApiActionError) => {
-      console.log('error', response.data);
-    },
+    queryKey: ['upVotePost'],
+    process: async (postId: string) =>  post(`/v1/posts/${postId}/upvotes`),    
   };
 
   const unUpVotePostApi = {
-    process: async (postId: string) => {
-      const response = await del(`/v1/posts/${postId}/upvotes`);
-      return { postId, response };
-    },
-    onSuccess: ({ postId }: ApiActionResponse) => upVotePost(postId),
-    onerror: ({ response }: ApiActionError) => {
-      console.log('error', response.data);
-    },
+    queryKey: ['unUpVotePost'],
+    process: async (postId: string) => del(`/v1/posts/${postId}/upvotes`),
   };
 
   const getComments = {
     queryKey: ['comments'],
-    process: async (postId: string) => get(`/v1/posts/${postId}/comments`),
+    process: async (postId: string) => get(`/v1/posts/${postId}/comments`),   
   };
 
   const createComment: UseApiForm<CommentForm> = {
@@ -132,6 +98,7 @@ const usePostsApi = () => {
     },
     onSuccess: (data: PostType) => {
       setMyPosts([data]);
+      addComment(data);
     },
     onError: ({ response }) => {
       console.log('error', response.data);

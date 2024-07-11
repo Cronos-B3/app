@@ -16,6 +16,7 @@
     },
     "changePassword": "Changer de mot de passe",
     "follow": "Suivre",
+    "unfollow": "Ne plus suivre",
     "followers": "{{numFollowers}} abonnés",
     "stats": "Statistiques",
     "success": "Succès",

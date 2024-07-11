@@ -17,7 +17,30 @@ type Actions = {
   addPostsToBottom: (posts: PostType[]) => void;
   deletePost: (postId: PostType['id']) => void;
   likePost: (postId: PostType['id']) => void;
+  unlikePost: (postId: PostType['id']) => void;
   upVotePost: (postId: PostType['id']) => void;
+  unUpVotePost: (postId: PostType['id']) => void;
+  addComment: (comment: PostType) => void;
+};
+
+const updateLikes = (postArray: PostType[], postId: string, increment: boolean) => {
+  return postArray.map((post) => {
+    if (post.id === postId) {
+      post.likes += increment ? 1 : -1;
+      post.isLiked = increment;
+    }
+    return post;
+  });
+};
+
+const updateUpvotes = (postArray: PostType[], postId: string, increment: boolean) => {
+  return postArray.map((post) => {
+    if (post.id === postId) {
+      post.upvotes += increment ? 1 : -1;
+      post.isUpvoted = increment;
+    }
+    return post;
+  });
 };
 
 export default create<State & Actions>()(
@@ -73,27 +96,41 @@ export default create<State & Actions>()(
     },
     likePost: (postId) => {
       set((state) => {
-        const post = state.posts.find((p) => p.id === postId);
-        if (post) {
-          if (post.isLiked) {
-            post.likes -= 1; // Remove like if already liked
-          } else {
-            post.likes += 1; // Add like if not already liked
-          }
-          post.isLiked = !post.isLiked; // Toggle the like state
-        }
+        state.posts = updateLikes(state.posts, postId, true);
+        state.myPosts = updateLikes(state.myPosts, postId, true);
       });
     },
+
+    unlikePost: (postId) => {
+      set((state) => {
+        state.posts = updateLikes(state.posts, postId, false);
+        state.myPosts = updateLikes(state.myPosts, postId, false);
+      });
+    },
+
     upVotePost: (postId) => {
       set((state) => {
-        const post = state.posts.find((p) => p.id === postId);
-        if (post) {
-          if (post.isUpvoted) {
-            post.upvotes -= 1; // Remove vote if already voted
-          } else {
-            post.upvotes += 1; // Add vote if not already voted
-          }
-          post.isUpvoted = !post.isUpvoted; // Toggle the vote state
+        state.posts = updateUpvotes(state.posts, postId, true);
+        state.myPosts = updateUpvotes(state.myPosts, postId, true);
+      });
+    },
+
+    unUpVotePost: (postId) => {
+      set((state) => {
+        state.posts = updateUpvotes(state.posts, postId, false);
+        state.myPosts = updateUpvotes(state.myPosts, postId, false);
+      });
+    },
+    addComment: (comment: PostType) => {
+      set((state) => {
+        state.posts.push(comment);
+        if (comment.parentId) {
+          state.posts = state.posts.map((post) => {
+            if (post.id === comment.parentId) {
+              post.comments += 1;
+            }
+            return post;
+          });
         }
       });
     },

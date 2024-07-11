@@ -11,12 +11,17 @@ export type UserType = {
   follows: number;
 };
 
+export type OtherUserType = UserType & {
+  isFollowing: boolean,
+};
+
 export type MyUserType = UserType & {
   email: string;
 };
 
 export type PostType = {
   id: string;
+  parentId: string;
   userId: UserType['id'];
   username: UserType['username'];
   profilePicture: UserType['profilePicture'];

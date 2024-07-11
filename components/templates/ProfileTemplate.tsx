@@ -5,17 +5,18 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useEffect, useState } from 'react';
 import { TAB_BAR_HEIGHT } from '../organisms/TabBar';
-import { MoreHorizontal } from '@tamagui/lucide-icons';
+import { ArrowLeft, MoreHorizontal, X } from '@tamagui/lucide-icons';
 import ProfileCategory from '../molecules/ProfileCategory';
 import PostsList from '../molecules/PostsList';
-import { PostType, UserType } from '@/constants/types';
-import formatFollowersNumber from '@/lib/formatFollowersNumber';
+import { OtherUserType, PostType, UserType } from '@/constants/types';
 import { useQuery } from '@tanstack/react-query';
 import usePostsStore from '@/hooks/store/usePostsStore';
 import usePostsApi from '@/hooks/api/app/usePostApi';
+import useFriendApi from '@/hooks/api/app/useFriendApi';
+import { router } from 'expo-router';
 
 type ProfileTemplateProps = {
-  user?: UserType;
+  user: UserType | OtherUserType;
   me?: boolean;
 };
 
@@ -28,6 +29,7 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
   const { getMyPosts, getUserPosts } = usePostsApi();
   const [loading, setLoading] = useState(() => true);
   const [posts, setPosts] = useState<PostType[]>(() => []);
+  const { follow, unfollow } = useFriendApi();
 
   const { data } = useQuery({
     queryKey: me ? getMyPosts.queryKey : [...getUserPosts.queryKey, user?.id],
@@ -36,6 +38,17 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
       return getUserPosts.process(user?.id);
     },
   });
+  console.log('🐙 - ProfileTemplate', user);
+  const [isFollowing, setIsFollowing] = useState(() => user.isFollowing);
+  const [followers, setFollowers] = useState(() => user.followers as number);
+
+  console.log('🐙🐙🐙🐙 - data', followers);
+
+  const handleFollow = () => {
+    setIsFollowing((prev: boolean) => !prev);
+    setFollowers((prev: number) => (isFollowing ? prev - 1 : prev + 1));
+    isFollowing ? unfollow.process(user?.id as string) : follow.process(user?.id as string);
+  };
 
   useEffect(() => {
     if (!data) return;
@@ -47,10 +60,28 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
     setLoading(false);
   }, [data]);
 
+  if (loading) {
+    return (
+      <YStack marginTop={DEVICE.height *0.5}>
+        <Spinner size={'large'} alignItems="center" justifyContent='center'/>
+      </YStack>
+    );
+  } 
+
   return (
     <YStack marginTop={top}>
       <ScrollView contentContainerStyle={{ paddingBottom: TAB_BAR_HEIGHT * 2 }}>
         <Image height={DEVICE.height * 0.2} source={{ uri: user?.bannerPicture }} />
+        <Button
+          icon={<ArrowLeft size={'$5'} strokeWidth={1.5} />}
+          onPress={() => router.back()}
+          backgroundColor={'transparent'}
+          color={'$inversed'}
+          position="absolute"
+          top={DEVICE.height * 0.05}
+          left={DEVICE.width * 0.03}
+          
+        />
         <YStack paddingHorizontal={'4%'} gap={DEVICE.height * 0.035}>
           <YStack>
             <XStack height={DEVICE.height * 0.225} gap={DEVICE.width * 0.07} paddingVertical={'6%'}>
@@ -67,34 +98,40 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
                     {user?.username}
                   </Text>
                 </YStack>
-                <Text fontSize={'$4'}>
-                  {t('followers', { numFollowers: formatFollowersNumber(user?.followers) })}
-                </Text>
+                <Text fontSize={'$4'}>{t('followers', { numFollowers: followers })}</Text>
                 <XStack
                   height={'28%'}
                   width={'100%'}
                   justifyContent="flex-end"
                   gap={DEVICE.width * 0.06}
                   paddingRight={'5%'}>
-                  {!me && (
+                  {!me && user && (
+                    <Button
+                      onPress={handleFollow}
+                      backgroundColor={isFollowing ? 'transparent' : '$primary'}
+                      height={'100%'}
+                      aspectRatio={3.75}
+                      color={isFollowing ? '$primary' : '$inversed'}
+                      fontSize={'$4'}
+                      borderRadius={'$3'}
+                      borderWidth={isFollowing ? 2 : 0} // Ajoutez une bordure quand l'utilisateur suit déjà
+                      borderColor={isFollowing ? '$primary' : 'transparent'} // Définissez la couleur de la bordure
+                    >
+                      {isFollowing ? t('unfollow') : t('follow')}
+                    </Button>
+                  )}
+                  {me && (
                     <Button
                       backgroundColor={'$primary'}
                       height={'100%'}
                       aspectRatio={3.75}
                       color={'$inversed'}
                       fontSize={'$4'}
-                      borderRadius={'$3'}>
-                      {t('follow')}
+                      borderRadius={'$3'}
+                      icon={<MoreHorizontal size={'$5'} strokeWidth={1.5} />}>
+                      {t('edit')}
                     </Button>
                   )}
-                  <Button
-                    backgroundColor={'$primary'}
-                    height={'100%'}
-                    aspectRatio={1}
-                    fontSize={'$4'}
-                    borderRadius={'$3'}
-                    icon={<MoreHorizontal color={'$inversed'} />}
-                  />
                 </XStack>
               </YStack>
             </XStack>

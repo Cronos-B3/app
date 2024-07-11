@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import ProfileTemplate from '../templates/ProfileTemplate';
 import { useEffect, useState } from 'react';
-import { UserType } from '@/constants/types';
+import { OtherUserType, UserType } from '@/constants/types';
 import { APPR } from '@/constants/routes';
 import { useQuery } from '@tanstack/react-query';
 import usePostsApi from '@/hooks/api/app/usePostApi';
@@ -10,7 +10,7 @@ import useAppApi from '@/hooks/api/useAppApi';
 export default function PublicProfilePage() {
   if (__DEV__) console.log('📃 - PublicProfilePage');
 
-  const [user, setUser] = useState<UserType | null>(() => null);
+  const [user, setUser] = useState<OtherUserType | null>(() => null);
   const { id } = useLocalSearchParams();
 
   const { getUser } = useAppApi();

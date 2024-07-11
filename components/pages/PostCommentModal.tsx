@@ -11,11 +11,16 @@ import { Keyboard } from 'react-native';
 import { useEffect, useState } from 'react';
 import usePostsApi from '@/hooks/api/app/usePostApi';
 import { useRoute } from '@react-navigation/native';
+import useAuthApi from '@/hooks/api/useAuthApi';
+import useUserStore from '@/hooks/store/useUserStore';
+import { Router } from '@tamagui/lucide-icons';
+import { router } from 'expo-router';
 
 export default function PostCommentModal() {
   if (__DEV__) console.log('📃 - PostCommentModal');
 
   const { t } = useTranslation();
+  const { user } = useUserStore();
   const { createComment } = usePostsApi();
   const [keyboardHeight, setKeyboardHeight] = useState(() => 0);
   const theme = useTheme();
@@ -26,7 +31,10 @@ export default function PostCommentModal() {
 
   const { mutate: fetchCreateComment, isPending } = useMutation({
     mutationFn: createComment.process,
-    onSuccess: createComment.onSuccess,
+    onSuccess: () => {
+      router.back();
+      createComment.onSuccess;
+    },
     onError: createComment.onError,
   });
 
@@ -76,7 +84,7 @@ export default function PostCommentModal() {
           aspectRatio={1}
           borderRadius={'$round'}
           source={{
-            uri: 'https://ih1.redbubble.net/image.866593086.1888/flat,750x,075,f-pad,750x1000,f8f8f8.u4.jpg',
+            uri: user?.profilePicture,
           }}
         />
 
