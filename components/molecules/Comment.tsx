@@ -7,6 +7,7 @@ import usePostsStore from '@/hooks/store/usePostsStore';
 import usePostsApi from '@/hooks/api/app/usePostApi';
 import { useRoute } from '@react-navigation/native';
 import { router } from 'expo-router';
+import { useState } from 'react';
 
 type PostProps = {
   post: PostType;
@@ -20,13 +21,15 @@ export default function Comment({ post, ...props }: PostProps) {
   const { likePostApi, unlikePostApi } = usePostsApi();
   const { likePost, unlikePost } = usePostsStore();
 
+  const [isLiked, setIsLiked] = useState(() => post.isLiked);
+  const [likes, setLikes] = useState(() => post.likes);
+
   const handleLike = () => {
+    setIsLiked((prev) => !prev);
+    setLikes((prev) => (isLiked ? prev - 1 : prev + 1));
     post.isLiked ? unlikePost(post.id) : likePost(post.id);
     post.isLiked ? unlikePostApi.process(post.id) : likePostApi.process(post.id);
   };
-
-  
-
 
   return (
     <YStack gap={DEVICE.height * 0.0}>
@@ -46,13 +49,11 @@ export default function Comment({ post, ...props }: PostProps) {
         <YStack justifyContent="flex-end" alignItems="center" flexDirection="row">
           <Button
             onPress={handleLike}
-            color={post.isLiked ? '$liked' : '$inversed'}
-            icon={
-              <Heart size={'$3'} strokeWidth={1.5} fill={post.isLiked ? liked.val : undefined} />
-            }
+            color={isLiked ? '$liked' : '$inversed'}
+            icon={<Heart size={'$3'} strokeWidth={1.5} fill={isLiked ? liked.val : undefined} />}
           />
           <Text fontSize={'$1'} marginLeft={8}>
-            {post.likes}
+            {likes}
           </Text>
         </YStack>
       </XStack>

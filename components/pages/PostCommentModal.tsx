@@ -4,7 +4,7 @@ import ModalTemplate from '../templates/ModalTemplate';
 import { Image, TextArea, useTheme, XStack } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import useForm from '@/hooks/useForm';
-import { CommentForm, PostForm } from '@/constants/types';
+import { CommentForm, PostForm, PostType } from '@/constants/types';
 import { useMutation } from '@tanstack/react-query';
 import { Controller } from 'react-hook-form';
 import { Keyboard } from 'react-native';
@@ -31,9 +31,9 @@ export default function PostCommentModal() {
 
   const { mutate: fetchCreateComment, isPending } = useMutation({
     mutationFn: createComment.process,
-    onSuccess: () => {
+    onSuccess: (data :PostType) => {
       router.back();
-      createComment.onSuccess;
+      createComment.onSuccess(data);
     },
     onError: createComment.onError,
   });

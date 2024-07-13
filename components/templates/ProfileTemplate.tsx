@@ -9,7 +9,7 @@ import { ArrowLeft, MoreHorizontal, X } from '@tamagui/lucide-icons';
 import ProfileCategory from '../molecules/ProfileCategory';
 import PostsList from '../molecules/PostsList';
 import { OtherUserType, PostType, UserType } from '@/constants/types';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import usePostsStore from '@/hooks/store/usePostsStore';
 import usePostsApi from '@/hooks/api/app/usePostApi';
 import useFriendApi from '@/hooks/api/app/useFriendApi';
@@ -38,17 +38,34 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
       return getUserPosts.process(user?.id);
     },
   });
-  console.log('🐙 - ProfileTemplate', user);
-  const [isFollowing, setIsFollowing] = useState(() => user.isFollowing);
+  if (__DEV__) console.log('🐙🐙🐙🐙 - data', user);
+
+  const [isFollowing, setIsFollowing] = useState(() => user.isFollowing as boolean);
   const [followers, setFollowers] = useState(() => user.followers as number);
 
   console.log('🐙🐙🐙🐙 - data', followers);
 
-  const handleFollow = () => {
-    setIsFollowing((prev: boolean) => !prev);
-    setFollowers((prev: number) => (isFollowing ? prev - 1 : prev + 1));
-    isFollowing ? unfollow.process(user?.id as string) : follow.process(user?.id as string);
+  if (__DEV__) console.log('🐙🐙🐙🐙 - data', data);
+
+  const queryClient = useQueryClient();
+
+  const handleFollow = async () => {
+    setIsFollowing(!isFollowing);
+    setFollowers((prev) => prev + (!isFollowing ? 1 : -1));
+
+    if (!isFollowing) {
+      await follow.process(user?.id);
+    } else {
+      await unfollow.process(user?.id);
+    }
+    queryClient.invalidateQueries([getUserPosts.queryKey, user?.id.toString()] as any);
   };
+
+  useEffect(() => {
+    if (!user) return;
+    setIsFollowing(user.isFollowing);
+    setFollowers(user.followers);
+  }, [user]);
 
   useEffect(() => {
     if (!data) return;
@@ -62,11 +79,11 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
 
   if (loading) {
     return (
-      <YStack marginTop={DEVICE.height *0.5}>
-        <Spinner size={'large'} alignItems="center" justifyContent='center'/>
+      <YStack marginTop={DEVICE.height * 0.5}>
+        <Spinner size={'large'} alignItems="center" justifyContent="center" />
       </YStack>
     );
-  } 
+  }
 
   return (
     <YStack marginTop={top}>
@@ -80,7 +97,6 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
           position="absolute"
           top={DEVICE.height * 0.05}
           left={DEVICE.width * 0.03}
-          
         />
         <YStack paddingHorizontal={'4%'} gap={DEVICE.height * 0.035}>
           <YStack>
@@ -120,7 +136,7 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
                       {isFollowing ? t('unfollow') : t('follow')}
                     </Button>
                   )}
-                  {me && (
+                  {/* {me && (
                     <Button
                       backgroundColor={'$primary'}
                       height={'100%'}
@@ -131,7 +147,7 @@ export default function ProfileTemplate({ user, me }: ProfileTemplateProps) {
                       icon={<MoreHorizontal size={'$5'} strokeWidth={1.5} />}>
                       {t('edit')}
                     </Button>
-                  )}
+                  )} */}
                 </XStack>
               </YStack>
             </XStack>

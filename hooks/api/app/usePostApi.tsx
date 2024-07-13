@@ -98,6 +98,7 @@ const usePostsApi = () => {
     },
     onSuccess: (data: PostType) => {
       setMyPosts([data]);
+      setPosts([data]);
       addComment(data);
     },
     onError: ({ response }) => {

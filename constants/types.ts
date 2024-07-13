@@ -19,6 +19,14 @@ export type MyUserType = UserType & {
   email: string;
 };
 
+export type GroupType = {
+  id: string;
+  name: string;
+  description: string;
+  picture: string;
+  members: number;
+};
+
 export type PostType = {
   id: string;
   parentId: string;

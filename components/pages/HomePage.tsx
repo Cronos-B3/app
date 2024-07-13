@@ -1,5 +1,5 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Spinner, Stack, YStack } from 'tamagui'; // Assurez-vous d'inclure Spinner de Tamagui ou tout autre indicateur de chargement que vous préférez
+import { Spinner, Stack, XStack, YStack } from 'tamagui'; // Assurez-vous d'inclure Spinner de Tamagui ou tout autre indicateur de chargement que vous préférez
 import PostsList from '../molecules/PostsList';
 import { TAB_BAR_HEIGHT } from '../organisms/TabBar';
 import { useQuery } from '@tanstack/react-query';
@@ -9,6 +9,9 @@ import { FlashList } from '@shopify/flash-list';
 import { PostType } from '@/constants/types';
 import { useToastController } from '@tamagui/toast';
 import usePostsApi from '@/hooks/api/app/usePostApi';
+import { DEVICE } from '@/constants/config';
+import Text from '../atoms/Text';
+import { Plus } from '@tamagui/lucide-icons';
 
 export default function HomePage() {
   const { top, bottom } = useSafeAreaInsets();

@@ -1,16 +1,13 @@
-import { Button, Image, SizableText, Spinner, useTheme, View, XStack, YStack } from 'tamagui';
+import {  Spinner, useTheme, View, XStack, YStack } from 'tamagui';
 import ModalTemplate from '../templates/ModalTemplate';
 import { DEVICE } from '@/constants/config';
 import { useTranslation } from 'react-i18next';
 import { FlashList } from '@shopify/flash-list';
 import { PostType } from '@/constants/types';
-import { useRef, useState } from 'react';
-import usePostsStore from '@/hooks/store/usePostsStore';
+import { useRef } from 'react';
 import usePostsApi from '@/hooks/api/app/usePostApi';
 import { useQuery } from '@tanstack/react-query';
 import { useRoute } from '@react-navigation/native';
-import { Heart, X } from '@tamagui/lucide-icons';
-import Text from '../atoms/Text';
 import CommentList from '../molecules/CommentList';
 
 export default function CommentModal() {

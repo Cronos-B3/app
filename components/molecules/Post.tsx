@@ -112,7 +112,7 @@ export default function Post({ post, ...props }: PostProps) {
               icon={<MessageCircle size={'$4'} strokeWidth={1.5} fill={undefined} />}
             />
             <SizableText color={'white'} size="$4" marginLeft={8}>
-              {/* {comment} */}
+              {post.comments}
             </SizableText>
           </YStack>
         </XStack>
