@@ -1,14 +1,8 @@
-# Project Title
-
-Brief description of the project, what it does, and its main features.
+# CRONOS
 
 ## Table of Contents
 
 - [Installation](#installation)
-- [Environment Variables](#environment-variables)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
